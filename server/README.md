@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 //This folder works the same way as the client folder, except that files in here are only run on the server, and are never even passed to the client. If you have any credentials, or special “secret” code which you don’t want available on the client, then you can put it here.
+=======
+#
+>>>>>>> 8087f29518e734a02c9427bbbf0140272767cd38

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 //The client folder is—as its name suggests—the place where you should put all JS files that are meant for the client. You may remember from the Quick start section, we had to enclose what we wanted to run on the client in an if statement, checking that we were in fact on the client. That was because all JS files are run on both the client and the server, all of them except the ones in the client folder, which only get run on the client.
+=======
+#
+>>>>>>> 8087f29518e734a02c9427bbbf0140272767cd38
