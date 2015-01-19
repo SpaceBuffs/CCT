@@ -1,0 +1,6 @@
+/*
+
+*/
+Accounts.config({
+    forbidClientAccountCreation: true,
+  });

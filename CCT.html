@@ -1,14 +1,84 @@
 <head>
-  <title>CCT</title>
+    <title>GraviTeam</title>
 </head>
 
-<body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+<body>    
+    {{> Dashboard}} 
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<!-- ********************************** TEMPLATES ************************************ -->
+<template name="login">
+    <form id="login-form" action="action">
+        E-mail: <input type="email" id="login-email"/><p></p>
+        Password: <input type="password" id="login-password"/><p></p>
+        <input type="submit" id="login-button" value="Sign in"/>
+   </form> 
+</template>
+
+<template name="register">
+    <form id="register-form" action="action">
+       E-mail: <input type="email" id="account-email"/><p></p>
+       Password: <input type="password" id="account-password"/><p></p>
+       <input type="submit" id="create-account" value="Create an Account"/>
+   </form>
+</template>
+
+<template name="Dashboard">
+	<div id="header"><h1>GraviTeam: Cassini</h1></div>
+    <div id="nav"><a href="#">3D Model</a> | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
+	 <a href="#">Video chat</a> | {{> loginButtons align="right"}}
+   </div>
+ 
+<!-- <div class="container">-->
+	<div id="ne"> 
+      <h2>Timeline - Add an Event</h2>
+
+      <p></p>
+      {{#if currentUser}}Logged in as {{currentUser}}.
+      {{else}}not logged-in.{{/if}}
+      
+
+      <form class="new-event">
+        <input type="text" name="text" placeholder="Event Name" /><br>
+        <input type="text" name="text" placeholder="Activities" /><br>
+        <input type="text" name="text" placeholder="Instrument" /><br>
+      </form>
+	</div>
+
+<div id="nw">
+	<h2>3D Model</h2><p></p>
+        <a target="popup" onclick="window.open('http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg','name','width=569,height=427')">
+		<img src="http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg" width="50%" height="80%"></a>
+</div>
+
+<div id="sw">
+	<!-- <h2>Whiteboard</h2><p></p> -->
+        <!-- the whiteboard widget will be shown inside this element -->
+        <div id="wrapper" style="width: 80%; height: 80%;"></div>
+
+        <!-- this actually initializes the widget -->
+        <script type="text/javascript">
+            $(function() {
+                /* initialize the whiteboard widget on #wrapper element */
+                var aww = $('#wrapper').awwCanvas();
+            });
+        </script>
+</div>
+
+<div id="se">
+	<h2>Chat</h2>
+</div>
+
+<!-- </div> -->
+
+<div id="timeline">
+	<h2>Timeline</h2><p></p>
+	<HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
+</div>
+</template>
+
+<template name="Window Control">
+		<span class="close hightlightTxt">x</span>
+		<span class="mini hightlightTxt">-</span>
+		<span class="maxi hightlightTxt">+</span> 
 </template>
