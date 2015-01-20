@@ -2,5 +2,5 @@
 
 */
 Accounts.config({
-  forbidClientAccountCreation : true
+  forbidClientAccountCreation : false
 });

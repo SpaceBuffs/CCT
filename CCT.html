@@ -15,3 +15,34 @@
     {{/if}}
 </template>
 
+<template name="Register">
+
+    <form action="/sign-in" id="registerform" method="post">
+        <input id="signinEmail" name="email" placeholder="Email Address" type="text" >
+        <input id="signinPassword" name="password" placeholder="Password" type="password">
+        <input id="signinPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password">
+        <input class="btn-submit" type="submit" value="Join SpaceBuffs!">
+    </form>
+
+
+</template>
+
+<template name="Signin">
+
+    <form action="/signin" id="signinForm" method="post">
+        <input id="signinEmail" type="text" name="email" placeholder="Email Address">
+        <input id="signinPassword" type="password" name="password" placeholder="Password">
+        <input class="btn-submit" type="submit" value="Sign In">
+    </form>
+
+</template>
+
+
+<template name="Signout">
+
+    <div class="connected">
+        <span class="welcome">Welcome New SpaceBuff!</span>
+        <a class="sign-out" href="/" id="signout">Sign Out</a>
+    </div>
+
+</template>
