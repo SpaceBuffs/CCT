@@ -1,6 +1,39 @@
 /* CSS declarations go here */
 /* The login menu has to be set at a specific height and I chose to center mine. */
 
+/* CSS declarations go here */
+body {
+  font-family: arial;
+  background: #F4F4F4;
+}
+
+#login_form{
+  display: block;
+  position: relative;
+  height: 245px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+.main_container{
+  width:900px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+#home_image{
+  display: inline-block;
+  width: 500px;
+  vertical-align: top;
+}
+
+#home_description{
+  display: inline-block;
+  width: 340px;
+  padding: 20px;
+}
+
 #login-screen .dropdown-menu {
   display: block;
   position: relative;
@@ -20,42 +53,22 @@
   display: none;
 }
 
-
-
-
-
-/* CSS declarations go here */
-body {
-  font-family: sans-serif;
-  background-color: #FFFFCC;
-/*
-  background-image: linear-gradient(to bottom, black, darkblue 100%);
-  background-attachment: fixed;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10;
-  margin: 0;
-  font-size: 14px;
-*/
+.content{ background: #FFF; }
+.title_link{
+  font-size: 15px;
+  vertical-align: 4px;
 }
 
-.container {
-  width: 100%;
-  margin: 0 auto;
-  padding: 10px;
-  height: 64%;
-  top: 20%;
-  background: #fffcc;
+a{
+text-decoration: none;
+color: #436690;
 }
 
-/*div {
-  position: absolute;
-  padding: 1em;
-  border: 1px solid #000;
-}*/
+/* Hides the toggle that you click on */
+
+#login-screen a.dropdown-toggle {
+  display: none;
+}
 
 #nw {
   background: white; 

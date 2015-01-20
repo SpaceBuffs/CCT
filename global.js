@@ -1,5 +1,5 @@
-// simple-todos.js
-Tasks = new Mongo.Collection("tasks");
+
+UserAccounts = new Mongo.Collection('user');
 
 //window.load = function() {
 //  var div1 = document.getElementById('app_window').innerHTML;

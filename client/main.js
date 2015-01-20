@@ -1,5 +1,5 @@
 //--------------------------------------------------------------
-
+/*
   Template.login.events({
     'submit login-form' : function(e, t){
       e.preventDefault();
@@ -12,6 +12,10 @@
         Meteor.loginWithPassword(emailVar, passwordVar);
      }
   });
+*/
+  Template.graviteam.logged_in = function(){
+    return Meteor.user();
+  };
 
   Template.Dashboard.events({
     'click .logout' : function(event){
