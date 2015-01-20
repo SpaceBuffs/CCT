@@ -1,7 +1,7 @@
 # CCT
 
 Collaborative Campaign Tool
-SPACEBUFFS - GRAVITEAM
+GRAVITEAM by SPACEBUFFS
 
 CU BOULDER '14-'15 Sr. Design Projects
 A Proof of Concept for JPL
