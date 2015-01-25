@@ -1,18 +1,17 @@
-<template name="Dashboard">
-	<div id="header"><h1>GraviTeam: Cassini</h1></div>
-    <div id="nav"><a href="#">3D Model</a> | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
-	 <a href="#">Video chat</a> | {{> loginButtons align="right"}}
+
+  <template name="Dashboard_page">
+	<div id="header">
+
+    {{> loginButtons align="right"}}
+    </div>
+    <div id="nav"><a href="#">3D Model</a>  | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
+	       <a href="#">Video chat</a> 
    </div>
  
 <!-- <div class="container">-->
 	<div id="ne"> 
       <h2>Timeline - Add an Event</h2>
-
       <p></p>
-      {{#if currentUser}}Logged in as {{currentUser}}.
-      {{else}}not logged-in.{{/if}}
-      
-
       <form class="new-event">
         <input type="text" name="text" placeholder="Event Name" /><br>
         <input type="text" name="text" placeholder="Activities" /><br>
@@ -45,9 +44,9 @@
 </div>
 
 <!-- </div> -->
-
+<!-- 
 <div id="timeline">
 	<h2>Timeline</h2><p></p>
 	<HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
-</div>
+</div> --> 
 </template>
