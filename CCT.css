@@ -1,7 +1,17 @@
+/*
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
+
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+CCT.css is the main css page layouts. Please edit this when you want to adjust the main layouts.
+
+Version 2.01
+1/25/2015
+*/
 /* CSS declarations go here */
 /* The login menu has to be set at a specific height and I chose to center mine. */
 
-/* CSS declarations go here */
 body {
   font-family: arial;
   background: #F4F4F4;
