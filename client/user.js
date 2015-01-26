@@ -14,3 +14,5 @@ Version 2.01
 	passwordSignupFields : 'USERNAME_AND_EMAIL'
     //forbidClientAccountCreation: true
   });
+
+ 

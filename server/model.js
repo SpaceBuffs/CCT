@@ -12,3 +12,4 @@ Version 2.01
 Accounts.config({
   forbidClientAccountCreation : false
 });
+
