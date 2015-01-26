@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-Template.graviteam.logged_in = function(){
-=======
+
 /*
 Collaborative Campaign Tool
 GRAVITEAM by SPACEBUFFS
@@ -28,6 +26,5 @@ Version 2.01
   });
 */
   Template.graviteam.logged_in = function(){
->>>>>>> 91ecfe493fdf084a37d6b537c73081adcc5ff9bf
     return Meteor.user();
   };
