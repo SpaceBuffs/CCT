@@ -12,7 +12,7 @@ Version 2.01
 /* CSS declarations go here */
 /* The login menu has to be set at a specific height and I chose to center mine. */
 
-<<<<<<< HEAD
+
 /* CSS declarations go here */
 /* Font stach*/ 
 body,input,select,textarea {
@@ -20,14 +20,6 @@ body,input,select,textarea {
   "Lucida Grande", sans-serif;
   font-size: 15px;
   font-weight: bold;
-=======
-body {
-  font-family: arial;
-  background: #F4F4F4;
-}
->>>>>>> 91ecfe493fdf084a37d6b537c73081adcc5ff9bf
-
-
 }
 
 h1,h2,h3,h4,h5,h6{
