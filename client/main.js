@@ -1,14 +1,3 @@
-/*
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
-
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-main.js is the file where we keep track of our functions
-
-Version 2.01
-1/25/2015
-*/
 //--------------------------------------------------------------
 /*
   Template.login.events({

@@ -1,15 +1,5 @@
-# CCT
-
-This is our folder for any files inside to be publicly available from your app. This is where things such as images should go.
-
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
-
-CU BOULDER '14-'15 Sr. Design Projects
-A Proof of Concept for JPL
-
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-Version 2.0
-1/25/2015
-
+<<<<<<< HEAD
+//If you create a folder named public at the root of your project, than any files inside will be publicly available from your app. This is where things such as images should go.
+=======
+#
+>>>>>>> 8087f29518e734a02c9427bbbf0140272767cd38
