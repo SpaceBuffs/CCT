@@ -12,7 +12,7 @@
 	submit: button
 -->
   <form class="new-activity">
- 	Instrument: <select>
+ 	<select>
  	 <option value="CDA">CDA</option>
  	 <option value="spectrometer">Spectrometer</option>
  	 <option value="photometer">Photometer</option>
