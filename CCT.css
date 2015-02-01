@@ -9,21 +9,21 @@ body,input,select,textarea {
   font-size: 15px;
   font-weight: bold;
 
-
 }
 
 h1,h2,h3,h4,h5,h6{
   line-height: 1.5;
 }
+ /* end font stack*/
 
 /* Base Layout*/
-
 html{
    background-color: aliceblue;
    background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-   background-image: -webkit-gradient(linear,left top. left bottom, color-stop(0, #aaaaaa),color-stop(1,#ddd));
-   background-repeat: no-repeat;
-   height: 100%; 
+   background-image: -webkit-gradient(linear,center top. left bottom, color-stop(0, #aaaaaa),color-stop(1,#ddd));
+   background-repeat: repeat;
+   height: 100%;
+  /* change the box model to exclude the padding from the calculation of 100% height */  
    -webkit-box-sizing:border-box;
    -moz-box-sizing:border-box;
    box-sizing: border-box;
@@ -45,15 +45,17 @@ body {
   overflow-x:hidden; 
   -moz-box-shadow: 0 0 0.3em #255b17;
   -webkit-box-shadow: 0 0 0.3em #255b17;
+  box-shadow: 0 0 0.3em #255b17;
 }
 
+/* header */
 .header {
     border-bottom:1px solid #eaeaea;
+    height: 10px;
 }
 
 .header a {
     display: block;
-    background-image: url("jpl.jpg");
     border-bottom: double 3px #aba;
     border-left: solid 1px #9a9;
     border-right: solid 1px #565;
@@ -64,6 +66,44 @@ body {
     padding: 15px 10px 15px 60px;
   
 }
+
+#img_header {
+  background-color:#08336E;
+  width:100%;
+  height: 100px; /* height of the background image? */
+  text-align:center;
+}
+
+#img_header a {
+  display: inline-block;
+  margin: 0.0em;
+}
+
+img {
+  display:inline-block;
+  margin:1px;
+  border:1px solid #08336E;
+  height:100px;
+  width:1040px ;
+}
+
+
+/* end header */
+
+/*  footer */
+#footer {
+    background:#003366;
+    color:#000;
+    clear:both;
+    font-size: 1.1em; 
+    padding:5px;
+    min-height: 1em;
+    text-align: center;    
+}
+#footer{
+  color: black;
+}
+/*  end footer */ 
 
 .content {
   border-bottom: 1px solid #CCCCCC;
@@ -76,6 +116,33 @@ body {
   -webkit-box-shadow:0 0 3px 1px #aaaaaa;
   box-shadow: 0 0 3px 1px #aaaaaa
 }
+/*  to here  */ 
+
+/* firs/home page   */
+#container {
+  width: 780px;
+  background: #FFFFFF;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  text-align: left;
+}
+#sidebar {
+  float: left;
+  width: 200px;
+  background: #EBEBEB;
+  padding: 15px 10px 15px 20px;
+}
+#mainContent { 
+  margin: 0 0 0 250px;
+  padding: 0 20px 20px 20px;
+} 
+
+.title_link{
+  font-size: 15px;
+  vertical-align: 4px;
+} 
+
+/* login */ 
 
 #login_form{
   display: inline-block;
@@ -84,14 +151,6 @@ body {
   margin-left: auto;
   margin-right: auto;
   float: none;
-}
-
-.main_container{
-  width:1000px;
-  margin: auto;
-  margin-top: 100px;
-  background-color: white;
-
 }
 
 #home_image{
@@ -108,16 +167,6 @@ body {
 
 }
 
-#img_header {
-  background-color: #003366;
-
-}
-
-#img_header a {
-
-  display: inline-block;
-  margin: 1.5em;
-}
 #signUpForm.dropdown-menu {
   display: block;
   position: relative;
@@ -148,12 +197,6 @@ body {
 
 #signUp a.dropdown-toggle {
   display: none;
-}
-
-.content{ background: #FFF; }
-.title_link{
-  font-size: 15px;
-  vertical-align: 4px;
 }
 
 a{

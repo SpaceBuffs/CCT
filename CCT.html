@@ -1,13 +1,8 @@
 <head>
-    <!-- <div class="header">
-        <a href="http://www.jpl.nasa.gov/">
-            <span class="header-title">GraviTeam</span><br />
-        </a> --> 
+
     <div  id="img_header" role="banner">
           <a href="http://www.jpl.nasa.gov/">
-          <img id = "img" src="JPL.png" alight = "center" ></a>
-    </div>
-
+          <img src="JPL.png" alt = "graviteam"/></a>
     </div>
 
 </head>
@@ -18,6 +13,10 @@
   {{#unless currentUser}}
     {{> home_page}}
   {{/unless}}
+
+    <div id="footer">
+      Copyright © Graviteam
+  </div>
 </body>
 
 <!-- ********************************** TEMPLATES ************************************  --> 
