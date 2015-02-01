@@ -160,25 +160,3 @@ a{
 text-decoration: none;
 color: #436690;
 }
-pForm #login-dropdown-list {
-  display: block;
-}
-
-
-
-/* Hides the toggle that you click on */
-
-#signUp a.dropdown-toggle {
-  display: none;
-}
-
-.content{ background: #FFF; }
-.title_link{
-  font-size: 15px;
-  vertical-align: 4px;
-}
-
-a{
-text-decoration: none;
-color: #436690;
-}

@@ -10,14 +10,18 @@ Version 2.01
 1/25/2015
 -->
 
-<template name="Dashboard">
-	<div id="header"><h1>GraviTeam: Cassini</h1></div>
-    <div id="nav"><a href="#">3D Model</a> | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
-	 <a href="#">Video chat</a> | {{> loginButtons align="right"}}
-  </div>
+
+  <template name="Dashboard_page">
+  <div id="header">
+
+    {{> loginButtons align="right"}}
+    </div>
+    <div id="nav"><a href="#">3D Model</a>  | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
+         <a href="#">Video chat</a> 
+   </div>
  
 <!-- <div class="container">-->
-	<div id="ne"> 
+  <div id="ne"> 
       <h2>Timeline - Add an Event</h2>
       <p></p>
       <form class="new-event">
@@ -25,16 +29,16 @@ Version 2.01
         <input type="text" name="text" placeholder="Activities" /><br>
         <input type="text" name="text" placeholder="Instrument" /><br>
       </form>
-	</div>
+  </div>
 
 <div id="nw">
-	<h2>3D Model</h2><p></p>
+  <h2>3D Model</h2><p></p>
         <a target="popup" onclick="window.open('http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg','name','width=569,height=427')">
-		<img src="http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg" width="50%" height="80%"></a>
+    <img src="http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg" width="50%" height="80%"></a>
 </div>
 
 <div id="sw">
-	<!-- <h2>Whiteboard</h2><p></p> -->
+  <!-- <h2>Whiteboard</h2><p></p> -->
         <!-- the whiteboard widget will be shown inside this element -->
         <div id="wrapper" style="width: 80%; height: 80%;"></div>
 
@@ -48,13 +52,13 @@ Version 2.01
 </div>
 
 <div id="se">
-	<h2>Chat</h2>
+  <h2>Chat</h2>
 </div>
 
 <!-- </div> -->
 <!-- 
 <div id="timeline">
-	<h2>Timeline</h2><p></p>
-	<HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
+  <h2>Timeline</h2><p></p>
+  <HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
 </div> --> 
 </template>
