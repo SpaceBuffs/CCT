@@ -1,17 +1,5 @@
-/*
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
-
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-CCT.css is the main css page layouts. Please edit this when you want to adjust the main layouts.
-
-Version 2.01
-1/25/2015
-*/
 /* CSS declarations go here */
 /* The login menu has to be set at a specific height and I chose to center mine. */
-
 
 /* CSS declarations go here */
 /* Font stach*/ 
@@ -20,6 +8,8 @@ body,input,select,textarea {
   "Lucida Grande", sans-serif;
   font-size: 15px;
   font-weight: bold;
+
+
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -63,11 +53,11 @@ body {
 
 .header a {
     display: block;
-    background-image: url("JPL.jpg");
+    background-image: url("jpl.jpg");
     border-bottom: double 3px #aba;
     border-left: solid 1px #9a9;
     border-right: solid 1px #565;
-    border-top: solid 1px #9a9  ;
+    border-top: solid 1px #9a9;
     font: italic normal 230% 'Times New Roman', Times, serif;
     letter-spacing: 0.2em;
     margin: 10px;
@@ -149,6 +139,28 @@ body {
 }
 
 #signUpForm #login-dropdown-list {
+  display: block;
+}
+
+
+
+/* Hides the toggle that you click on */
+
+#signUp a.dropdown-toggle {
+  display: none;
+}
+
+.content{ background: #FFF; }
+.title_link{
+  font-size: 15px;
+  vertical-align: 4px;
+}
+
+a{
+text-decoration: none;
+color: #436690;
+}
+pForm #login-dropdown-list {
   display: block;
 }
 
