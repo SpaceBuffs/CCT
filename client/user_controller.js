@@ -55,7 +55,7 @@ Template.signUp.events({
             Accounts.createUser({email: email, password: password}, function(err) {
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
-                        Session.set('alert', 'mail is already used.');
+                        Session.set('alert', 'Mail is already in used.');
                     } else {
                         Session.set('alert', 'something went wrong.');
                     }
