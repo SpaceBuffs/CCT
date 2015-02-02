@@ -15,7 +15,7 @@ Template.signIn.events({
         if (isNotEmpty(email) && isEmail(email) && isNotEmpty(password) && isValidPassword(password)) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
-                    Session.set('alert', 'We\'re sorry but these credentials are not valid.');
+                    Session.set('alert', 'credentials are not valid.');
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
                 }
@@ -55,12 +55,12 @@ Template.signUp.events({
             Accounts.createUser({email: email, password: password}, function(err) {
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
-                        Session.set('alert', 'We\'re sorry but this email is already used.');
+                        Session.set('alert', 'mail is already used.');
                     } else {
-                        Session.set('alert', 'We\'re sorry but something went wrong.');
+                        Session.set('alert', 'something went wrong.');
                     }
                 } else {
-                    Session.set('alert', 'Congrats! You\'re now joined to the GraviTeam CCT!');
+                    Session.set('alert', 'you joined to the GraviTeam');
                 }
             });
         }

@@ -32,7 +32,7 @@ isEmail = function(value) {
 
 isValidPassword = function(password) {
     if (password.length < 6) {
-        Session.set('alert', 'Your password should be 6 or more characters.');
+        Session.set('alert', 'Your password should be more than 6 characters.');
         return false;
     }
     return true;
@@ -43,7 +43,7 @@ areValidPasswords = function(password, confirm) {
         return false;
     }
     if (password !== confirm) {
-        Session.set('alert', 'confirm your password.');
+        Session.set('alert', 'Confirm your password.');
         return false;
     }
     return true;
