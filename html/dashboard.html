@@ -10,7 +10,7 @@ Version 2.01
 1/25/2015
 -->
 
-  <template name="Dashboard_page">
+<template name="Dashboard_page">
   <div id="header">
 
     {{> loginButtons align="right"}}
@@ -19,6 +19,13 @@ Version 2.01
          <a href="#">Video chat</a> 
   </div>
    
-  
+  <div id = "3dmodel">
+
+   {{> model3d}}
+   {{> activity}}
+   {{> timeline}}
+   {{> chat}}
+
+  </div>
    
 </template>
