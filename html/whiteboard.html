@@ -1,0 +1,16 @@
+<!-- whiteboard -->  
+<template name = "whiteboard">
+<div id="sw">
+  <!-- <h2>Whiteboard</h2><p></p> -->
+        <!-- the whiteboard widget will be shown inside this element -->
+        <div id="wrapper" style="width: 80%; height: 80%;"></div>
+
+        <!-- this actually initializes the widget -->
+        <script type="text/javascript">
+            $(function() {
+                /* initialize the whiteboard widget on #wrapper element */
+                var aww = $('#wrapper').awwCanvas();
+            });
+        </script>
+</div>
+</template>
