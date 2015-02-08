@@ -17,11 +17,19 @@ Activities = new Mongo.Collection("activities");
 
 if (Meteor.isClient) {
   // This code only runs on the client
-  Template.body.helpers({
+  Template.body.main.Dashboard_page.helpers({
     activities: function () {
-      return Activities.find({});
+      return db.activities.find({});
     }
   });
+
+//  Template.body.helpers({
+//    activities: [
+//      { instrument: "Spectrometer", createdAt: new Date(), experiment: "spectroscopy", start_date: "2015/038-12:00:00", duration: "30:00:00" }
+// db.activities.insert({ instrument: "Spectrometer", createdAt: new Date(), experiment: "spectroscopy", start_date: "2015/038-12:00:00", duration: "30:00:00" });
+//    ]
+//  });
+
 }
 
 //window.load = function() {

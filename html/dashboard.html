@@ -9,7 +9,7 @@ dashboard.html is the main template for the dashboard layout
 Version 2.01
 1/25/2015
 -->
-
+<!-- ........................................................ -->
 
   <template name="Dashboard_page">
   <div id="header">
@@ -19,7 +19,9 @@ Version 2.01
     <div id="nav"><a href="#">3D Model</a>  | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | 
          <a href="#">Video chat</a> 
    </div>
- 
+
+<!-- ........................................................ -->
+
 <!-- <div class="container">-->
   <div id="ne"> 
       <h2>Timeline - Add an Event</h2>
@@ -29,13 +31,26 @@ Version 2.01
         <input type="text" name="text" placeholder="Activities" /><br>
         <input type="text" name="text" placeholder="Instrument" /><br>
       </form>
+
+	<!-- testing database functionality -->
+	Activities:
+    <ul>
+      {{#each activities}}
+        {{> activity}}
+      {{/each}}
+	test
+    </ul>
   </div>
+
+<!-- ........................................................ -->
 
 <div id="nw">
   <h2>3D Model</h2><p></p>
         <a target="popup" onclick="window.open('http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg','name','width=569,height=427')">
     <img src="http://saturn.jpl.nasa.gov/operations/images/cassini_today1.jpg" width="50%" height="80%"></a>
 </div>
+
+<!-- ........................................................ -->
 
 <div id="sw">
   <!-- <h2>Whiteboard</h2><p></p> -->
@@ -51,9 +66,13 @@ Version 2.01
         </script>
 </div>
 
+<!-- ........................................................ -->
+
 <div id="se">
   <h2>Chat</h2>
 </div>
+
+<!-- ........................................................ -->
 
 <!-- </div> -->
 <!-- 
@@ -61,4 +80,11 @@ Version 2.01
   <h2>Timeline</h2><p></p>
   <HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
 </div> --> 
+</template>
+
+<template name="activity">
+  <li>{{instrument}}</li>
+  <li>{{experiment}}</li>
+  <li>{{start_date}}</li>
+  <li>{{duration}}</li>
 </template>
