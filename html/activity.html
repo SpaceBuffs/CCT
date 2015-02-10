@@ -1,7 +1,7 @@
 <!-- activity.html --> 
 <template name = "activity">
 <header>
-  <h1>Timeline Activities</h1>
+  <h2>Activities</h2>
    <!--add a form below the h1 
 	instrument: drop-down
 	activity: drop-down
@@ -9,16 +9,24 @@
 	duration:
 	starting coordinate:
 	details: text box
-	submit: button
+	submit: button-->
 
-  <form class="new-activity">
+  <form class="new-instrument">
  	  Instrument: <select>
  	 <option value="CDA">CDA</option>
  	 <option value="spectrometer">Spectrometer</option>
  	 <option value="photometer">Photometer</option>
  	 <option value="scatterometer">Scatterometer</option>
-	</select> 
-    <input type="text" name="text" placeholder="Type to add new tasks" />
-  </form> -->
+	</select>
+  </form>
+	<form class="new-activity">
+		Activity: <select>
+	 <option value="CDA">CDA</option>
+ 	 <option value="spectrometer">Spectrometer</option>
+ 	 <option value="photometer">Photometer</option>
+ 	 <option value="scatterometer">Scatterometer</option>
+    </select>
+  </form> 
+  
 </header>
 </template>
