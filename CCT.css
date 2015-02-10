@@ -34,10 +34,11 @@ html.no-cssgradients{
   border-color: #aaa;
 }
 html*{
-  margin: 0;
+  margin: 5;
 }
 
 body {
+  text-indent: 10px;
   background:#ffffff;
   color: #333333;
   margin: 0 auto;
