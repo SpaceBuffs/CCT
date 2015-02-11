@@ -13,15 +13,22 @@ Version 2.02
 UserAccounts = new Mongo.Collection('user');
 
 // activities
-Activities = new Mongo.Collection("activities");
+ActivitiesModel = new Mongo.Collection('activities');
+
+//ActivitiesModel.insert({"instrument": "Spectrometer2", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": "2015/038-12:00:00", "duration": "40:00:00" });
+//to test. This is how you would insert an activity from the command line or by code***
 
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     activities: function () {
-      return Activities.find({});
+      return ActivitiesModel.find({}); //might need to do db.activities.find({});
     }
   });
+
+  Template.timeline.activities = function(){
+    return ActivitiesModel.find({}); //used in timeline.html
+  }
 }
 
 //window.load = function() {
