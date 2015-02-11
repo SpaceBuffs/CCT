@@ -22,10 +22,12 @@
 <!-- ********************************** TEMPLATES ************************************  --> 
 
 <template name="main">
-
-       {{> Dashboard_page}}
-
-    
+    {{> alert}}
+        {{#if currentUser}}
+            {{> Dashboard_page}}
+        {{else}}
+            {{> user_home}}
+        {{/if}}
 </template>
 
 <template name="user_home">
