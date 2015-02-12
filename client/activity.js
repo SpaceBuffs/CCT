@@ -7,6 +7,7 @@ GraviTeam.activities = {
 	"createdAt" : createdAt,
 	"experiment": experiment,
 	"start_date": start_date,
+	"convert_to_epoch" : convert_to_epoch(start_date),
 	"duration": duration
         });
   },
@@ -20,5 +21,10 @@ GraviTeam.activities = {
   },
   delete : function(activity){
 	ActivitiesModel.remove({"_id" : activity});
+  },
+  convert_to_epoch : function(start_date){
+    var myDate = new Date(start_date); // Your timezone in form "July 1, 1978 02:30:00"
+    var myEpoch = myDate.getTime()/1000.0;
+    return myEpoch; //This is so we can order by start date
   }
 }

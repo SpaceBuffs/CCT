@@ -15,7 +15,7 @@ UserAccounts = new Mongo.Collection('user');
 // activities
 ActivitiesModel = new Mongo.Collection('activities');
 
-//ActivitiesModel.insert({"instrument": "Spectrometer2", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": "2015/038-12:00:00", "duration": "40:00:00" });
+ActivitiesModel.insert({"instrument": "Spectrometer2", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": "March 20, 2015 02:30:00", "duration": "40:00:00" });
 //to test. This is how you would insert an activity from the command line or by code***
 
 if (Meteor.isClient) {
