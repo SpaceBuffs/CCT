@@ -54,6 +54,13 @@ body {
     border-bottom:1px solid #eaeaea;
     height: 10px;
 }
+.menubuttons {
+  background-color:#08336F;
+  margin: 0.0em;
+  width:100%;
+  height: 40px; /* height of the background image? */
+ 
+}
 
 .header a {
     display: block;

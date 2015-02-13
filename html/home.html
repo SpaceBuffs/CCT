@@ -11,35 +11,20 @@ Version 2.01
 -->
 
 <template name="home_page">
-  <!--
-    <div class="main_container">
-        <h1>GraviTeam</h1>
-        <div class="content">
-            <div id="home_image">
-                <img src="home.jpeg">
-            </div>
-          
-
-            <div id="home_description">
-                <p> GraviTeam: The most ATTRACTIVE team out there!
-                </p>
-            </div>
-        </div>
-    </div> 
-    -->
-    <!--container div tag-->
+  <!--container div tag-->
   <div id="container">
     <!--sidebar div tag-->
-    <div id="sidebar">
-      <h3>GraviTeam</h3>
-      <p> add any links here </p>
-    </div>
+      <div id="sidebar">
+          <h3>GraviTeam</h3>
+          <p> add any links here </p>
+      </div>
     <!--mainContent div tag-->
-    <div id="mainContent">
+      <div id="mainContent">
         <h1>GraviTeam:</h1>
+        {{markdown}}
       <p> A major difficulty among international scientists is finding a collaborative, social interface where scientists from all over the world can share ideas and design space mission experiments. Our solution is a web-based application that uses technology and social media to allow for cross-world communication, design, and experimentation.</p>
-
-        </div>
+      {{markdown}}
+      </div>
   </div>
 
 </template>

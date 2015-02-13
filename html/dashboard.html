@@ -11,8 +11,28 @@ Version 2.01
 -->
 
 <template name="Dashboard_page">
-  <div id="header">
 
+  	<div class = "menubuttons">
+  		<ul>
+  			<div align="right"> {{> loginButtons }}</div>
+  			<li>
+	  			<a href="/model3d">3D Model | </a>
+	  			<a href="/timeline">Timeline Event  |</a>	  			
+	  			<a href="/chat">Chat  |</a>
+	  			<a href="/whiteboard">Whiteboard</a>
+
+	  		</li>
+	  </ul>
+	</div>
+  
+	
+ <!--
+  <div class="menubuttons">
+		<main>
+			{{> yield}}
+		</main>
+	</div>
+ 
     <div align="right"> {{> loginButtons }} |<a href="/profile.html" target="_blank"> My Profile </a> | <a href="UserManual.doc" target="_blank">Help </a></div>
     </div>
     <div id="nav"><a href="#">3D Model</a>  | <a href="#">Timeline Event</a> | <a href="#">Whiteboard</a> | <a href="#">Chat</a> |
@@ -22,5 +42,20 @@ Version 2.01
    {{> whiteboard}}
    {{> timeline}}
    {{> chat}}
-   
+   --> 
+    
+</template>
+
+<!-- #Routes -> Switching to a layout template -->
+<template name="notFound">
+	<div class="center">
+		<h1>Nothing here</h1><br>
+		<h2>You hit a page which doesn't exist!</h2>
+	</div>
+</template>
+
+<template name="loading">
+	<div class="center">
+		<h1>Loading</h1>
+	</div>
 </template>
