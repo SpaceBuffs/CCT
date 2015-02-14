@@ -122,9 +122,9 @@ Template.forgotPassword.events({
     }
 });
 
-    if(Accounts._resetPasswordToken) {
-        Session.set('resetPassword', Accounts._resetPasswordToken);
-    }
+if(Accounts._resetPasswordToken) {
+    Session.set('resetPassword', Accounts._resetPasswordToken);
+}
 
 Template.resetPassword.helpers({
     resetPassword: function(){
