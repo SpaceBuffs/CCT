@@ -7,32 +7,36 @@
 </head>
 
 <body>  
-<!--  {{> main}}  
-   {{#unless currentUser}} 
-      {{> user_home}} 
-      {{> home_page}} 
-      
-   {{/unless}} -->
+  {{> main}}
+  {{#unless currentUser}}
+    {{> home_page}}
+  {{/unless}}
+
+    <div id="footer">
+      Copyright © Graviteam
+  </div>
+</body>
+
+<!-- ********************************** TEMPLATES ************************************  --> 
+
+<template name="main">
     {{> alert}}
     {{#if currentUser}}
        {{> Dashboard_page}}
     {{else}} 
           {{> user_home}}
-          {{> home_page}} 
+    {{/if}}   
+    
+</template>
 
-    {{/if}}    
-
-</body>
-
-<!-- ********************************** TEMPLATES ************************************  --> 
 <template name="user_home">
     <div id="login_form">
-        {{#unless resetPassword}} 
-             {{#unless currentUser}} 
-              {{#unless showForgotPassword}}                       
+        {{#unless resetPassword}}
+              {{#unless currentUser}}
+                  {{#unless showForgotPassword}}
                       {{> signIn}}
                       {{> signUp}}
-                 {{else}}
+                  {{else}}
                       {{> forgotPassword}}
                   {{/unless}}
               {{else}}
@@ -41,5 +45,6 @@
           {{else}}
               {{> resetPassword}}
           {{/unless}}
-    </div>   
+    </div>
+    
 </template> 
