@@ -7,7 +7,6 @@ GraviTeam.activities = {
 	"createdAt" : createdAt,
 	"experiment": experiment,
 	"start_date": start_date,
-	"convert_to_epoch" : convert_to_epoch(start_date),
 	"duration": duration
         });
   },

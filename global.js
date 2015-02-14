@@ -15,7 +15,11 @@ UserAccounts = new Mongo.Collection('user');
 // activities
 ActivitiesModel = new Mongo.Collection('activities');
 
-ActivitiesModel.insert({"instrument": "Spectrometer2", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": "March 20, 2015 02:30:00", "duration": "40:00:00" });
+ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
+
+ActivitiesModel.insert({"instrument": "CDA", "createdAt": new Date(), "experiment": "dust collection", "start_date": new Date(2015, 2, 1), "duration": "40:00:00" });
+
+ActivitiesModel.insert({"instrument": "Scatterometer", "createdAt": new Date(), "experiment": "scatter", "start_date": new Date(2015, 0, 1), "duration": "40:00:00" });
 //to test. This is how you would insert an activity from the command line or by code***
 
 if (Meteor.isClient) {
@@ -26,8 +30,14 @@ if (Meteor.isClient) {
     }
   });
 
+  //timeline functionality defined here: sort each activity in order by start_date,
+  //and only return the activities defined in a date range (hard coded for now)
+  var stop = new Date(2015, 0, 2); //current time
+  var start = new Date(2014, 0, 0); //epoch
+  // in the find() function below, adding {"start_date": {$gt: start, $lt: stop}}
+  //SHOULD work...
   Template.timeline.activities = function(){
-    return ActivitiesModel.find({}); //used in timeline.html
+    return ActivitiesModel.find({},{sort:{"start_date": 1}},{"start_date": {$gt: start, $lt: stop}}); //used in timeline.html
   }
 }
 

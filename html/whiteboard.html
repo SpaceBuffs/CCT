@@ -1,32 +1,20 @@
 <!-- whiteboard -->  
 <template name = "whiteboard">
 
-<head>
-<!-- jQuery 1.x is required; if you already have it included in your page, no need to include this -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-<!-- AWW widget -->
-<script type="text/javascript" src="https://awwapp.com/static/1.0/aww.min.js"></script>
-
-<!-- Connection to the whiteboard sharing service -->
-<script type="text/javascript" src="https://awwapp.com/nowjs/now.js"></script>
-
-<!-- CSS styles used by the widget -->
-<link rel="stylesheet" type="text/css" href="https://awwapp.com/static/1.0/aww.css"/>
-</head>
-
-<!-- <div id="sw"> -->
-  <h2>Whiteboard</h2><p></p>
+	<h2>WhiteBoard</h2><br>
         <!-- the whiteboard widget will be shown inside this element -->
-        <div id="wrapper" style="width: 80%; height: 80%;"></div>
+        <div id="wrapper" style="width: 700px; height: 300px;"></div>
 
-        <!-- this actually initializes the widget -->
         <script type="text/javascript">
             $(function() {
                 /* initialize the whiteboard widget on #wrapper element */
-                var aww = $('#wrapper').awwCanvas();
+                var aww = $('#wrapper').awwCanvas({
+                    /* the API key you get when you sign up */
+                    apiKey: 'YOUR-API-KEY',
+                    /* pick any unique string as your board ID */
+                    singleBoardId: '585248fb-73f7-4938-bddd-359b087b2429'
+                });
             });
         </script>
-<!-- </div> -->
 
 </template>
