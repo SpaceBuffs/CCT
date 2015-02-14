@@ -32,12 +32,10 @@ if (Meteor.isClient) {
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
-  var stop = new Date(2015, 0, 2); //current time
-  var start = new Date(2014, 0, 0); //epoch
-  // in the find() function below, adding {"start_date": {$gt: start, $lt: stop}}
-  //SHOULD work...
   Template.timeline.activities = function(){
-    return ActivitiesModel.find({},{sort:{"start_date": 1}},{"start_date": {$gt: start, $lt: stop}}); //used in timeline.html
+	var stop = new Date(2015, 1, 2);
+	var start = new Date(2014, 0, 0);
+	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
   }
 }
 
