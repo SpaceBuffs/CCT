@@ -32,6 +32,7 @@ Template.graviteam.logged_in = function(){
 //Template.timeline.activities = function(){
 //  return ActivitiesModel.find({});
 //} ***moved to global.js. The below may need to be moved there too.
+// Shouldn't this be placed in timeline.js?
 
 Template.timeline.events({
   'click #new_activity': function() {
