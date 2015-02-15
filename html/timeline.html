@@ -2,6 +2,23 @@
 <template name = "timeline">
 	<h2>Timeline - All Events</h2>
 	<p></p>
+	Change timerange:<br>
+
+        <form class="new-timerange">
+	Start Date: 
+	<textarea name="StartYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
+	<textarea name="StartMonth" placeholder="MM" rows ="1" cols="3"></textarea>
+	<textarea name="StartDay" placeholder="DD" rows ="1" cols="3"></textarea>
+	<textarea name="StartHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea>
+	Stop Date: 
+	<textarea name="StopYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
+	<textarea name="StopMonth" placeholder="MM" rows ="1" cols="3"></textarea>
+	<textarea name="StopDay" placeholder="DD" rows ="1" cols="3"></textarea>
+	<textarea name="StopHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea><br>
+	<input type="submit" name="submit" value="Submit">
+	</form>
+
+	<p></p>
 	<ul>
 	{{#each activities}} <!-- returns a list of activities defined in global.js -->
 	  {{> activity }} <!-- template definition under activity.html to display details -->
