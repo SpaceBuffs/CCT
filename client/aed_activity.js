@@ -1,7 +1,7 @@
 //activity
 
-GraviTeam.activities = {
-  create : function(instrument, createdAt, experiment, start_date, duration, notes){
+GraviTeam.aedactivities = {
+  create : function(instrument, createdAt, experiment, start_date, duration){
     ActivitiesModel.insert({
 	"instrument": instrument,
 	"createdAt" : createdAt,
@@ -19,11 +19,12 @@ GraviTeam.activities = {
     ActivitiesModel.update({"_id" : activity},
       {$set : { "duration" : new_duration }});
   },
-  new_notes : function(activity, new_notes){
-	  ActivitiesModel.update({"_id" : activity},
-	  {$set : { "notes" : new_notes }});
-  },
   delete : function(activity){
 	ActivitiesModel.remove({"_id" : activity});
+  },
+  convert_to_epoch : function(start_date){
+    var myDate = new Date(start_date); // Your timezone in form "July 1, 1978 02:30:00"
+    var myEpoch = myDate.getTime()/1000.0;
+    return myEpoch; //This is so we can order by start date
   }
 }

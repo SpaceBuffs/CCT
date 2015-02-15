@@ -32,27 +32,37 @@ if (Meteor.isClient) {
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
-  Template.timeline.activities = function(){
-	var stop = new Date(2015, 1, 2);
+  Template.timeline.activities = function(){  
+	var stop = new Date(2015, 9, 2);
 	var start = new Date(2014, 0, 0);
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
   }
+  
+  Template.aedactivity.events({
+	"submit .new-activity": function(event){
+	var instrument = event.target.insturment.value;
+	var expirement = event.target.expirement.value;
+	//var startdate = event.target.startdate.value;
+	//startdate = new Date(startdate);
+	var duration = event.target.duration.value;
+	var notes = event.target.notes.value;
+	
+	ActivitiesModel.insert({
+	instrument: instrument,
+	createdAt : new Date(),
+	experiment: experiment,
+	//start_date: start_date, //TO DO: FIX THIS
+	start_date: new Date(),
+	duration: duration,
+	notes:notes
+	
+     });
+     
+     event.target.startdate.value = "";
+     event.target.duration.value = "";
+     event.target.notes.value = "";
+     
+     return false;
+  }
+});
 }
-
-//window.load = function() {
-//  var div1 = document.getElementById('app_window').innerHTML;
-//  var div2 = "There's the div 2 contents!";
-//  var div3 = "There's the div 3 contents!";
-
-// document.getElementById('div1').onclick = function() {
-//   document.getElementById('app_window').innerHTML = div1;
-// }
-// document.getElementById('div2').onclick = function() {
-//   document.getElementById('app_window').innerHTML = div2;
-// }
-// document.getElementById('div3').onclick = function() {
-//   document.getElementById('app_window').innerHTML = div3;
-// }
-//}
-
-//--------------------------------------------------------------
