@@ -37,12 +37,12 @@
 
 <template name="user_home">
     <div id="login_form">
-        {{#unless resetPassword}}
+       <!-- {{#unless resetPassword}}
               {{#unless currentUser}}
                   {{#unless showForgotPassword}}
                       {{> signIn}}
                       {{> signUp}}
-                  <!-- {{else}} -->
+                  {{else}}
                       {{> forgotPassword}}
                   {{/unless}}
               {{else}}
@@ -50,7 +50,9 @@
               {{/unless}}
           {{else}}
               {{> resetPassword}}
-          {{/unless}}
+          {{/unless}}-->
+
+          {{> loginButtons}}
     </div>
     
 </template> 
