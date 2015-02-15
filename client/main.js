@@ -25,6 +25,23 @@ Version 2.01
      }
   });
 */
-  Template.graviteam.logged_in = function(){
-    return Meteor.user();
-  };
+Template.graviteam.logged_in = function(){
+  return Meteor.user();
+}
+
+//Template.timeline.activities = function(){
+//  return ActivitiesModel.find({});
+//} ***moved to global.js. The below may need to be moved there too.
+// Shouldn't this be placed in timeline.js?
+
+Template.timeline.events({
+  'click #new_activity': function() {
+    ActivitiesModel.activities.create();
+   },
+   'click .delete_activity': function(){
+    if(confirm("Are you sure you want to delete this activity?"))
+       {
+	  ActivitiesModel.activities.delete(this._id)
+       }
+   }
+});

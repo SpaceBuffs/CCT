@@ -1,6 +1,6 @@
 <!-- timeline.html --> 
 <template name = "timeline">
-<div id="ne"> 
+<!--<div id="ne"> -->
       <h2>Timeline - Add an Event</h2>
       <p></p>
       <form class="new-event">
@@ -8,5 +8,13 @@
         <input type="text" name="text" placeholder="Activities" /><br>
         <input type="text" name="text" placeholder="Instrument" /><br>
       </form>
-  </div>
-  </template>
+
+	<h2>Timeline - All Events</h2>
+	<p></p>
+	<ul>
+	{{#each activities}} <!-- returns a list of activities defined in global.js -->
+	  {{> activity }} <!-- template definition under activity.html to display details -->
+	{{/each}}
+	</ul>
+<!--  </div>-->
+</template>

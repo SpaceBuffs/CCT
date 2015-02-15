@@ -54,8 +54,10 @@
 <template name="forgotPassword">
     <div class="forgot-password" id="forgotPassword">
         <a class="return-to-sign-in" href="javascript:void(0);" id="returnToSignIn">Return</a>
-        <form action="/forgot" class="forgot-password-form" id="forgotPasswordForm" method="post">
+        <form action="/forgot-password" class="forgot-password-form" id="forgotPasswordForm" method="post">
+            <br>
             <input class="email" id="forgotPasswordEmail" type="text" name="email" placeholder="Email Address">
+            <br>
             <input class="btn-submit" type="submit" value="Send">
         </form>
     </div>
@@ -64,6 +66,7 @@
 
 <template name="resetPassword">
     <div class="reset-password">
+        {{#if resetPassword}}
         <h2 class="headline">You're now saved, <span class="bold">follow the light!</span></h2>
         <h3 class="details">You just have to type and confirm  your new password to regain access to your dashboard.</h3>
         <form action="/reset-password" class="reset-password-form" id="resetPasswordForm" method="post">
@@ -74,6 +77,7 @@
         <br>    
             <input class="btn-submit" type="submit" value="Reset">
         </form>
+        {{/if}}
     </div>
     <!-- end .reset-password -->
 </template>

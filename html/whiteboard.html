@@ -1,16 +1,20 @@
 <!-- whiteboard -->  
 <template name = "whiteboard">
-<div id="sw">
-  <!-- <h2>Whiteboard</h2><p></p> -->
-        <!-- the whiteboard widget will be shown inside this element -->
-        <div id="wrapper" style="width: 80%; height: 80%;"></div>
 
-        <!-- this actually initializes the widget -->
+	<h2>WhiteBoard</h2><br>
+        <!-- the whiteboard widget will be shown inside this element -->
+        <div id="wrapper" style="width: 700px; height: 300px;"></div>
+
         <script type="text/javascript">
             $(function() {
                 /* initialize the whiteboard widget on #wrapper element */
-                var aww = $('#wrapper').awwCanvas();
+                var aww = $('#wrapper').awwCanvas({
+                    /* the API key you get when you sign up */
+                    apiKey: 'YOUR-API-KEY',
+                    /* pick any unique string as your board ID */
+                    singleBoardId: '585248fb-73f7-4938-bddd-359b087b2429'
+                });
             });
         </script>
-</div>
+
 </template>

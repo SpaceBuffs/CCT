@@ -1,12 +1,17 @@
 <head>
-
     <div  id="img_header" role="banner">
           <a href="http://www.jpl.nasa.gov/">
           <img src="JPL.png" alt = "graviteam"/></a>
     </div>
-
+        <!-- jQuery 1.x is required; if you already have it included in your page, no need to include this -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- AWW widget -->
+        <script type="text/javascript" src="https://awwapp.com/static/1.0/aww.min.js"></script>
+        <!-- Connection to the whiteboard sharing service -->
+        <script type="text/javascript" src="https://awwapp.com/nowjs/now.js"></script>
+        <!-- CSS styles used by the widget -->
+        <link rel="stylesheet" type="text/css" href="https://awwapp.com/static/1.0/aww.css"/>
 </head>
-
 
 <body>  
   {{> main}}
@@ -37,7 +42,7 @@
                   {{#unless showForgotPassword}}
                       {{> signIn}}
                       {{> signUp}}
-                  {{else}}
+                  <!-- {{else}} -->
                       {{> forgotPassword}}
                   {{/unless}}
               {{else}}

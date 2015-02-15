@@ -13,15 +13,30 @@ Version 2.02
 UserAccounts = new Mongo.Collection('user');
 
 // activities
-Activities = new Mongo.Collection("activities");
+ActivitiesModel = new Mongo.Collection('activities');
+
+ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
+
+ActivitiesModel.insert({"instrument": "CDA", "createdAt": new Date(), "experiment": "dust collection", "start_date": new Date(2015, 2, 1), "duration": "40:00:00" });
+
+ActivitiesModel.insert({"instrument": "Scatterometer", "createdAt": new Date(), "experiment": "scatter", "start_date": new Date(2015, 0, 1), "duration": "40:00:00" });
+//to test. This is how you would insert an activity from the command line or by code***
 
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     activities: function () {
-      return Activities.find({});
+      return ActivitiesModel.find({}); //might need to do db.activities.find({});
     }
   });
+
+  //timeline functionality defined here: sort each activity in order by start_date,
+  //and only return the activities defined in a date range (hard coded for now)
+  Template.timeline.activities = function(){
+	var stop = new Date(2015, 1, 2);
+	var start = new Date(2014, 0, 0);
+	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
+  }
 }
 
 //window.load = function() {
