@@ -20,7 +20,7 @@
   {{/unless}}
 
     <div id="footer">
-      Copyright © Graviteam
+      Copyright © GraviTeam
   </div>
 </body>
 
@@ -28,12 +28,11 @@
 
 <template name="main">
     {{> alert}}
-    {{#if currentUser}}
-       {{> Dashboard_page}}
-    {{else}} 
-          {{> user_home}}
-    {{/if}}   
-    
+        {{#if currentUser}}
+            {{> Dashboard_page}}
+        {{else}}
+            {{> user_home}}
+        {{/if}}
 </template>
 
 <template name="user_home">
