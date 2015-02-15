@@ -1,17 +1,42 @@
-<!-- profile.html -->
-<body>
-    <h2> My Profile </h2>
-        <p> Name: </p>
-        <p> Email: </p>
-        <p> Mission: </p>
-</body>
 
-<!-- need help using templates... this does nothing right now -->
-<template name = "profile">
-    <div id="profile">
-        <h2> My Profile </h2>
-        <p> Name: </p>
-        <p> Email: </p>
-        <p> Mission: </p>
+<!--
+ Collaborative Campaign Tool
+ GRAVITEAM by SPACEBUFFS
+ 
+ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+ 
+ profile.html is accessed when a user clicks on the profile link. A user's personal info is displayed and the user can add/change some of the info.
+ 
+ Version 2.01
+ 2/15/2015
+ -->
+
+<head>
+    <div  id="img_header" role="banner">
+        <a href="http://www.jpl.nasa.gov/">
+            <img src="JPL.png" alt = "graviteam"/></a>
     </div>
-</template>
+    <!-- jQuery 1.x is required; if you already have it included in your page, no need to include this -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- AWW widget -->
+    <script type="text/javascript" src="https://awwapp.com/static/1.0/aww.min.js"></script>
+    <!-- Connection to the whiteboard sharing service -->
+    <script type="text/javascript" src="https://awwapp.com/nowjs/now.js"></script>
+    <!-- CSS styles used by the widget -->
+    <link rel="stylesheet" type="text/css" href="https://awwapp.com/static/1.0/aww.css"/>
+</head>
+
+<p></p>
+<form class="profile info">
+    Name: <textarea name="Name" rows ="1" cols="53"></textarea><br>
+    <p></p>
+    Email Address: <textarea name="Email Address" placeholder="test@test.com" rows="1" cols ="45"></textarea><br>
+    <p></p>
+    Missions: <select>
+        <option value="Cassini">Cassini</option>
+    </select>
+    <p></p>
+    Notes:		<p></p><textarea name="Notes" placeholder="The goal of..."  rows="5" cols="60"></textarea>
+    <p></p>
+    <input type="submit" value="Submit">
+        </form>
