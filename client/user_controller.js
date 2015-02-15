@@ -4,6 +4,13 @@
   Check if the email and the password are valid.
 
 */
+Template.main.helpers({
+    showForgotPassword: function() {
+        return Session.get('showForgotPassword');
+    }
+});
+
+
 Template.signIn.events({
     'submit #signInForm': function(e, t) {
         e.preventDefault();
@@ -119,7 +126,11 @@ Template.forgotPassword.events({
             });
         }
         return false;
-    }
+    },
+    'click #returnToSignIn': function(e, t) {
+        Session.set('showForgotPassword', null);
+        return false;
+    },
 });
 
 if(Accounts._resetPasswordToken) {
