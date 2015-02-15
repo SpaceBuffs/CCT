@@ -1,0 +1,26 @@
+<!--Add, Edit, Delete and Activity-->
+<template name = "aedactivity">
+<h2>Update an Activity</h2>
+	<p></p>
+      <form class="new-event">
+	   Instrument: <select>
+			<option value="CDA">CDA</option>
+			<option value="spectrometer">Spectrometer</option>
+			<option value="photometer">Photometer</option>
+			<option value="scatterometer">Scatterometer</option>
+		</select> 
+		<p></p>
+		Experiment: <select>
+			<option value="scatter">Scatter</option>
+			<option value="spectroscopy">Spectroscopy</option>
+		</select>
+		<p></p>
+        Start Date: <textarea name="Start Date" placeholder="MONTH DAY, YEAR HH:MM:SS" rows ="1" cols="30"></textarea><br>
+        <p></p>
+        Duration: <textarea name="Duration" placeholder="HH:MM:SS" rows="1" cols ="30"></textarea><br>
+        <p></p>
+        Notes:<textarea name="Notes" placeholder="The goal of..."  rows="5" cols="30"></textarea>
+        <p></p>
+        <input type="submit" value="Submit">
+  </form>
+</template>
