@@ -69,8 +69,8 @@ if (Meteor.isClient) {
   
   Template.aedactivity.events({
 	"submit .new-activity": function(event){
-	var instrument = event.target.insturment.value;
-	var expirement = event.target.expirement.value;
+	var instrument = event.target.instrument.value;
+	var experiment = event.target.experiment.value;
 	//var startdate = event.target.startdate.value;
 	//startdate = new Date(startdate);
 	var duration = event.target.duration.value;
