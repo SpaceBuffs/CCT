@@ -1,0 +1,7 @@
+/*
+
+
+
+*/
+
+Meteor.subscribe('ActivitiesModel');

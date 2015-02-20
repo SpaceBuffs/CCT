@@ -1,0 +1,64 @@
+<!--
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
+
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+home.html is the main template for the home page
+
+Version 2.01
+1/25/2015
+-->
+<!-- home page  -->
+<template name="home">
+    {{> alert}}
+    {{#if currentUser}}
+       {{> timeline}}
+    {{else}}
+       {{> user_home}}
+       {{> home_page}}
+    {{/if}}   
+    
+</template>  
+<!--   user controller -->
+<template name="user_home">
+    <div id="login_form">
+
+       <!--  {{#unless resetPassword}}
+              {{#unless currentUser}}
+                  {{#unless showForgotPassword}}
+                      {{> signIn}}
+                      {{> signUp}}                     
+                  {{else}}
+                      {{> forgotPassword}}
+                  {{/unless}}
+              {{else}}
+                  {{> signOut}}
+              {{/unless}}
+          {{else}}
+              {{> resetPassword}}
+          {{/unless}}--> 
+           {{> loginButtons }}
+    </div> 
+</template> 
+<!-- displays on home page -->
+<template name="home_page">
+  <!--container div tag-->
+  <div id="container">
+    <!--sidebar div tag-->
+      <div id="sidebar">
+          <h3>GraviTeam</h3>
+          <p> add any links here </p>
+      </div>
+    <!--mainContent div tag-->
+      <div id="mainContent">
+          <h1>GraviTeam:</h1>
+          <p> A major difficulty among international scientists is finding a collaborative, social interface where scientists from all over the world can share ideas and design space mission experiments. Our solution is a web-based application that uses technology and social media to allow for cross-world communication, design, and experimentation.</p>
+      </div>
+  </div>
+  <div></div>>
+  <div id="footer">
+      Copyright © Graviteam
+  </div>
+</template>
+

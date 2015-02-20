@@ -1,0 +1,32 @@
+<!-- profile.html -->
+<template name = "profile">
+       {{> Dashboard_page}}
+
+    
+<!--
+ Collaborative Campaign Tool
+ GRAVITEAM by SPACEBUFFS
+ 
+ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+ 
+ profile.html is accessed when a user clicks on the profile link. A user's personal info is displayed and the user can add/change some of the info.
+ 
+ Version 2.01
+ 2/15/2015
+ -->
+
+<form class="profile info">
+    Name: <textarea name="Name" rows ="1" cols="53"></textarea><br>
+    <p></p>
+    Email Address: <textarea name="Email Address" placeholder="test@test.com" rows="1" cols ="45"></textarea><br>
+    <p></p>
+    Missions: <select>
+        <option value="Cassini">Cassini</option>
+    </select>
+    <p></p>
+    Notes:		<p></p><textarea name="Notes" placeholder="The goal of..."  rows="5" cols="60"></textarea>
+    <p></p>
+    <input type="submit" value="Submit">
+        </form>
+
+</template>

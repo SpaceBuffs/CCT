@@ -1,0 +1,36 @@
+<!--
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
+
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+dashboard.html is the main template for the dashboard layout
+
+Version 2.01
+1/25/2015
+-->
+<template name="Dashboard_page">
+   	<div class = "menubuttons">
+  		<ul>
+  			<div align="right"> {{> loginButtons }}</div>
+  				<a href="/profile"> <img src="profile.png" alt = "profile"/> MyProfile </a>
+  				<a href="/timeline"> <img src="home.png" alt = "timeline"/> Timeline </a>	  					
+	  			<a href="/chat"><img src="" alt = "chat"/> Chat  </a>
+				  <a href="/model3d"> <img src="home.png" alt = "chat"/>  3DModel | </a>
+	  		  <a href="/whiteboard"> <img src="home.png" alt = "chat"/> whiteboard</a>
+	    </ul>
+	  </div> 
+</template>
+<!-- #Routes -> Switching to a layout template -->
+<template name="notFound">
+  <div class="center">
+    <h1>Nothing here</h1><br>
+    <h2>You hit a page which doesn't exist!</h2>
+  </div>
+</template>
+<!-- LOADING -->
+<template name="loading">
+  <div class="center">
+    <h1>Loading</h1>
+  </div>
+</template>

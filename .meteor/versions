@@ -3,7 +3,6 @@ accounts-password@1.0.6
 accounts-ui@1.1.4
 accounts-ui-unstyled@1.1.6
 application-configuration@1.0.4
-autopublish@1.0.2
 autoupdate@1.1.5
 base64@1.0.2
 binary-heap@1.0.2
@@ -12,6 +11,7 @@ blaze-tools@1.0.2
 boilerplate-generator@1.0.2
 callback-hook@1.0.2
 check@1.0.4
+coffeescript@1.0.5
 ddp@1.0.14
 deps@1.0.6
 ejson@1.0.5
@@ -24,6 +24,14 @@ htmljs@1.0.3
 http@1.0.10
 id-map@1.0.2
 insecure@1.0.2
+iron:controller@1.0.7
+iron:core@1.0.7
+iron:dynamic-template@1.0.7
+iron:layout@1.0.7
+iron:location@1.0.7
+iron:middleware-stack@1.0.7
+iron:router@1.0.7
+iron:url@1.0.7
 jquery@1.11.3
 json@1.0.2
 launch-screen@1.0.1
