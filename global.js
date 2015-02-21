@@ -80,7 +80,8 @@ if (Meteor.isClient) {
 	duration: duration,
 	notes:notes
         });
-	//weird, don't input a start date and it works?!
+
+       //refresh form if submit is successful
        event.target.instrument.value = "";
        event.target.experiment.value = "";  
        event.target.startdate.value = "";

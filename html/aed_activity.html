@@ -6,17 +6,31 @@
 	<form class="new-activity">
 		Instrument: 
 		<select name="instrument">
-			<option name="instrument" value="CDA">CDA</option>
-			<option name="instrument" value="spectrometer">Spectrometer</option>
-			<option name="instrument" value="photometer">Photometer</option>
-			<option name="instrument" value="scatterometer">Scatterometer</option>
+			<option value="CDA">CDA</option>
+			<option value="hdSpectrograph">HD Spectrometer</option>
+			<option value="magnetometer">Magnetometer</option>
+			<option value="photometer">Photometer</option>
+			<option value="radar">Radar</option>
+			<option value="scatterometer">Scatterometer</option>
+			<option value="spectrometer">Spectrometer</option>
+			<option value="uvSpectrograph">UV Spectrograph</option>
 		</select>
 		<p></p>
 
 	   	Experiment: 
 		<select name="experiment">
-			<option value="scatter">Scatter</option>
-			<option value="spectroscopy">Spectroscopy</option>
+		<option value="visualPhoto">Take Photo in Visual Spectrum</option>
+		<option value="nearInfraredPhoto">Take Photo in Near Infared</option> <!--uv only-->
+		<option value="positionCamera">Position Camera</option>
+		<option value="particalAnalysis">Particle Analysis</option>
+		<option value="dustCollection">Dust Collection</option>
+		<option value="ionCollection">Ion Collection</option>
+		<option value="calibration">Calibration for CDA</option>
+		<option value="sendCurrent">Send Current to Make Magnetic Field</option>
+		<option value="analyzeMagneticField">Analyze Magnetic Field</option>
+		<option value="radar">Radar</option>
+		<option value="gammaRay">Measure Surface Gamma Rays</option>
+		<option value="map">Map</option>
 		</select>
 		<p></p>
 
