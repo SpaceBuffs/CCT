@@ -11,16 +11,13 @@ Version 2.02
 */
 
 UserAccounts = new Mongo.Collection('user');
-
-// activities
 ActivitiesModel = new Mongo.Collection('activities');
 
+/*
 ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
-
 ActivitiesModel.insert({"instrument": "CDA", "createdAt": new Date(), "experiment": "dust collection", "start_date": new Date(2015, 2, 1), "duration": "40:00:00" });
-
-ActivitiesModel.insert({"instrument": "Scatterometer", "createdAt": new Date(), "experiment": "scatter", "start_date": new Date(2015, 0, 1), "duration": "40:00:00" });
-//to test. This is how you would insert an activity from the command line or by code***
+ActivitiesModel.insert({ "instrument": "Scatterometer", "createdAt": new Date(), "experiment": "scatter", "start_date": new Date(2015, 0, 1), "duration": "40:00:00" });
+*/
 
 if (Meteor.isClient) {
   // This code only runs on the client
@@ -32,8 +29,8 @@ if (Meteor.isClient) {
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
-  var stop = new Date(2015, 1, 20);
-  var start = new Date(2015, 0, 0);
+  var stop = new Date(2020, 0, 0);
+  var start = new Date(1970, 0, 0);
   Template.timeline.events({
 	"submit .new-timerange": function(event){ 
 	var yy = event.target.StartYear.value;
@@ -69,10 +66,9 @@ if (Meteor.isClient) {
   
   Template.aedactivity.events({
 	"submit .new-activity": function(event){
-	var instrument = event.target.insturment.value;
-	var expirement = event.target.expirement.value;
-	//var startdate = event.target.startdate.value;
-	//startdate = new Date(startdate);
+	var instrument = event.target.instrument.value;
+	var experiment = event.target.experiment.value;
+	var startdate = event.target.startdate.value;
 	var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
 	
@@ -80,12 +76,13 @@ if (Meteor.isClient) {
 	instrument: instrument,
 	createdAt : new Date(),
 	experiment: experiment,
-	//start_date: start_date, //TO DO: FIX THIS
-	start_date: new Date(),
+	start_date: new Date(startdate),
 	duration: duration,
 	notes:notes
         });
-     
+	//weird, don't input a start date and it works?!
+       event.target.instrument.value = "";
+       event.target.experiment.value = "";  
        event.target.startdate.value = "";
        event.target.duration.value = "";
        event.target.notes.value = "";

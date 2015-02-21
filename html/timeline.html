@@ -3,13 +3,13 @@
 	<h2>Timeline - All Events</h2>
 	<p></p>
 	Change timerange:<br>
-
+<div style="border: 1px solid #000000; padding: 10px; width: 500px; align: center;">
         <form class="new-timerange">
 	Start Date: 
 	<textarea name="StartYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
 	<textarea name="StartMonth" placeholder="MM" rows ="1" cols="3"></textarea>
 	<textarea name="StartDay" placeholder="DD" rows ="1" cols="3"></textarea>
-	<textarea name="StartHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea>
+	<textarea name="StartHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea><br>
 	Stop Date: 
 	<textarea name="StopYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
 	<textarea name="StopMonth" placeholder="MM" rows ="1" cols="3"></textarea>
@@ -17,7 +17,7 @@
 	<textarea name="StopHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea><br>
 	<input type="submit" name="submit" value="Submit">
 	</form>
-
+</div>
 	<p></p>
 	<ul>
 	{{#each activities}} <!-- returns a list of activities defined in global.js -->
