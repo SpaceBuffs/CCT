@@ -1,4 +1,4 @@
-Meteor.methods({
+/*Meteor.methods({
 	sendEmail: function(to, from, subject, text){
 		check([to, from, subject, text], [String]);
 		this.unblock();
@@ -10,4 +10,4 @@ Meteor.methods({
 			text: text
 		});
 	} 
-});
+});*/
