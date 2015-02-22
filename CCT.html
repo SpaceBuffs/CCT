@@ -14,7 +14,7 @@
 </head>
 
 <body>  
-  {{> main}}
+  <!-- {{> main}}
   {{#unless currentUser}}
     {{> home_page}}
   {{/unless}}
@@ -22,37 +22,7 @@
     <div id="footer">
       Copyright © GraviTeam
   </div>
+  --> 
 </body>
 
-<!-- ********************************** TEMPLATES ************************************  --> 
 
-<template name="main">
-    {{> alert}}
-        {{#if currentUser}}
-            {{> Dashboard_page}}
-        {{else}}
-            {{> user_home}}
-        {{/if}}
-</template>
-
-<template name="user_home">
-    <div id="login_form">
-       <!-- {{#unless resetPassword}}
-              {{#unless currentUser}}
-                  {{#unless showForgotPassword}}
-                      {{> signIn}}
-                      {{> signUp}}
-                  {{else}}
-                      {{> forgotPassword}}
-                  {{/unless}}
-              {{else}}
-                  {{> signOut}}
-              {{/unless}}
-          {{else}}
-              {{> resetPassword}}
-          {{/unless}}-->
-
-          {{> loginButtons}}
-    </div>
-    
-</template> 
