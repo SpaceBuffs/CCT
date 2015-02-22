@@ -1,0 +1,216 @@
+/* CSS declarations go here */
+/* The login menu has to be set at a specific height and I chose to center mine. */
+
+/* CSS declarations go here */
+/* Font stach*/ 
+@import 'lesshat.import.less';
+
+body,input,select,textarea {
+  font-family:"HelveticaNeue-Light","HelveticaNeue-Light","Helvetica Neue", Helvetica,Arial,
+  "Lucida Grande", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+
+}
+
+h1,h2,h3,h4,h5,h6{
+  line-height: 1.5;
+}
+ /* end font stack*/
+
+/* Base Layout*/
+html{
+   background-color: aliceblue;
+   background-image: -moz-linear-gradient(center top, #aaa, #ddd);
+   
+   background-repeat: repeat;
+   height: 100%;
+  /* change the box model to exclude the padding from the calculation of 100% height */  
+   -webkit-box-sizing:border-box;
+   -moz-box-sizing:border-box;
+   box-sizing: border-box;
+
+}
+
+html.no-cssgradients{
+  border-color: #aaa;
+}
+html*{
+  margin: 5;
+}
+
+body {
+  text-indent: 10px;
+  background:#ffffff;
+  color: #333333;
+  margin: 0 auto;
+  max-width: 85%;
+  overflow-x:hidden; 
+  -moz-box-shadow: 0 0 0.3em #255b17;
+  -webkit-box-shadow: 0 0 0.3em #255b17;
+  box-shadow: 0 0 0.3em #255b17;
+}
+
+/* header */
+.header {
+    border-bottom:1px solid #eaeaea;
+    height: 10px;
+}
+.menubuttons {
+  background-color:#08336F;
+  margin: 0.0em;
+  width:100%;
+  height: 40px; /* height of the background image? */
+ 
+}
+
+.header {
+    display: block;
+    border-bottom: double 3px #aba;
+    border-left: solid 1px #9a9;
+    border-right: solid 1px #565;
+    border-top: solid 1px #9a9;
+    font: italic normal 230% 'Times New Roman', Times, serif;
+    letter-spacing: 0.2em;
+    margin: 10px;
+    padding: 15px 10px 15px 60px;
+  
+}
+
+#img_header {
+  background-color:#08336E;
+  width:100%;
+  height: 100px; /* height of the background image? */
+  text-align:left;
+}
+
+#img_header a {
+  display: inline-block;
+  margin: 0.0em;
+}
+
+/*
+img {
+  display:inline-block;
+  margin:1px;
+  border:1px solid #08336E;
+  height:100px;
+  width:1040px ;
+}*/
+
+
+/* end header */
+
+/*  footer */
+#footer {
+    background:#003366;
+    color:#000;
+    clear:both;
+    font-size: 1.1em; 
+    padding:5px;
+    min-height: 1em;
+    text-align: center;    
+}
+#footer{
+  color: black;
+}
+/*  end footer */ 
+
+.content {
+  border-bottom: 1px solid #CCCCCC;
+  margin: 1.5em;
+}
+.nav{
+  background-color: #99CCCC;
+  padding: 0.5em 0.75;
+  -moz-box-shadow: 0 0 3px 1px #aaaaaa;
+  -webkit-box-shadow:0 0 3px 1px #aaaaaa;
+  box-shadow: 0 0 3px 1px #aaaaaa
+}
+/*  to here  */ 
+
+/* firs/home page   */
+#container {
+  width: 780px;
+  background: #FFFFFF;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  text-align: left;
+}
+#sidebar {
+  float: left;
+  width: 200px;
+  background: #EBEBEB;
+  padding: 15px 10px 15px 20px;
+}
+#mainContent { 
+  margin: 0 0 0 250px;
+  padding: 0 20px 20px 20px;
+} 
+
+.title_link{
+  font-size: 15px;
+  vertical-align: 4px;
+} 
+
+/* login */ 
+
+#login_form{
+  display: inline-block;
+  position: relative;
+  height: 245px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+#home_image{
+  display: inline-block;
+  width: 500px;
+  vertical-align: top;
+
+}
+
+#home_description{
+  display: inline-block;
+  width: 340px;
+  padding: 20px;
+
+}
+
+#signUpForm.dropdown-menu {
+  display: block;
+  position: relative;
+  height: 245px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  color: red;
+}
+
+#signUpForm #login-dropdown-list {
+  display: block;
+}
+
+/* Hides the toggle that you click on */
+
+#signUpForm a.dropdown-toggle {
+  display: none;
+}
+
+#signUpForm #login-dropdown-list {
+  display: block;
+}
+
+
+
+/* Hides the toggle that you click on */
+
+#signUp a.dropdown-toggle {
+  display: none;
+}
+
+a{
+text-decoration: none;
+color: #436690;
+}
