@@ -121,7 +121,10 @@ Template.forgotPassword.events({
                         Session.set('alert','We are sorry but something has gone wrong.');
                     }
                 } else {
-                    Session.set('alert','Email sent. Check your mailbox.');
+                    var userId = this.userId;
+                    Meteor.call('sendEmail', email, userId, subject, text, function(){
+                        Session.set('alert','Email sent. Check your mailbox.');
+                    });  
                 }
             });
         }
