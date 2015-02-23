@@ -11,6 +11,7 @@ Router.configure({
    notFoundTemplate: 'notFound',
    loadingTemplate: 'loading',
    model3dTemplate: 'model3d',
+   activityTemplate: 'aed_activity'
 
 });
 
@@ -44,7 +45,10 @@ Router.map(function() {
            path: '/timeline',        
            template: 'timeline'    
    });
-
+  this.route('Activity', { 
+           path: '/activity',        
+           template: 'aedactivity'    
+   });
   
 
 });
