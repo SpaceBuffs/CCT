@@ -7,8 +7,8 @@
 meteor-platform
 insecure
 accounts-ui
-accounts-password
-email
 nemo64:bootstrap
 less
 iron:router
+accounts-password
+email

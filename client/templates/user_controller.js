@@ -110,12 +110,12 @@ Template.forgotPassword.events({
         e.preventDefault();
 
         var forgotPasswordForm = $(e.currentTarget),
-            email = trimInput(forgotPasswordForm.find('forgotPasswordForm').val().toLowerCase());
+            email = trimInput(forgotPasswordForm.find('#forgotPasswordEmail').val().toLowerCase());
             
         if (isNotEmpty(email) && isEmail(email)) {
-            Accounts.forgotPassword({email: email}, function(err){
+            Accounts.forgotPassword({email:email}, function(err){
                 if(err) {
-                    if(err.message --- 'User not found [403]') {
+                    if(err.message === 'User not found [403]') {
                         Session.set('alert','This email does not exist.');
                     } else {
                         Session.set('alert','We are sorry but something has gone wrong.');
@@ -143,6 +143,7 @@ Template.resetPassword.helpers({
     }
 });
 
+
 Template.resetPassword.events({
     'submit #resetPasswordForm': function(e, t) {
         e.preventDefault();
@@ -164,3 +165,4 @@ Template.resetPassword.events({
         return false;
     }
 });
+
