@@ -1,17 +1,20 @@
 Meteor.methods({
 	//sendEmail: function(to, from, subject, text){
 	//	check([to, from, subject, text], [String]);
-	sendEmail: function (email, userId, subject, text) {
+	'sendEmail': function (email, userId, subject, text) {
 		check([email, userId, subject, text], [String]);
 		var email = this.email;
-		Accounts.sendResetPasswordEmail(userId, email)
- 	}
+		if (confirm(Session.set('alert','Email sent. Check your mailbox.'))){
+			Accounts.sendResetPasswordEmail(userId, email)
+		} else {
 
- 	/*Email.send({
+ 		Email.send({
                 to: 'email',
                 from: "graviteam@github.com",
                 //replyTo: fromEmail||undefined,
-                subject: "GraviTeam Member: "+this.userId+" has requested a password change!",
-                text: "Hello " +this.userId+", You are trying to reset you password.\n"+Meteor.absoluteUrl()+"\n",
-	}); */
+                subject: "GraviTeam has sent a message!",
+                text: "Hello " +this.userId+", You are awesome.\n"+Meteor.absoluteUrl()+"\n",
+			});
+		}
+	}
 });
