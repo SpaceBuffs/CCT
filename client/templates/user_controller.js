@@ -124,7 +124,7 @@ Template.forgotPassword.events({
                     var userId = this.userId;
                     var subject = "Forgot Password Request"
                     Session.set('alert','Email sent. Check your mailbox.');
-                    Meteor.call('forgotPasswordEmail', email, userId, subject, text);  
+                    Meteor.call('forgotPasswordEmail', email, userId, subject, text, callback);  
                 }
             });
         }

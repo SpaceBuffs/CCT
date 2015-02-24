@@ -1,8 +1,8 @@
 // server/smtp.js
 Meteor.startup(function () {
 	smtp = {
-    	email: 'your_username',   // eg: yourname@email.com
-    	password: 'your_password',   // eg: izk5eziohfervU
+    	email: 'cracuna2@gmail.com',   // eg: yourname@email.com
+    	password: '69592onixz2',   // eg: izk5eziohfervU
     	server:   'smtp.gmail.com',  // eg: mail.email.net
     	port: 25
   	}

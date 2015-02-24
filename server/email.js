@@ -1,10 +1,14 @@
 Meteor.methods({
 	//sendEmail: function(to, from, subject, text){
 	//	check([to, from, subject, text], [String]);
-	'forgotPasswordEmail': function (email, userId, subject, text) {
+	'forgotPasswordEmail': function (email, userId, subject, text, callback) {
 		check([email, userId, subject, text], [String]);
 		var email = this.email;
+		var userId = this.userId;
 		Accounts.sendResetPasswordEmail(userId, email)
+		if (typeof callback !== 'undefined'){
+			callback();
+		}
 
 /*
  		Email.send({
