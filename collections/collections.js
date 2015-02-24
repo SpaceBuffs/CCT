@@ -89,6 +89,15 @@ if (Meteor.isClient) {
        event.target.notes.value = "";
      
        return false;
-  }
-});
-}
+  }});
+
+  //update and delete activities
+  Template.activity.events({
+    "click .update": function(){
+       ActivitiesModel.update({_id:this._id}, {$set: {experiment: "UPDATED!"}});
+     },
+    "click .delete": function(){
+       ActivitiesModel.remove(this._id);
+  }});
+
+} //end client code
