@@ -1,23 +1,25 @@
 <!-- chat --> 
 <template name="chat">
   {{> Dashboard_page}}
-  {{> input }}
-  {{> welcome}}
-  {{> messages }}
+  
   <h2>Chat</h2>
-</template>
 
-<template name="welcome">
 	<p>
 		Welcome to the chat!
 	</p>
-</template>
-	<template name="messages">
-		{{#each messages}}
-	<strong>{{name}}:</strong> {{message}}<br>
-		{{/each}}
-</template>
+	
+	<form class="new-chatMessage">
+        Message:<br>
+		<textarea name="chatMessage" rows="5" cols="50" 
+		placeholder=""></textarea>
+       	<p></p>
+        <input type="submit" name="submit" value="Submit">
+	</form>
+	
 
-<template name="input">
-	<p>Message: <input type="text" id="message"></p>
+	{{#each chatMessage}}
+	  {{> chatMessage}}
+	{{/each}}
+
+	
 </template>
