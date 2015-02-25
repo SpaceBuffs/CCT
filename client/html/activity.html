@@ -10,7 +10,76 @@
 <li>Start Date: {{start_date}}</li>
 <li>Duration: {{duration}}</li>
 <li>Notes: {{notes}}</li><br>
-<button class="update">Update</button> | <button class="delete">Delete</button>
+<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
+
+<p></p>
+<form id="update_activity_form" class="update_activity_form">
+<div style="border: 1px solid #000000; padding: 10px; width: 500px;">
+		Instrument: 
+		<select name="instrument">
+			<option value={{instrument}}>{{instrument}}</option>
+			<option value="CDA">CDA</option>
+			<option value="hdSpectrograph">HD Spectrometer</option>
+			<option value="magnetometer">Magnetometer</option>
+			<option value="photometer">Photometer</option>
+			<option value="radar">Radar</option>
+			<option value="scatterometer">Scatterometer</option>
+			<option value="spectrometer">Spectrometer</option>
+			<option value="uvSpectrograph">UV Spectrograph</option>
+		</select>
+		<p></p>
+
+	   	Experiment: 
+		<select name="experiment">
+		<option value={{experiment}}>{{experiment}}</option>
+		<option value="visualPhoto">Take Photo in Visual Spectrum</option>
+		<option value="nearInfraredPhoto">Take Photo in Near Infared</option> <!--uv only-->
+		<option value="positionCamera">Position Camera</option>
+		<option value="particalAnalysis">Particle Analysis</option>
+		<option value="dustCollection">Dust Collection</option>
+		<option value="ionCollection">Ion Collection</option>
+		<option value="calibration">Calibration for CDA</option>
+		<option value="sendCurrent">Send Current to Make Magnetic Field</option>
+		<option value="analyzeMagneticField">Analyze Magnetic Field</option>
+		<option value="radar">Radar</option>
+		<option value="gammaRay">Measure Surface Gamma Rays</option>
+		<option value="map">Map</option>
+		</select>
+		<p></p>
+
+           	Start Date: 
+		<input type="datetime-local" name="startdate" cols ="50" placeholder={{start_date}} />
+        	<p></p>
+
+        	Duration: 
+		<input type="text" name="duration" cols ="10" placeholder={{duration}} />
+       		<p></p>
+
+        	Notes:<br>
+		<textarea name="notes" rows="5" cols="50" 
+		placeholder={{notes}}></textarea>
+       		<p></p>
+
+        	<!--<input type="submit" name="submit_update_form" value="Submit Update">-->
+                <button class="submit_update_form">Submit Update</button>
+</div>
+</form>
 <br>_______________________________________<br>
+
+<!--
+<script type="text/javascript">
+  var update = Template.activity.getElementById("update");
+  var submit_update = Template.activity.getElementById("submit_update_form");
+  Template.activity.getElementById("update_activiy_form").style.visibility="hidden";
+
+  update.onclick = function() {
+    Template.activity.getElementById("update_activity_form").style.visibility="visible";
+  }
+
+  submit_update.onclick = function() {
+    Template.activity.getElementById("update_actvity_form").style.visibility="hidden";
+  }
+</script>
+-->
 
 </template>
