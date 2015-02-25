@@ -13,3 +13,12 @@ Accounts.config({
   forbidClientAccountCreation : false
 });
 
+//needed for user to update a collection
+/*
+ActivitiesModel.allow({
+  update:function(userId, doc, fields, modifier) {
+    //anyone can update the collection
+    //you can write some filters to restrict the updating to only owner of the document
+    return true;
+    }
+});*/

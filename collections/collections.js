@@ -64,34 +64,6 @@ if (Meteor.isClient) {
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
   }
 
-  //update and delete activities
-  Template.activity.events({
-    "click .submit_update_form": function(){
-        alert("Activity Updated!"); //good way to test code
-	var instrument = event.target.instrument.value;
-	var experiment = event.target.experiment.value;
-	var startdate = event.target.startdate.value;
-	var duration = event.target.duration.value;
-	var notes = event.target.notes.value;
-        ActivitiesModel.update({_id:this._id}, {$set: {
-	instrument: instrument,
-	experiment: experiment,
-	start_date: new Date(startdate),
-	duration: duration,
-	notes:notes
-        }});
-        alert("Activity Updated really!");
-	return false;
-    },
-    "click .delete": function(){
-      var c = confirm("Delete Activity?");
-      if (c) {
-	alert("Activity Deleted!");
-        ActivitiesModel.remove(this._id); }
-      else {
-	alert("Activity Unmodified."); }
-  }});
-  
   //submit a new activity
   Template.aedactivity.events({
 	"submit .new-activity": function(event){
@@ -118,7 +90,53 @@ if (Meteor.isClient) {
        event.target.notes.value = "";
 
        alert("Activity Added!");
+       window.location = "/timeline";
        return false;
   }});
 
+  //update and delete activities
+  Template.activity.events({
+    "submit .update_activity_form": function(event){
+	var instrument = event.target.instrument.value;
+	var experiment = event.target.experiment.value;
+	var startdate = event.target.startdate.value;
+	var duration = event.target.duration.value;
+	var notes = event.target.notes.value;
+        ActivitiesModel.update({_id:this._id},{$set: 
+          {
+	  instrument: instrument,
+	  experiment: experiment,
+	  start_date: new Date(startdate),
+	  duration: duration,
+	  notes:notes
+          }}
+        );
+        alert("Activity Updated!");
+	return false;
+    },
+    "click .delete": function(){
+      var c = confirm("Delete Activity?");
+      if (c) {
+	alert("Activity Deleted!");
+        ActivitiesModel.remove(this._id); 
+      }
+      else {
+	alert("Activity Unmodified."); 
+      }
+      //return false;
+     }
+  });
 } //end client code
+
+
+
+/*
+if (Meteor.isServer) {
+ActivitiesModel.allow({
+  update:function(userId, doc, fields, modifier) {
+    //anyone can update the collection
+    //you can write some filters to restrict the updating to only owner of the document
+    return true;
+    }
+});
+}*/ //THIS BROKE IT

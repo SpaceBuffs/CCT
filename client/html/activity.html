@@ -2,19 +2,36 @@
 	activity.html
 
  --> 
+
 <template name = "activity">
 
+<!-- toggle update activity form -->
+<script type="text/javascript">
+window.onload = function () {
+    document.getElementById('update').onclick = function () {
+        document.getElementById('update_activity').style.display = 'block'; 
+    }
+    document.getElementById('submit_update').onclick = function () {
+        document.getElementById('update_activity').style.display = 'none';
+    }
+}
+</script>
+
+<!-- show activity info -->
 <li>Instrument: {{instrument}}</li>
 <li>Experiment: {{experiment}}</li>
 <li>Created At: {{createdAt}}</li>
 <li>Start Date: {{start_date}}</li>
 <li>Duration: {{duration}}</li>
 <li>Notes: {{notes}}</li><br>
-<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
 
+<!-- update or delete -->
+<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
 <p></p>
+
+<!-- only show update form if "update" button was clicked -->
+<div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: none">
 <form id="update_activity_form" class="update_activity_form">
-<div style="border: 1px solid #000000; padding: 10px; width: 500px;">
 		Instrument: 
 		<select name="instrument">
 			<option value={{instrument}}>{{instrument}}</option>
@@ -33,7 +50,7 @@
 		<select name="experiment">
 		<option value={{experiment}}>{{experiment}}</option>
 		<option value="visualPhoto">Take Photo in Visual Spectrum</option>
-		<option value="nearInfraredPhoto">Take Photo in Near Infared</option> <!--uv only-->
+		<option value="nearInfraredPhoto">Take Photo in Near Infared</option>
 		<option value="positionCamera">Position Camera</option>
 		<option value="particalAnalysis">Particle Analysis</option>
 		<option value="dustCollection">Dust Collection</option>
@@ -48,38 +65,19 @@
 		<p></p>
 
            	Start Date: 
-		<input type="datetime-local" name="startdate" cols ="50" placeholder={{start_date}} />
+		<input type="datetime-local" name="startdate" cols ="50" value={{start_date}} />
         	<p></p>
 
         	Duration: 
-		<input type="text" name="duration" cols ="10" placeholder={{duration}} />
+		<input type="text" name="duration" cols ="10" value={{duration}} />
        		<p></p>
 
         	Notes:<br>
-		<textarea name="notes" rows="5" cols="50" 
-		placeholder={{notes}}></textarea>
+		<textarea name="notes" rows="5" cols="50" value={{notes}}></textarea>
        		<p></p>
 
-        	<!--<input type="submit" name="submit_update_form" value="Submit Update">-->
-                <button class="submit_update_form">Submit Update</button>
-</div>
+        	<input type="submit" name="submit" id="submit_update" value="Submit Update">
 </form>
+</div>
 <br>_______________________________________<br>
-
-<!--
-<script type="text/javascript">
-  var update = Template.activity.getElementById("update");
-  var submit_update = Template.activity.getElementById("submit_update_form");
-  Template.activity.getElementById("update_activiy_form").style.visibility="hidden";
-
-  update.onclick = function() {
-    Template.activity.getElementById("update_activity_form").style.visibility="visible";
-  }
-
-  submit_update.onclick = function() {
-    Template.activity.getElementById("update_actvity_form").style.visibility="hidden";
-  }
-</script>
--->
-
 </template>
