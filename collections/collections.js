@@ -12,6 +12,7 @@ Version 2.02
 Messages = new Meteor.Collection('messages');
 //UserAccounts = new Mongo.Collection('user');
 ActivitiesModel = new Mongo.Collection('activities');
+ChatModel = new Mongo.Collection('chatMessage');
 
 /*
 ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
@@ -25,7 +26,14 @@ if (Meteor.isClient) {
     activities: function () {
       return ActivitiesModel.find({}); //might need to do db.activities.find({});
     }
+    });
+   Template.body.helpers({
+    //Heather added to test something
+    chatMessage: function () {
+		return ChatModel.find({});
+	}
   });
+  
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
@@ -62,6 +70,9 @@ if (Meteor.isClient) {
 
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
+  }
+  Template.chat.chatMessage = function(){
+	  return ChatModel.find();
   }
 
   //update and delete activities
@@ -118,6 +129,22 @@ if (Meteor.isClient) {
        event.target.notes.value = "";
 
        alert("Activity Added!");
+       return false;
+  }});
+  
+   Template.chat.events({
+	"submit .new-chatMessage": function(event){
+	var chatMessage = event.target.chatMessage.value;
+	
+	ChatModel.insert({
+		chatMessage: chatMessage,
+		createdAt : new Date()
+        });
+
+       //refresh form if submit is successful
+       event.target.chatMessage.value = "";
+
+       alert("Chat pushed!");
        return false;
   }});
 

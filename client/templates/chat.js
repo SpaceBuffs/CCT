@@ -3,6 +3,7 @@
 /**
 * Templates
 */
+/*
 Template.messages.helpers({
 	messages: function() {
 	return Messages.find({}, { sort: { time: -1}});
@@ -29,4 +30,16 @@ Template.input.events = {
 			}
 		}
 	}
+}
+* */
+GraviTeam.chatMessage = {
+  create : function(chatMessage){
+    ChatModel.insert({
+	"chatMessage" : chatMessage,
+	"createdAt:" : createdAt
+        });
+  },
+  delete : function(chatMessage){
+	ChatModel.remove({"_id" : chatMessage});
+  }
 }

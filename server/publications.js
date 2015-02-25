@@ -8,3 +8,6 @@ Meteor.publish('ActivitiesModel', function () {
    	//sort: {timeCreated: -1}
    }); 
 }); 
+Meteor.publish('ChatModel', function () {
+   return ChatModel.find({},{limit:4}); 
+}); 
