@@ -63,7 +63,17 @@ if (Meteor.isClient) {
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
   }
+
+  //update and delete activities
+  Template.activity.events({
+    "click .update": function(){
+      ActivitiesModel.update({_id:this._id}, {$set: {experiment: "UPDATED!"}});
+    },
+    "click .delete": function(){
+      ActivitiesModel.remove(this._id);
+  }});
   
+  //submit a new activity
   Template.aedactivity.events({
 	"submit .new-activity": function(event){
 	var instrument = event.target.instrument.value;
@@ -87,17 +97,9 @@ if (Meteor.isClient) {
        event.target.startdate.value = "";
        event.target.duration.value = "";
        event.target.notes.value = "";
-     
-       return false;
-  }});
 
-  //update and delete activities
-  Template.activity.events({
-    "click .update": function(){
-       ActivitiesModel.update({_id:this._id}, {$set: {experiment: "UPDATED!"}});
-     },
-    "click .delete": function(){
-       ActivitiesModel.remove(this._id);
+       alert("Activity Added!");
+       return false;
   }});
 
 } //end client code
