@@ -9,5 +9,5 @@ Meteor.startup(function () {
 
   process.env.MAIL_URL = 'smtp://' + encodeURIComponent(smtp.username) + ':' + encodeURIComponent(smtp.password) + '@' + encodeURIComponent(smtp.server) + ':' + smtp.port;
 */
-    process.env.MAIL_URL = 'smtp://your_username:your_password@smtp.gmail.com:25';
+    process.env.MAIL_URL = 'smtp://username:password@smtp.gmail.com:25';
 });

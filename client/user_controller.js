@@ -103,10 +103,12 @@ Template.forgotPassword.events({
         e.preventDefault();
 
         var forgotPasswordForm = $(e.currentTarget),
+            //email= signInForm.find('.email').val().toLowerCase();
             email = trimInput(forgotPasswordForm.find('forgotPasswordForm').val().toLowerCase());
-            
-        if (isNotEmpty(email) && isEmail(email)) {
-            Accounts.forgotPassword({email: email}, function(err){
+            password= signInForm.find('.password').val();
+
+        if (isNotEmpty(email) && isEmail(email) && email=== this.email) {
+                Accounts.changePassword(password, 123456, function(err){
                 if(err) {
                     if(err.message --- 'User not found [403]') {
                         Session.set('alert','This email does not exist.');
@@ -114,7 +116,8 @@ Template.forgotPassword.events({
                         Session.set('alert','We are sorry but something has gone wrong.');
                     }
                 } else {
-                    Session.set('alert','Email sent. Check your mailbox.');
+
+                    Session.set('alert', 'Your new password is'+123456 +"."/n + "Please reset your password once you're back in.");
                 }
             });
         }
