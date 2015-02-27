@@ -9,5 +9,5 @@ Meteor.publish('ActivitiesModel', function () {
    }); 
 }); 
 Meteor.publish('ChatModel', function () {
-   return ChatModel.find({},{limit:4}); 
+   return ChatModel.find({}); 
 }); 

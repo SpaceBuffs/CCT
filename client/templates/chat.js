@@ -36,7 +36,8 @@ GraviTeam.chatMessage = {
   create : function(chatMessage){
     ChatModel.insert({
 	"chatMessage" : chatMessage,
-	"createdAt:" : createdAt
+	"createdAt:" : createdAt,
+    "user" : Meteor.user().profile
         });
   },
   delete : function(chatMessage){
