@@ -111,10 +111,11 @@ Template.forgotPassword.events({
         var forgotPasswordForm = $(e.currentTarget),
             //email= signInForm.find('.email').val().toLowerCase();
             email = trimInput(forgotPasswordForm.find('forgotPasswordForm').val().toLowerCase());
-            password= signInForm.find('.password').val();
+            //password= signInForm.find('.password').val();
 
-        if (isNotEmpty(email) && isEmail(email) && email=== this.email) {
-                Accounts.changePassword(password, 123456, function(err){
+        if (isNotEmpty(email) && isEmail(email)) {
+                Accounts.forgotPassword({email: email}, function(err){
+                //Accounts.changePassword(password, 123456, function(err){
                 if(err) {
                     if(err.message --- 'User not found [403]') {
                         Session.set('alert','This email does not exist.');
@@ -123,13 +124,15 @@ Template.forgotPassword.events({
                     }
                 } else {
 
-                    Session.set('alert', 'Your new password is'+123456 +"."/n + "Please reset your password once you're back in.");
+                    Session.set('alert', 'Email sent, please check your email.');
                 }
             });
         }
         return false;
     }
 });
+
+
 
 if(Accounts._resetPasswordToken) {
     Session.set('resetPassword', Accounts._resetPasswordToken);
