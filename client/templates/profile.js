@@ -1,3 +1,10 @@
+Template.profile.helpers({
+    username: function() {return Meteor.user().username},
+    email: function() {return Meteor.user().emails[0].address}
+});
+
+
+/*
 GraviTeam.profile = {
     create : function(username, email, missions){
         ProfileModel.insert({
@@ -19,3 +26,5 @@ GraviTeam.profile = {
                             {$set : { "missions" : new_misssions }});
     }
 }
+*/
+

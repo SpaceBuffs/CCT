@@ -3,7 +3,7 @@
        {{> Dashboard_page}}<br>
        <div style="padding: 20px; width: 500px; line-height: 200%;">
        <h1>My Profile</h1>
-       <li> Username: {{user}}
+       <li> Username: {{username}}
             <input type="button" value="Edit" onclick="msg()"> </li>
        <li> Email Address: {{email}}
             <input type="button" value="Edit" onclick="msg()"> </li>
@@ -29,23 +29,17 @@
 <p></p>
 
     
-<form class="missions">
+<form class="user_info">
     Choose your current missions: <br>
     <input type="checkbox" name="mission" value=" Cassini">Cassini<br>
     <input type="checkbox" name="mission" value=" Voyager">Voyager<br>
     <input type="submit" value="Submit">
     <input type="submit" value="Cancel">
-</form>
 <p></p>
-
-<form class="username">
     New Username: <input type="text" name="user"><br>
     <input type="submit" value="Submit">
     <input type="submit" value="Cancel">
-</form>
-
 <p></p>
-<form class="new_email">
     New Email Address: <input type="email" name="email"><br>
     Password: <input type="password" name="password"><br>
     <input type="submit" value="Submit">
