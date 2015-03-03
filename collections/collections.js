@@ -121,6 +121,91 @@ if (Meteor.isClient) {
        return false;
   }});
 
+//--------------------------------------------------------------------------------------
+/*
+  function addrows(data) {
+    //loop over each activity***
+    count = ActivitiesModel.count();
+    for (var i = 0; i < count; i++) {
+        var instrument = ActivitiesModel.find()[i].instrument;
+        var group = ActivitiesModel.find()[i].instrument;
+        var experiment = ActivitiesModel.find()[i].experiment;
+        var start = ActivitiesModel.find()[i].start_date;
+        var end = new Date(2017,1,1);	
+        var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
+        var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
+        data.addRow([start,end,activityText,instrText]);
+	alert("Added experiment for "+instrument);
+        return data
+    };
+  };
+
+  function drawVisualization() {
+    alert("timeline2");
+    // Create and populate a data table.
+    var data = new google.visualization.DataTable();
+    //data.addColumn('string', '_id');
+    //data.addColumn('string', 'instrument');
+    //data.addColumn('string', 'experiment');
+    data.addColumn('datetime', 'start');
+    data.addColumn('datetime', 'end');
+    //data.addColumn('float', 'power');
+    //data.addColumn('string', 'notes');
+    data.addColumn('string','content');
+    data.addColumn('string', 'group');
+
+    //loop over each activity***
+    //addrows();
+		
+    var _id = "A02345";
+    var instrument = "CDA";
+    var group = "CDA";
+    var experiment = "dust collection";
+    var start = new Date(2015,1,1);
+    var end = new Date(2015,1,1,5);
+    var power = 24;
+    var notes = "dust collection for 5 hours"
+    var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
+    var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
+    var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
+    //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
+    data.addRow([start,end,activityText,instrText]);
+
+    // specify options
+    var options = {
+      width:  "90%",
+      //height: "300px",
+      height: "auto",
+      layout: "box",
+      editable: true,
+      eventMargin: 5,  // minimal margin between events
+      eventMarginAxis: 0, // minimal margin beteen events and the axis
+      showMajorLabels: false,
+      axisOnTop: true,
+      // groupsWidth : "200px",
+      groupsChangeable : true,
+      groupsOnRight: false,
+      stackEvents: true
+    };
+
+    // Instantiate our timeline object.
+    timeline = new links.Timeline(document.getElementById('mytimeline'), options);
+
+    // Draw our timeline with the created data and options
+    timeline.draw(data);
+  };
+
+  Template.timeline.rendered= function() {
+        var timeline = null;
+        google.load("visualization", "1");
+        // Set callback to run when API is loaded
+        google.setOnLoadCallback(drawVisualization);
+        // Called when the Visualization API is loaded.
+	alert("timeline rendered funciton");
+  };
+*/
+//--------------------------------------------------------------------------------------
+
   //update and delete activities
   Template.activity.events({
     "submit .update_activity_form": function(event){
@@ -153,6 +238,7 @@ if (Meteor.isClient) {
       //return false;
      }
   });
+
 } //end client code
 
 

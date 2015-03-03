@@ -5,20 +5,10 @@
 
 <template name = "activity">
 
-<!-- toggle update activity form -->
-<script type="text/javascript">
-//NOTE THIS ONLY WORKS FOR THE FIRST "UPDATE" BUTTON RIGHT NOW...
-window.onload = function () {
-    document.getElementById('update').onclick = function () {
-        document.getElementById('update_activity').style.display = 'block'; 
-    }
-    document.getElementById('submit_update').onclick = function () {
-        document.getElementById('update_activity').style.display = 'none';
-    }
-}
-</script>
 
 <!-- show activity info -->
+<!--<li>Activity ID: {{_id}}</li>-->
+<li>Activity ID: {{this._id}}</li>
 <li>Instrument: {{instrument}}</li>
 <li>Experiment: {{experiment}}</li>
 <li>Created At: {{createdAt}}</li>
@@ -81,4 +71,30 @@ window.onload = function () {
 </form>
 </div>
 <br>_______________________________________<br>
+
+<!-- toggle update activity form -->
+<script type="text/javascript">
+//NOTE THIS ONLY WORKS FOR THE FIRST "UPDATE" BUTTON RIGHT NOW...
+//set class = "update..." for these three things, then in javascript update the html id's based on class, then display update form based on the new id
+//***see jquery
+
+//alert(this._id);
+var update = "update"//+this._id
+var update_activity = "update_activity"//+this._id
+var submit_update = "submit_update"//+this._id
+
+window.onload = function () {
+//document.getElementById("update").setAttribute('id', update);
+//document.getElementById("update_activity").setAttribute('id', update_activity);
+//document.getElementById("submit_update").setAttribute('id', submit_update);
+    document.getElementById(update).onclick = function () {
+        document.getElementById(update_activity).style.display = 'block'; 
+    }
+    document.getElementById(submit_update).onclick = function () {
+        document.getElementById(update_activity).style.display = 'none';
+    }
+}
+</script>
 </template>
+
+
