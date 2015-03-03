@@ -4,9 +4,7 @@
 * Templates
 */
 
-Template.chatMessage.helpers({
-    username: function() {return Meteor.user().username}
-	});
+
 /*
 Template.messages.helpers({
 	messages: function() {
@@ -36,6 +34,12 @@ Template.input.events = {
 	}
 }
 * */
+
+/*
+ Template.chatMessage.helpers({
+    username: function() {return Meteor.user().username}
+	});
+    * 
 GraviTeam.chatMessage = {
   create : function(chatMessage){
     ChatModel.insert({
@@ -47,4 +51,21 @@ GraviTeam.chatMessage = {
   delete : function(chatMessage){
 	ChatModel.remove({"_id" : chatMessage});
   }
-}
+}*/
+
+Template.chat.events({
+	"submit .new-chatMessage": function(event){
+	var chatMessage = event.target.chatMessage.value;
+	
+	ChatModel.insert({
+		chatMessage: chatMessage,
+		createdAt : new Date(),
+        user_name : Meteor.user().username
+        });
+
+       //refresh form if submit is successful
+       event.target.chatMessage.value = "";
+
+       //alert("Chat pushed!");
+       return false;
+  }});

@@ -104,7 +104,7 @@ if (Meteor.isClient) {
        window.location = "/timeline";
        return false;
   }});
-  
+  /*
    Template.chat.events({
 	"submit .new-chatMessage": function(event){
 	var chatMessage = event.target.chatMessage.value;
@@ -120,7 +120,7 @@ if (Meteor.isClient) {
 
        //alert("Chat pushed!");
        return false;
-  }});
+  }});*/
 
 //--------------------------------------------------------------------------------------
 /*

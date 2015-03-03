@@ -8,6 +8,10 @@
 		Welcome to the chat!
 	</p>
 	
+    {{#each chatMessages}}
+	  {{> chatMessage}}
+	{{/each}}
+    
 	<form class="new-chatMessage">
         Message:<br>
 		<textarea name="chatMessage" rows="5" cols="50" 
@@ -16,9 +20,7 @@
         <input type="submit" name="submit" value="Submit">
 	</form>
     
-	{{#each chatMessages}}
-	  {{> chatMessage}}
-	{{/each}}
+	
 
 	
 </template>
