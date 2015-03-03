@@ -111,13 +111,14 @@ if (Meteor.isClient) {
 	
 	ChatModel.insert({
 		chatMessage: chatMessage,
-		createdAt : new Date()
+		createdAt : new Date(),
+        user_name : Meteor.user().username
         });
 
        //refresh form if submit is successful
        event.target.chatMessage.value = "";
 
-       alert("Chat pushed!");
+       //alert("Chat pushed!");
        return false;
   }});
 

@@ -3,6 +3,10 @@
 /**
 * Templates
 */
+
+Template.chatMessage.helpers({
+    username: function() {return Meteor.user().username}
+	});
 /*
 Template.messages.helpers({
 	messages: function() {
@@ -37,7 +41,7 @@ GraviTeam.chatMessage = {
     ChatModel.insert({
 	"chatMessage" : chatMessage,
 	"createdAt:" : createdAt,
-    "user" : Meteor.user().profile
+    "user_name" : Meteor.user().username
         });
   },
   delete : function(chatMessage){
