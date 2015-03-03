@@ -11,7 +11,8 @@ Router.configure({
    notFoundTemplate: 'notFound',
    loadingTemplate: 'loading',
    model3dTemplate: 'model3d',
-   activityTemplate: 'aed_activity'
+   activityTemplate: 'aed_activity',
+   profileEditTemplate: 'profileEdit'
 
 });
 
@@ -49,6 +50,10 @@ Router.map(function() {
            path: '/activity',        
            template: 'aedactivity'    
    });
+    this.route('Edit Profile',{
+            path: '/edit_profile',
+            template: 'editprofile',
+    });
   
 
 });

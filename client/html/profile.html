@@ -3,12 +3,10 @@
        {{> Dashboard_page}}<br>
        <div style="padding: 20px; width: 500px; line-height: 200%;">
        <h1>My Profile</h1>
-       <li> Username: {{user}}
-            <input type="button" value="Edit" onclick="msg()"> </li>
-       <li> Email Address: {{email}}
-            <input type="button" value="Edit" onclick="msg()"> </li>
-       <li> Current Missions: {{mission}}
-            <input type="button" value="Edit" onclick="msg()"> </li>
+       <li> Username: {{username}}</li>
+       <li> Email Address: {{email}} </li>
+       <li> Current Missions: {{mission}}</li>
+       <a href="/edit_profile" alt= "editprofile"> Edit </a>
 
 <head>
     <div  id="img_header" role="banner">
@@ -26,32 +24,29 @@
 </head>
 
 
-<p></p>
-
-    
-<form class="missions">
-    Choose your current missions: <br>
-    <input type="checkbox" name="mission" value=" Cassini">Cassini<br>
-    <input type="checkbox" name="mission" value=" Voyager">Voyager<br>
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel">
-</form>
-<p></p>
-
-<form class="username">
-    New Username: <input type="text" name="user"><br>
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel">
-</form>
-
-<p></p>
-<form class="new_email">
-    New Email Address: <input type="email" name="email"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel">
-</form>
-
 </div>
 </template>
+
+
+<template name = "editprofile">
+    <div style="padding: 20px; width: 500px; line-height: 200%;">
+    <form class="user_info">
+        Choose your current missions: <br>
+        <input type="checkbox" name="mission" value=" Cassini">Cassini<br>
+        <input type="checkbox" name="mission" value=" Voyager">Voyager<br>
+    <p></p>
+        New Username: <input type="text" name="user"><br>
+    <p></p>
+        New Email Address: <input type="email" name="email"><br>
+        Password: <input type="password" name="password"><br>
+        <input type="submit" value="Submit">
+        <a href="/profile" alt= "profile"> Cancel </a>
+        </form>
+    </div>
+    
+    
+</template>
+
+
+
 

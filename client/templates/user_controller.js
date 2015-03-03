@@ -104,37 +104,35 @@ Template.signOut.events({
 /* 
 Forgot password process, validates email before sending.
 */ 
-
 Template.forgotPassword.events({
     'submit #forgotPasswordForm': function(e, t) {
         e.preventDefault();
 
         var forgotPasswordForm = $(e.currentTarget),
-            email = trimInput(forgotPasswordForm.find('#forgotPasswordEmail').val().toLowerCase());
-            
+            //email= signInForm.find('.email').val().toLowerCase();
+            email = trimInput(forgotPasswordForm.find('forgotPasswordForm').val().toLowerCase());
+            //password= signInForm.find('.password').val();
+
         if (isNotEmpty(email) && isEmail(email)) {
-            Accounts.forgotPassword({email:email}, function(err){
+                Accounts.forgotPassword({email: email}, function(err){
+                //Accounts.changePassword(password, 123456, function(err){
                 if(err) {
-                    if(err.message === 'User not found [403]') {
+                    if(err.message --- 'User not found [403]') {
                         Session.set('alert','This email does not exist.');
                     } else {
                         Session.set('alert','We are sorry but something has gone wrong.');
                     }
                 } else {
-                    var userId = this.userId;
-                    var subject = "Forgot Password Request"
-                    Session.set('alert','Email sent. Check your mailbox.');
-                    Meteor.call('forgotPasswordEmail', email, userId, subject, text, callback);  
+
+                    Session.set('alert', 'Email sent, please check your email.');
                 }
             });
         }
         return false;
-    },
-    'click #returnToSignIn': function(e, t) {
-        Session.set('showForgotPassword', null);
-        return false;
-    },
+    }
 });
+
+
 
 if(Accounts._resetPasswordToken) {
     Session.set('resetPassword', Accounts._resetPasswordToken);

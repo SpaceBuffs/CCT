@@ -16,10 +16,15 @@
         <input type="submit" name="submit" value="Submit">
 	</form>
 	
-<!-- what if we put this on a new page, just to see if it displays-->
 	{{#each chatMessages}}
-	  {{chatMessage}}
+	  {{>chatMessage}}
 	{{/each}}
 
 	
+</template>
+
+<template name = "chatMessage">
+<body>Message: {{chatMessage}}<br>
+By: {{user}}<br>
+Sent: {{createdAt}}<br></body>
 </template>
