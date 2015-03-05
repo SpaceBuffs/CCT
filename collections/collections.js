@@ -37,8 +37,10 @@ if (Meteor.isClient) {
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
+
   var stop = new Date(2020, 0, 0);
   var start = new Date(1970, 0, 0);
+/*
   Template.timeline.events({
 	"submit .new-timerange": function(event){ 
 	var yy = event.target.StartYear.value;
@@ -67,6 +69,7 @@ if (Meteor.isClient) {
 
 	return false;
   }});
+*/
 
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
@@ -81,7 +84,8 @@ if (Meteor.isClient) {
 	var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
-	var duration = event.target.duration.value;
+	var stopdate = event.target.stopdate.value;
+	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
 	
 	ActivitiesModel.insert({
@@ -89,7 +93,7 @@ if (Meteor.isClient) {
 	createdAt : new Date(),
 	experiment: experiment,
 	start_date: new Date(startdate),
-	duration: duration,
+	stop_date: new Date(stopdate),
 	notes:notes
         });
 
@@ -97,7 +101,8 @@ if (Meteor.isClient) {
        event.target.instrument.value = "";
        event.target.experiment.value = "";  
        event.target.startdate.value = "";
-       event.target.duration.value = "";
+       event.target.stopdate.value = "";
+       //event.target.duration.value = "";
        event.target.notes.value = "";
 
        alert("Activity Added!");
@@ -123,31 +128,27 @@ if (Meteor.isClient) {
   }});*/
 
 //--------------------------------------------------------------------------------------
-  function addrows(data) {
-    //loop over each activity***
-    //alert("timeline4");
-    count = ActivitiesModel.count();
-    //alert("timeline5");
-    for (var i = 0; i < count; i++) {
-        //alert("timeline6");
-        var instrument = ActivitiesModel.find()[i].instrument;
-        var group = ActivitiesModel.find()[i].instrument;
-        var experiment = ActivitiesModel.find()[i].experiment;
-        var start = ActivitiesModel.find()[i].start_date;
-        var end = new Date(2017,1,1);	
+  addrows = function(data) {
+    //loop over each activity
+    ActivitiesModel.find({}).forEach(function(myDocument) {
+        var instrument = myDocument.instrument;
+        var group = instrument;
+        var experiment = myDocument.experiment;
+        var start = myDocument.start_date;
+        var stop = myDocument.stop_date;
+        var notes = myDocument.notes;
+        var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
         var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-        var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
-        data.addRow([start,end,activityText,instrText]);
-	alert("Added experiment for "+instrument);
-    };
+        var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
+        data.addRow([start,stop,activityText,instrText]);
+    });
+    //update the Google data
     return data
   };
 
   function drawVisualization() {
-    //alert("timeline2");
     // Create and populate a data table.
     var data = new google.visualization.DataTable();
-    //alert("timeline3");
     //data.addColumn('string', '_id');
     //data.addColumn('string', 'instrument');
     //data.addColumn('string', 'experiment');
@@ -157,57 +158,9 @@ if (Meteor.isClient) {
     //data.addColumn('string', 'notes');
     data.addColumn('string','content');
     data.addColumn('string', 'group');
-    //loop over each activity***
-    //data = addrows(data);
-	
-    var _id = "A02345";
-    var instrument = "CDA";
-    var group = "CDA";
-    var experiment = "dust collection";
-    var start = new Date(2015,1,1);
-    var end = new Date(2015,1,3);
-    var power = 24;
-    var notes = "dust collection for 5 hours"
-    var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-    var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-    var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
-    //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
-    data.addRow([start,end,activityText,instrText]);
 
-    var instrument = "Spectrometer";
-    var group = "Spectrometer";
-    var experiment = "spectroscopy";
-    var start = new Date(2015,1,2);
-    var end = new Date(2015,1,2,4);
-    var power = 24;
-    var notes = "spec for 5 hours"
-    var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-    var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-    var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
-    //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
-    data.addRow([start,end,activityText,instrText]);
-
-		var group = "Radar";
-		var instrument = "Radar";
-		var start = new Date(2015,1,4,3);
-		var experiment = "radiometry";
-		var end = new Date(2015,1,5,3);
-		var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-		var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-		var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
-		//data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
-		data.addRow([start,end,activityText,instrText]);
-
-		var group = "Photometer";
-		var instrument = "Photometer";
-		var start = new Date(2015,1,3);
-		var experiment = "Visual Photo";
-		var end = new Date(2015,1,3,12);
-		var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-		var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-		var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
-		//data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
-		data.addRow([start,end,activityText,instrText]);
+    //loop over each activity
+    data = addrows(data);
 
     // specify options
     var options = {
@@ -253,14 +206,16 @@ if (Meteor.isClient) {
 	var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
-	var duration = event.target.duration.value;
+	var stopdate = event.target.stopdate.value;
+	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
         ActivitiesModel.update({_id:this._id},{$set: 
           {
 	  instrument: instrument,
 	  experiment: experiment,
 	  start_date: new Date(startdate),
-	  duration: duration,
+	  stop_date: new Date(stopdate),
+	  //duration: duration,
 	  notes:notes
           }}
         );
