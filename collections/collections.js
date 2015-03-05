@@ -123,11 +123,13 @@ if (Meteor.isClient) {
   }});*/
 
 //--------------------------------------------------------------------------------------
-/*
   function addrows(data) {
     //loop over each activity***
+    //alert("timeline4");
     count = ActivitiesModel.count();
+    //alert("timeline5");
     for (var i = 0; i < count; i++) {
+        //alert("timeline6");
         var instrument = ActivitiesModel.find()[i].instrument;
         var group = ActivitiesModel.find()[i].instrument;
         var experiment = ActivitiesModel.find()[i].experiment;
@@ -137,14 +139,15 @@ if (Meteor.isClient) {
         var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
         data.addRow([start,end,activityText,instrText]);
 	alert("Added experiment for "+instrument);
-        return data
     };
+    return data
   };
 
   function drawVisualization() {
-    alert("timeline2");
+    //alert("timeline2");
     // Create and populate a data table.
     var data = new google.visualization.DataTable();
+    //alert("timeline3");
     //data.addColumn('string', '_id');
     //data.addColumn('string', 'instrument');
     //data.addColumn('string', 'experiment');
@@ -154,23 +157,57 @@ if (Meteor.isClient) {
     //data.addColumn('string', 'notes');
     data.addColumn('string','content');
     data.addColumn('string', 'group');
-
     //loop over each activity***
-    //addrows();
-		
+    //data = addrows(data);
+	
     var _id = "A02345";
     var instrument = "CDA";
     var group = "CDA";
     var experiment = "dust collection";
     var start = new Date(2015,1,1);
-    var end = new Date(2015,1,1,5);
+    var end = new Date(2015,1,3);
     var power = 24;
     var notes = "dust collection for 5 hours"
     var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
     var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-    var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
+    var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
     //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
     data.addRow([start,end,activityText,instrText]);
+
+    var instrument = "Spectrometer";
+    var group = "Spectrometer";
+    var experiment = "spectroscopy";
+    var start = new Date(2015,1,2);
+    var end = new Date(2015,1,2,4);
+    var power = 24;
+    var notes = "spec for 5 hours"
+    var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
+    var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
+    var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
+    //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
+    data.addRow([start,end,activityText,instrText]);
+
+		var group = "Radar";
+		var instrument = "Radar";
+		var start = new Date(2015,1,4,3);
+		var experiment = "radiometry";
+		var end = new Date(2015,1,5,3);
+		var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
+		var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
+		var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
+		//data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
+		data.addRow([start,end,activityText,instrText]);
+
+		var group = "Photometer";
+		var instrument = "Photometer";
+		var start = new Date(2015,1,3);
+		var experiment = "Visual Photo";
+		var end = new Date(2015,1,3,12);
+		var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
+		var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
+		var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
+		//data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
+		data.addRow([start,end,activityText,instrText]);
 
     // specify options
     var options = {
@@ -194,17 +231,20 @@ if (Meteor.isClient) {
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
+
+    //alert("timeline successfully rendered!");
   };
 
   Template.timeline.rendered= function() {
         var timeline = null;
-        google.load("visualization", "1");
+        //google.load("visualization", "1");
         // Set callback to run when API is loaded
-        google.setOnLoadCallback(drawVisualization);
+        //google.setOnLoadCallback(drawVisualization());
+	//also try:
+        google.load("visualization", "1", {callback:drawVisualization});
         // Called when the Visualization API is loaded.
-	alert("timeline rendered funciton");
+	//alert("timeline rendered funciton");
   };
-*/
 //--------------------------------------------------------------------------------------
 
   //update and delete activities

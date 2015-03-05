@@ -1,8 +1,11 @@
 <!-- timeline.html --> 
 <template name = "timeline">
 
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
  {{> Dashboard_page}}
 	<h2>Timeline</h2>
+<!--
 	<p></p>
 	Change timerange:<br>
 <div style="border: 1px solid #000000; padding: 10px; width: 500px; align: center;">
@@ -20,12 +23,19 @@
 	<input type="submit" name="submit" value="Submit">
 	</form>
 </div>
-
-<div id="mytimeline"></div> <!-- should siplay a timeline, currently not working*** -->
+-->
 
 <p></p>
+
+<center>
+<div id="mytimeline"></div>
+</center>
+
+<p></p>
+<!--
 	<img src="timeline.PNG" alt = "timelinePhoto"/>
 	<p></p>
+-->
 	<ul>
 	{{#each activities}} <!-- returns a list of activities defined in global.js -->
 	  {{> activity }} <!-- template definition under activity.html to display details -->
