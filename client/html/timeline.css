@@ -182,7 +182,7 @@ div.timeline-navigation-move-right {
 }
 
 div.timeline-navigation-new {
-    background: url('../../public/new.png') no-repeat center;
+    background: url('new.png') no-repeat center; /* *** */
 }
 
 /* separator between new and navigation buttons */
@@ -191,23 +191,23 @@ div.timeline-navigation-new-line {
 }
 
 div.timeline-navigation-delete {
-    background: url('../../public/delete.png') no-repeat center; /* *** */
+    background: url('delete.png') no-repeat center; 
 }
 
 div.timeline-navigation-zoom-in {
-    background: url('../../public/zoomin.png') no-repeat center;
+    background: url('zoomin.png') no-repeat center;
 }
 
 div.timeline-navigation-zoom-out {
-    background: url('../../public/zoomout.png') no-repeat center;
+    background: url('zoomout.png') no-repeat center;
 }
 
 div.timeline-navigation-move-left {
-    background: url('../../public/moveleft.png') no-repeat center;
+    background: url('moveleft.png') no-repeat center;
 }
 
 div.timeline-navigation-move-right {
-    background: url('../../public/moveright.png') no-repeat center;
+    background: url('moveright.png') no-repeat center;
 }
 
 /* other---------------------------------------------------------------- */
