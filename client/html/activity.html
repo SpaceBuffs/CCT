@@ -13,7 +13,7 @@
 <li>Experiment: {{experiment}}</li>
 <li>Created At: {{createdAt}}</li>
 <li>Start Date: {{start_date}}</li>
-<li>Duration: {{duration}}</li>
+<li>Stop Date: {{stop_date}}</li>
 <li>Notes: {{notes}}</li><br>
 
 <!-- update or delete -->
@@ -59,9 +59,13 @@
 		<input type="datetime-local" name="startdate" cols ="50" value={{start_date}} />
         	<p></p>
 
-        	Duration: 
+           	Stop Date: 
+		<input type="datetime-local" name="stopdate" cols ="50" value={{stop_date}} />
+        	<p></p>
+
+        	<!--Duration: 
 		<input type="text" name="duration" cols ="10" value={{duration}} />
-       		<p></p>
+       		<p></p>-->
 
         	Notes:<br>
 		<textarea name="notes" rows="5" cols="50" value={{notes}}></textarea>

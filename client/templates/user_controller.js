@@ -4,11 +4,13 @@
   Check if the email and the password are valid.
 
 */
+/*
 Template.main.helpers({
     showForgotPassword: function() {
         return Session.get('showForgotPassword');
     }
 });
+*/
 
 
 Template.signIn.events({

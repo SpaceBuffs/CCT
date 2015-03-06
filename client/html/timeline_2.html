@@ -14,10 +14,11 @@
     <script type="text/javascript">
         var timeline = null;
 
-        google.load("visualization", "1");
+        //google.load("visualization", "1");
 
         // Set callback to run when API is loaded
-        google.setOnLoadCallback(drawVisualization);
+        //google.setOnLoadCallback(drawVisualization);
+        google.load("visualization", "1", {callback:drawVisualization});	
         //alert("got this far");
         // Called when the Visualization API is loaded.
         function drawVisualization() {

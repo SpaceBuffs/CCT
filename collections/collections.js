@@ -37,8 +37,10 @@ if (Meteor.isClient) {
 
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
+
   var stop = new Date(2020, 0, 0);
   var start = new Date(1970, 0, 0);
+/*
   Template.timeline.events({
 	"submit .new-timerange": function(event){ 
 	var yy = event.target.StartYear.value;
@@ -67,6 +69,7 @@ if (Meteor.isClient) {
 
 	return false;
   }});
+*/
 
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
@@ -81,7 +84,8 @@ if (Meteor.isClient) {
 	var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
-	var duration = event.target.duration.value;
+	var stopdate = event.target.stopdate.value;
+	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
 	
 	ActivitiesModel.insert({
@@ -89,7 +93,7 @@ if (Meteor.isClient) {
 	createdAt : new Date(),
 	experiment: experiment,
 	start_date: new Date(startdate),
-	duration: duration,
+	stop_date: new Date(stopdate),
 	notes:notes
         });
 
@@ -97,7 +101,8 @@ if (Meteor.isClient) {
        event.target.instrument.value = "";
        event.target.experiment.value = "";  
        event.target.startdate.value = "";
-       event.target.duration.value = "";
+       event.target.stopdate.value = "";
+       //event.target.duration.value = "";
        event.target.notes.value = "";
 
        alert("Activity Added!");
@@ -123,26 +128,25 @@ if (Meteor.isClient) {
   }});*/
 
 //--------------------------------------------------------------------------------------
-/*
-  function addrows(data) {
-    //loop over each activity***
-    count = ActivitiesModel.count();
-    for (var i = 0; i < count; i++) {
-        var instrument = ActivitiesModel.find()[i].instrument;
-        var group = ActivitiesModel.find()[i].instrument;
-        var experiment = ActivitiesModel.find()[i].experiment;
-        var start = ActivitiesModel.find()[i].start_date;
-        var end = new Date(2017,1,1);	
+  addrows = function(data) {
+    //loop over each activity
+    ActivitiesModel.find({}).forEach(function(myDocument) {
+        var instrument = myDocument.instrument;
+        var group = instrument;
+        var experiment = myDocument.experiment;
+        var start = myDocument.start_date;
+        var stop = myDocument.stop_date;
+        var notes = myDocument.notes;
+        var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
         var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-        var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
-        data.addRow([start,end,activityText,instrText]);
-	alert("Added experiment for "+instrument);
-        return data
-    };
+        var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
+        data.addRow([start,stop,activityText,instrText]);
+    });
+    //update the Google data
+    return data
   };
 
   function drawVisualization() {
-    alert("timeline2");
     // Create and populate a data table.
     var data = new google.visualization.DataTable();
     //data.addColumn('string', '_id');
@@ -155,22 +159,8 @@ if (Meteor.isClient) {
     data.addColumn('string','content');
     data.addColumn('string', 'group');
 
-    //loop over each activity***
-    //addrows();
-		
-    var _id = "A02345";
-    var instrument = "CDA";
-    var group = "CDA";
-    var experiment = "dust collection";
-    var start = new Date(2015,1,1);
-    var end = new Date(2015,1,1,5);
-    var power = 24;
-    var notes = "dust collection for 5 hours"
-    var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-    var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-    var instrText = "<img src='img/truck-icon.png' style='width:24px; height:24px; vertical-align: middle'>"+instrument;
-    //data.addRow([_id,group,instrument,experiment,start,end,power,notes,content]);
-    data.addRow([start,end,activityText,instrText]);
+    //loop over each activity
+    data = addrows(data);
 
     // specify options
     var options = {
@@ -194,17 +184,20 @@ if (Meteor.isClient) {
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
+
+    //alert("timeline successfully rendered!");
   };
 
   Template.timeline.rendered= function() {
         var timeline = null;
-        google.load("visualization", "1");
+        //google.load("visualization", "1");
         // Set callback to run when API is loaded
-        google.setOnLoadCallback(drawVisualization);
+        //google.setOnLoadCallback(drawVisualization());
+	//also try:
+        google.load("visualization", "1", {callback:drawVisualization});
         // Called when the Visualization API is loaded.
-	alert("timeline rendered funciton");
+	//alert("timeline rendered funciton");
   };
-*/
 //--------------------------------------------------------------------------------------
 
   //update and delete activities
@@ -213,14 +206,16 @@ if (Meteor.isClient) {
 	var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
-	var duration = event.target.duration.value;
+	var stopdate = event.target.stopdate.value;
+	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
         ActivitiesModel.update({_id:this._id},{$set: 
           {
 	  instrument: instrument,
 	  experiment: experiment,
 	  start_date: new Date(startdate),
-	  duration: duration,
+	  stop_date: new Date(stopdate),
+	  //duration: duration,
 	  notes:notes
           }}
         );
