@@ -47,10 +47,13 @@ Version 2.01
 				<a href="/model3d"> <img src="home.png" alt = "3dmodel"/>  3DModel </a>
 				<a href="/whiteboard"> <img src="home.png" alt = "whiteboard"/> Whiteboard</a>
 				<a href="/activity"><img src= "home.png" alt = "aed_activity"> Activity</a>
-				<a href="/chat"><img src="profile.png" alt = "chat"/> Chat  </a>
-
-	    </ul>
+			<!-- This line opens chat in a new window	
+      <a href="/chat" target ="_blank"><img src="profile.png" alt = "chat"/> Chat  </a>-->
+	      <a href="" onClick="document.getElementById('chatifr').src='/chat'"><img src="profile.png" alt = "chat"/> Chat</a>
+      </ul>
 	  </div> 
+    
+    <iframe id='chatifr' frameborder="0" width="40%" height="200" align="right"></iframe>
 
 </template>
 <!-- #Routes -> Switching to a layout template -->
