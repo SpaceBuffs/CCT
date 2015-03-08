@@ -38,8 +38,8 @@ if (Meteor.isClient) {
   //timeline functionality defined here: sort each activity in order by start_date,
   //and only return the activities defined in a date range (hard coded for now)
 
-  var stop = new Date(2020, 0, 0);
-  var start = new Date(1970, 0, 0);
+//  var stop = new Date(2020, 0, 0);
+//  var start = new Date(1970, 0, 0);
 /*
   Template.timeline.events({
 	"submit .new-timerange": function(event){ 
@@ -71,8 +71,11 @@ if (Meteor.isClient) {
   }});
 */
 
-  Template.timeline.activities = function(){  
+/*  Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
+  }*/
+  Template.timeline.activities = function(){  
+	return ActivitiesModel.find({},{sort:{"startdate": 1}});
   }
   Template.chat.chatMessages = function(){
 	  return ChatModel.find({});
@@ -90,13 +93,13 @@ if (Meteor.isClient) {
 	
 	ActivitiesModel.insert({
 	instrument: instrument,
-	createdAt : new Date(),
+	createdAt: new Date(),
 	experiment: experiment,
-	start_date: new Date(startdate),
-	stop_date: new Date(stopdate),
+	startdate: new Date(startdate),
+	stopdate: new Date(stopdate),
 	notes:notes
         });
-
+/*
        //refresh form if submit is successful
        event.target.instrument.value = "";
        event.target.experiment.value = "";  
@@ -104,9 +107,9 @@ if (Meteor.isClient) {
        event.target.stopdate.value = "";
        //event.target.duration.value = "";
        event.target.notes.value = "";
-
+*/
        alert("Activity Added!");
-       window.location = "/timeline";
+       //window.location = "/timeline";
        return false;
   }});
   /*
@@ -134,8 +137,8 @@ if (Meteor.isClient) {
         var instrument = myDocument.instrument;
         var group = instrument;
         var experiment = myDocument.experiment;
-        var start = myDocument.start_date;
-        var stop = myDocument.stop_date;
+        var start = myDocument.startdate;
+        var stop = myDocument.stopdate;
         var notes = myDocument.notes;
         var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
         var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
@@ -213,8 +216,8 @@ if (Meteor.isClient) {
           {
 	  instrument: instrument,
 	  experiment: experiment,
-	  start_date: new Date(startdate),
-	  stop_date: new Date(stopdate),
+	  startdate: new Date(startdate),
+	  stopdate: new Date(stopdate),
 	  //duration: duration,
 	  notes:notes
           }}
