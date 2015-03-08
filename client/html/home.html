@@ -93,6 +93,80 @@ Version 2.01
   </div>
 </template>
 
+<template name="userList">
+<div class="manage-users row">
+  <div id="sidebar1">
+
+  <div class="row">
+    <div class="span6">
+      <h2>User Groups</h2>
+    </div>
+  </div>
+
+  <ul class="user-list">
+  {{#each users}}
+  <li>
+    <div class="person" data-id="{{_id}}">
+
+      <div class="name">
+        <a href="#">{{username}}</a>
+      </div> 
+
+      <div>{{#each emails}}{{address}} {{/each}}</div>
+      <div><span class="help">admin Authorized:</span> 
+        <ul class="roles">
+          {{#each roles}}
+          <li><span class="role">{{roles}}</span></li>
+          {{/each}}
+        </ul>
+      </div>
+
+    </div>
+  </li>
+  {{/each}}
+  </ul>
+
+  {{> editRolesForm}}
+
+  </div>
+</div>
+</template>
+
+
+<template name="editRolesForm">
+  <div id="user-roles" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form id="manage-roles-form">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Manage user Permissions</h3>
+      </div>
+
+      <div class="modal-body">
+        {{#with user}}
+        <input type="hidden" id="_id" name="_id" value="{{_id}}" />
+
+        <div>
+          <h4>Name: {{username}}</h4>
+        </div>
+
+        <br />
+        <select id="roles" name="roles" multiple>
+          {{#each allRoles}}
+          <option value="{{.}}">{{.}}</option>
+          {{/each}}
+        </select>
+        {{/with}}
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button id="saveChanges" class="btn btn-primary">Save changes</button>
+      </div>
+    </form>
+  </div>
+</template>
+
 <template name="myfooter">
   <div id="footer">
         Copyright © Graviteam

@@ -24,11 +24,11 @@ Version 2.01
         Meteor.loginWithPassword(emailVar, passwordVar);
      }
   });
-*/
+
 Template.graviteam.logged_in = function(){
   return Meteor.user();
 }
-
+*/
 //Template.timeline.activities = function(){
 //  return ActivitiesModel.find({});
 //} ***moved to global.js. The below may need to be moved there too.
@@ -45,3 +45,4 @@ Template.timeline.events({
        }
    }
 });
+

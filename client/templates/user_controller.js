@@ -59,7 +59,7 @@ Template.signUp.events({
             email = trimInput(signUpForm.find('#signUpEmail').val().toLowerCase()),
             password = signUpForm.find('#signUpPassword').val(),
             passwordConfirm = signUpForm.find('#signUpPasswordConfirm').val();
-
+            Roles.addUsersToRoles(ids, 'read')
         if (isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPasswords(password, passwordConfirm)) {
             Accounts.createUser({email: email, password: password}, function(err) {
                 if (err) {
