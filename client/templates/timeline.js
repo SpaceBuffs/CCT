@@ -3051,13 +3051,13 @@ links.Timeline.prototype.onMouseUp = function (event) {
             // mouse did not move -> user has selected an item
 
             if (params.target === this.dom.items.deleteButton) {
-                // delete item
+                // delete item***
                 if (this.selection && this.selection.index !== undefined) {
                     this.confirmDeleteItem(this.selection.index);
                 }
             }
             else if (options.selectable) {
-                // select/unselect item
+                // select/unselect item***
                 if (params.itemIndex != undefined) {
                     if (!this.isSelected(params.itemIndex)) {
                         this.selectItem(params.itemIndex);
@@ -3390,7 +3390,7 @@ links.Timeline.prototype.applyRange = function (start, end, zoomAroundDate) {
 };
 
 /**
- * Delete an item after a confirmation.
+ * Delete an item after a confirmation.***
  * The deletion can be cancelled by executing .cancelDelete() during the
  * triggered event 'delete'.
  * @param {int} index   Index of the item to be deleted
@@ -3416,7 +3416,7 @@ links.Timeline.prototype.confirmDeleteItem = function(index) {
 };
 
 /**
- * Delete an item
+ * Delete an item***
  * @param {int} index   Index of the item to be deleted
  * @param {boolean} [preventRender=false]   Do not re-render timeline if true
  *                                          (optimization for multiple delete)
@@ -7013,6 +7013,17 @@ links.Timeline.parseJSONDate = function (date) {
 //OUR CODE FOR TIMELINE-ACTIVITY FUNCTIONALITY
 //--------------------------------------------------------------------------------------
 if (Meteor.isClient) {
+    function getSelectedRow() {
+        var row = undefined;
+        var sel = timeline.getSelection();
+        if (sel.length) {
+            if (sel[0].row != undefined) {
+                row = sel[0].row;
+            }
+        }
+    return row;
+    };
+
   addrows = function(data) {
     //loop over each activity
     ActivitiesModel.find({}).forEach(function(myDocument) {
@@ -7054,19 +7065,34 @@ if (Meteor.isClient) {
       //height: "300px",
       height: "auto",
       layout: "box",
-      editable: true,
+      editable: true, //***
       eventMargin: 5,  // minimal margin between events
       eventMarginAxis: 0, // minimal margin beteen events and the axis
       showMajorLabels: false,
       axisOnTop: true,
-      // groupsWidth : "200px",
-      groupsChangeable : true,
+      //groupsWidth : "200px",
+      groupsChangeable : false, //***
       groupsOnRight: false,
-      stackEvents: true
+      stackEvents: true,
+      showNavigation: false, //***
+      showButtonNew: false //***
     };
 
     // Instantiate our timeline object.
     timeline = new links.Timeline(document.getElementById('mytimeline'), options);
+
+    // Make a callback function for the select event
+    var onselect = function (event) {
+        var row = getSelectedRow();
+	if (row != 'undefined') {
+            document.getElementById("info").innerHTML = "event " + row + " selected<br>";
+        };
+        // Note: you can retrieve the contents of the selected row with
+        //       data.getValue(row, 2);
+    }
+
+    // Add event listeners
+    google.visualization.events.addListener(timeline, 'select', onselect);
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
