@@ -76,10 +76,10 @@ if (Meteor.isClient) {
   }*/
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({},{sort:{"startdate": 1}});
-  }
+  };
   Template.chat.chatMessages = function(){
 	  return ChatModel.find({});
-  }
+  };
 
   //submit a new activity
   Template.aedactivity.events({
@@ -129,79 +129,6 @@ if (Meteor.isClient) {
        //alert("Chat pushed!");
        return false;
   }});*/
-
-//--------------------------------------------------------------------------------------
-  addrows = function(data) {
-    //loop over each activity
-    ActivitiesModel.find({}).forEach(function(myDocument) {
-        var instrument = myDocument.instrument;
-        var group = instrument;
-        var experiment = myDocument.experiment;
-        var start = myDocument.startdate;
-        var stop = myDocument.stopdate;
-        var notes = myDocument.notes;
-        var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-        var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-        var instrText = "<img src='img/truck-icon.png' style='width:30px; height:30px; vertical-align: middle'>"+instrument;
-        data.addRow([start,stop,activityText,instrText]);
-    });
-    //update the Google data
-    return data
-  };
-
-  function drawVisualization() {
-    // Create and populate a data table.
-    var data = new google.visualization.DataTable();
-    //data.addColumn('string', '_id');
-    //data.addColumn('string', 'instrument');
-    //data.addColumn('string', 'experiment');
-    data.addColumn('datetime', 'start');
-    data.addColumn('datetime', 'end');
-    //data.addColumn('float', 'power');
-    //data.addColumn('string', 'notes');
-    data.addColumn('string','content');
-    data.addColumn('string', 'group');
-
-    //loop over each activity
-    data = addrows(data);
-
-    // specify options
-    var options = {
-      width:  "90%",
-      //height: "300px",
-      height: "auto",
-      layout: "box",
-      editable: true,
-      eventMargin: 5,  // minimal margin between events
-      eventMarginAxis: 0, // minimal margin beteen events and the axis
-      showMajorLabels: false,
-      axisOnTop: true,
-      // groupsWidth : "200px",
-      groupsChangeable : true,
-      groupsOnRight: false,
-      stackEvents: true
-    };
-
-    // Instantiate our timeline object.
-    timeline = new links.Timeline(document.getElementById('mytimeline'), options);
-
-    // Draw our timeline with the created data and options
-    timeline.draw(data);
-
-    //alert("timeline successfully rendered!");
-  };
-
-  Template.timeline.rendered= function() {
-        var timeline = null;
-        //google.load("visualization", "1");
-        // Set callback to run when API is loaded
-        //google.setOnLoadCallback(drawVisualization());
-	//also try:
-        google.load("visualization", "1", {callback:drawVisualization});
-        // Called when the Visualization API is loaded.
-	//alert("timeline rendered funciton");
-  };
-//--------------------------------------------------------------------------------------
 
   //update and delete activities
   Template.activity.events({
