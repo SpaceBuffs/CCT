@@ -12,8 +12,8 @@
 <li>Instrument: {{instrument}}</li>
 <li>Experiment: {{experiment}}</li>
 <li>Created At: {{createdAt}}</li>
-<li>Start Date: {{start_date}}</li>
-<li>Stop Date: {{stop_date}}</li>
+<li>Start Date: {{startdate}}</li>
+<li>Stop Date: {{stopdate}}</li>
 <li>Notes: {{notes}}</li><br>
 
 <!-- update or delete -->
@@ -56,16 +56,12 @@
 		<p></p>
 
            	Start Date: 
-		<input type="datetime-local" name="startdate" cols ="50" value={{start_date}} />
+		<input type="datetime-local" name="startdate" size=30 value={{startdate}} />
         	<p></p>
 
            	Stop Date: 
-		<input type="datetime-local" name="stopdate" cols ="50" value={{stop_date}} />
+		<input type="datetime-local" name="stopdate" size=30 value={{stopdate}} />
         	<p></p>
-
-        	<!--Duration: 
-		<input type="text" name="duration" cols ="10" value={{duration}} />
-       		<p></p>-->
 
         	Notes:<br>
 		<textarea name="notes" rows="5" cols="50" value={{notes}}></textarea>

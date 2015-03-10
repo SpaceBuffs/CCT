@@ -1,34 +1,22 @@
 <!-- timeline.html --> 
 <template name = "timeline">
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
- {{> Dashboard_page}}
-	<h2>Timeline</h2>
-<!--
-	<p></p>
-	Change timerange:<br>
-<div style="border: 1px solid #000000; padding: 10px; width: 500px; align: center;">
-        <form class="new-timerange">
-	Start Date: 
-	<textarea name="StartYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
-	<textarea name="StartMonth" placeholder="MM" rows ="1" cols="3"></textarea>
-	<textarea name="StartDay" placeholder="DD" rows ="1" cols="3"></textarea>
-	<textarea name="StartHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea><br>
-	Stop Date: 
-	<textarea name="StopYear" placeholder="YYYY" rows ="1" cols="5"></textarea>
-	<textarea name="StopMonth" placeholder="MM" rows ="1" cols="3"></textarea>
-	<textarea name="StopDay" placeholder="DD" rows ="1" cols="3"></textarea>
-	<textarea name="StopHMS" placeholder="HH:MM:SS.SSS" rows ="1" cols="14"></textarea><br>
-	<input type="submit" name="submit" value="Submit">
-	</form>
-</div>
--->
-
+{{> Dashboard_page}}
+<h2>Timeline</h2>
 <p></p>
 
 <center>
-<div id="mytimeline"></div>
+<!--
+<p>
+    Start time: <input type="text" id="startDate" value="">
+    End time:   <input type="text" id="endDate" value="">
+    <input type="button" id="setRange" value="Set" onclick="setTime();">
+    <input type="button" id="setCurrentTime" value="Current time" onclick="setCurrentTime();">
+</p>
+-->
+<div id="mytimeline"></div><p></p>
+<div id="info"></div>
 </center>
 
 <p></p>
