@@ -1,9 +1,7 @@
 //chat
-//chat
 /**
 * Templates
 */
-
 
 /*
 Template.messages.helpers({
@@ -33,9 +31,9 @@ Template.input.events = {
 		}
 	}
 }
-* */
 
-/*
+
+
  Template.chatMessage.helpers({
     username: function() {return Meteor.user().username}
 	});
