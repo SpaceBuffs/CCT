@@ -11,3 +11,17 @@ Meteor.publish('ActivitiesModel', function () {
 Meteor.publish('ChatModel', function () {
    return ChatModel.find({}); 
 }); 
+
+Meteor.publish(null, function() {
+    if(this.userID) {
+        return Meteor.users.find({_id: this.userID},
+                                 {fields: {'accountType':0}});
+    }
+});
+
+Meteor.publish(null, function() {
+    if(this.userID) {
+        return Meteor.users.find({_id: this.userID},
+                                {fields: {'missions':0}});
+    }
+});
