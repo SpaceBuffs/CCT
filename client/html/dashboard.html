@@ -49,11 +49,37 @@ Version 2.01
 				<a href="/activity"><img src= "home.png" alt = "aed_activity"> Activity</a>
 			<!-- This line opens chat in a new window	
       <a href="/chat" target ="_blank"><img src="profile.png" alt = "chat"/> Chat  </a>-->
-	      <a href="" onClick="document.getElementById('chatifr').src='/chat'"><img src="profile.png" alt = "chat"/> Chat</a>
+	     <!-- <a href="" onClick="document.getElementById('chatifr').src='/chat'"><img src="profile.png" alt = "chat"/> Chat</a>
+         -->
+         <a href="" onclick="showIFrame();"><img src="profile.png" alt = "chat"/> Chat</a>
       </ul>
-	  </div> 
-    
+	  </div>
+     
     <iframe id='chatifr' frameborder="0" width="40%" height="200" align="right"></iframe>
+
+    <script type="text/javascript">
+      function showIFrame(){
+        var frame = document.getElementById("chatifr");
+        frame.src = '/chat';
+        frame.style.display="block";
+      }
+      function hideIFrame(){
+        var frame = document.getElementById("chatifr");
+        frame.style.display="none";
+      }
+     /* create and remove iframe, create does not work 
+     function createIFrame(){
+        var frame = document.createElement("chatifr");
+        frame.src = '/chat';
+        document.getElementById("iframe_parent").appendChild(frame);
+      }
+      function removeIFrame() {
+          var frame = document.getElementById("chatifr");
+          frame.parentNode.removeChild(frame);
+      }
+      */
+    </script>
+    
 
 </template>
 <!-- #Routes -> Switching to a layout template -->

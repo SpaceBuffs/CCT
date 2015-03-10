@@ -67,3 +67,5 @@ Template.chat.events({
        //alert("Chat pushed!");
        return false;
   }});
+
+
