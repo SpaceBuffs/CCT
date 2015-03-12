@@ -405,8 +405,10 @@ links.Timeline.mapColumnIds = function (dataTable) {
     // loop over the columns, and map the column id's to the column indexes
     for (var col = 0; col < colCount; col++) {
         var id = dataTable.getColumnId(col) || dataTable.getColumnLabel(col);
-        cols[id] = col;
+        cols[id] = col; //*** id,instrument,experiment,power,notes
         if (id == 'start' || id == 'end' || id == 'content' || id == 'group' ||
+	    id == 'id' || id == 'instrument' || id == 'experiment' ||
+            id == 'power' || id == 'notes' ||
             id == 'className' || id == 'editable' || id == 'type') {
             allUndefined = false;
         }
@@ -451,13 +453,19 @@ links.Timeline.prototype.setData = function(data) {
         // map the datatable columns
         var cols = links.Timeline.mapColumnIds(data);
 
-        // read DataTable
+        // read DataTable***
+        //id,instrument,experiment,power,notes
         for (var row = 0, rows = data.getNumberOfRows(); row < rows; row++) {
             items.push(this.createItem({
                 'start':     ((cols.start != undefined)     ? data.getValue(row, cols.start)     : undefined),
                 'end':       ((cols.end != undefined)       ? data.getValue(row, cols.end)       : undefined),
                 'content':   ((cols.content != undefined)   ? data.getValue(row, cols.content)   : undefined),
                 'group':     ((cols.group != undefined)     ? data.getValue(row, cols.group)     : undefined),
+                'id':     ((cols.id != undefined)     ? data.getValue(row, cols.id)     : undefined),
+                'instrument':     ((cols.instrument != undefined)     ? data.getValue(row, cols.instrument)     : undefined),
+                'experiment':     ((cols.experiment != undefined)     ? data.getValue(row, cols.experiment)     : undefined),
+                'power':     ((cols.power != undefined)     ? data.getValue(row, cols.power)     : undefined),
+                'notes':     ((cols.notes != undefined)     ? data.getValue(row, cols.notes)     : undefined),		
                 'className': ((cols.className != undefined) ? data.getValue(row, cols.className) : undefined),
                 'editable':  ((cols.editable != undefined)  ? data.getValue(row, cols.editable)  : undefined),
                 'type':      ((cols.type != undefined)      ? data.getValue(row, cols.type)      : undefined)
@@ -2286,7 +2294,7 @@ links.Timeline.prototype.repaintNavigation = function () {
 
                 var content = options.NEW;
                 var group = timeline.groups.length ? timeline.groups[0].content : undefined;
-                var preventRender = true;
+                var preventRender = true; //***
                 timeline.addItem({
                     'start': xstart,
                     'content': content,
@@ -2741,7 +2749,7 @@ links.Timeline.prototype.onMouseDown = function(event) {
         }
         var xend = new Date(xstart.valueOf());
         var content = options.NEW;
-        var group = this.getGroupFromHeight(y);
+        var group = this.getGroupFromHeight(y); //***
         this.addItem({
             'start': xstart,
             'end': xend,
@@ -2994,7 +3002,7 @@ links.Timeline.prototype.onMouseUp = function (event) {
             this.trigger(params.addItem ? 'add' : 'changed');
             
             //retrieve item data again to include changes made to it in the triggered event handlers
-            item = this.items[params.itemIndex];
+            item = this.items[params.itemIndex]; //***
 
             if (params.addItem) {
                 if (this.applyAdd) {
@@ -3551,7 +3559,7 @@ links.Timeline.Item = function (data, options) {
     if (data) {
         /* TODO: use parseJSONDate as soon as it is tested and working (in two directions)
          this.start = links.Timeline.parseJSONDate(data.start);
-         this.end = links.Timeline.parseJSONDate(data.end);
+         this.end = links.Timeline.parseJSONDate(data.end); *** id,power,instrument,experiment,notes
          */
         this.start = data.start;
         this.end = data.end;
@@ -3560,6 +3568,11 @@ links.Timeline.Item = function (data, options) {
         this.editable = data.editable;
         this.group = data.group;
         this.type = data.type;
+        this.id = data.id;
+        this.power = data.power;
+        this.instrument = data.instrument;
+        this.experiment = data.experiment;
+        this.notes = data.notes;
     }
     this.top = 0;
     this.left = 0;
@@ -4747,7 +4760,8 @@ links.Timeline.prototype.getItem = function (index) {
         throw "Unknown data type. DataTable or Array expected.";
     }
 
-    // override the data with current settings of the item (should be the same)
+    // override the data with current settings of the item (should be the same)***
+	//id,power,instrument,experiment,notes***
     var item = this.items[index];
 
     itemData.start = new Date(item.start.valueOf());
@@ -4758,6 +4772,23 @@ links.Timeline.prototype.getItem = function (index) {
     if (item.group) {
         itemData.group = this.getGroupName(item.group);
     }
+
+    if (item.id) {
+        itemData.id = item.id;
+    }
+    if (item.instrument) {
+        itemData.instrument = item.instrument;
+    }
+    if (item.experiment) {
+        itemData.experiment = item.experiment;
+    }
+    if (item.power) {
+        itemData.power = item.power;
+    }
+    if (item.notes) {
+        itemData.notes = item.notes;
+    }
+
     if (item.className) {
         itemData.className = item.className;
     }
@@ -4920,7 +4951,7 @@ links.Timeline.prototype.changeItem = function (index, itemData, preventRender) 
         throw "Cannot change item, index out of range";
     }
 
-    // replace item, merge the changes
+    // replace item, merge the changes***
     var newItem = this.createItem({
         'start':   itemData.hasOwnProperty('start') ?   itemData.start :   oldItem.start,
         'end':     itemData.hasOwnProperty('end') ?     itemData.end :     oldItem.end,
@@ -7035,39 +7066,73 @@ if (Meteor.isClient) {
     return content;
     };
 
+    function getId(data,row) {
+        var content = data.getValue(row, 2);
+        /*var content = undefined;
+        var sel = timeline.getSelection();
+        if (sel.length) {
+            if (sel[0].content != undefined) {
+                content = sel[0].content;
+            }
+        }*/
+        var rx = /id=(\S*)/g;
+        var arr = rx.exec(content);
+        return arr[1]; //return string id
+    };
+
   addrows = function(data) {
     //loop over each activity
     //***NEXT: add rows for db elements
     ActivitiesModel.find({}).forEach(function(myDocument) {
+        var id = myDocument._id;
         var instrument = myDocument.instrument;
         var group = instrument;
         var experiment = myDocument.experiment;
         var start = myDocument.startdate;
         var stop = myDocument.stopdate;
+	var power = 0 //***
         var notes = myDocument.notes;
-        var content = "instrument: "+instrument+"\nexperiment: "+experiment+"\nnotes: "+notes;
-        var activityText = "<div title='"+experiment+"' class='order'>"+experiment+"</div>";
-        var instrText = "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
-        //"<img src='img/truck-icon.png' style='width:40px; height:40px; vertical-align: middle'>"+instrument;
-        data.addRow([start,stop,activityText,instrText]);
+        var activityText = 
+            "<div title='"+experiment+"' class='order' id='"+id+"'>"+experiment+"</div>";
+        var instrText = 
+       "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
+        data.addRow([start,stop,activityText,instrText]);//,id,instrument,experiment,power,notes]);
     });
     //update the Google data
     return data
   };
 
+  activityinfo = function(findid) {
+    ActivitiesModel.find({},{"_id": findid}).forEach(function(myDocument) {
+        var id = myDocument._id;
+        if (id == findid) {
+            var instrument = myDocument.instrument;
+            var experiment = myDocument.experiment;
+            var start = myDocument.startdate;
+            var stop = myDocument.stopdate;
+	    var power = 0; //***
+            var notes = myDocument.notes;
+	    var htmlinfo = "Id: "+id+"<br>Instrument: "+instrument+"<br>";
+            alert(String(htmlinfo));
+	    return String(htmlinfo);
+	};
+    });
+  };
+
   function drawVisualization() {
     // Create and populate a data table.
     var data = new google.visualization.DataTable();
-    //data.addColumn('string', '_id');
-    //data.addColumn('string', 'instrument');
-    //data.addColumn('string', 'experiment');
     data.addColumn('datetime', 'start');
     data.addColumn('datetime', 'end');
-    //data.addColumn('float', 'power');
-    //data.addColumn('string', 'notes');
     data.addColumn('string','content');
     data.addColumn('string', 'group');
-
+    /*
+    data.addColumn('string', 'id');
+    data.addColumn('string', 'instrument');
+    data.addColumn('string', 'experiment');
+    data.addColumn('float', 'power');
+    data.addColumn('string', 'notes');
+    */
     //loop over each activity
     data = addrows(data);
 
@@ -7096,13 +7161,37 @@ if (Meteor.isClient) {
     // Make a callback function for the select event
     var onselect = function (event) {
         var row = getSelectedRow();
-	var content = data.getValue(row, 2) //getSelectedContent();
-	if (row != undefined) {
-            document.getElementById("info").innerHTML="<br>event "+row+" selected<br>Info: "+content;
-        };
         // Note: you can retrieve the contents of the selected row with
         //       data.getValue(row, 2);
-    }
+	var content = data.getValue(row, 2); //getSelectedContent();
+        var rx = /id=\'(\S*)\'/g;
+        var arr = rx.exec(content);
+        var findid = arr[1]; //return string id
+        //var id = data.getId(row);
+	if (row != undefined) {
+            ActivitiesModel.find({},{"_id": findid}).forEach(function(myDocument) {
+                var id = myDocument._id;
+                if (id == findid) {
+                    var instrument = myDocument.instrument;
+                    var experiment = myDocument.experiment;
+                    var start = myDocument.startdate;
+                    var stop = myDocument.stopdate;
+	            var power = 0; //***
+                    var notes = myDocument.notes;
+	            document.getElementById("info").innerHTML = 
+			//"{{> activity }}"
+			//"<br>Id: "+id+
+			"<br><b>Instrument:</b> "+instrument+
+			"<br><b>Experiment:</b> "+experiment+
+			"<br><b>Start Time:</b> "+start+
+			"<br><b>Stop Time:</b> "+stop+
+			"<br><b>Power Usage:</b> "+power+" W"+
+			"<br><b>Notes:</b> "+notes+
+			"<br><button class='update' id='update'>Update</button> | <button class='delete'>Delete</button>"
+	        };
+            });
+        };
+    };
 
     // Add event listeners
     google.visualization.events.addListener(timeline, 'select', onselect);
