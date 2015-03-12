@@ -7024,8 +7024,20 @@ if (Meteor.isClient) {
     return row;
     };
 
+    function getSelectedContent() {
+        var content = undefined;
+        var sel = timeline.getSelection();
+        if (sel.length) {
+            if (sel[0].content != undefined) {
+                content = sel[0].content;
+            }
+        }
+    return content;
+    };
+
   addrows = function(data) {
     //loop over each activity
+    //***NEXT: add rows for db elements
     ActivitiesModel.find({}).forEach(function(myDocument) {
         var instrument = myDocument.instrument;
         var group = instrument;
@@ -7084,8 +7096,9 @@ if (Meteor.isClient) {
     // Make a callback function for the select event
     var onselect = function (event) {
         var row = getSelectedRow();
-	if (row != 'undefined') {
-            document.getElementById("info").innerHTML = "event " + row + " selected<br>";
+	var content = data.getValue(row, 2) //getSelectedContent();
+	if (row != undefined) {
+            document.getElementById("info").innerHTML="<br>event "+row+" selected<br>Info: "+content;
         };
         // Note: you can retrieve the contents of the selected row with
         //       data.getValue(row, 2);
