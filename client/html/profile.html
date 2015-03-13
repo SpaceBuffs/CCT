@@ -3,10 +3,11 @@
        {{> Dashboard_page}}<br>
        <div style="padding: 20px; width: 500px; line-height: 200%;">
        <h1>My Profile</h1>
+       <li> Name: {{name}}</li>
        <li> Username: {{username}}</li>
        <li> Email Address: {{email}} </li>
        <li> Current Missions: {{missions}}</li>
-       <li> account type: {{accountType}}</li>
+       <li> isAdmin: {{isAdmin}}</li>
        <a href="/edit_profile" alt= "editprofile"> Edit </a>
 
 
@@ -40,6 +41,8 @@
         <input type="checkbox" name="mission" value="Voyager">  Voyager<br>
     <p></p>
         New Username: <input type="text" name="user"><br>
+    <p></p>
+        isAdmin: <input type="text" name="isAdmin"><br>
     <p></p>
         New Email Address: <input type="email" name="email"><br>
         Password: <input type="password" name="password"><br>
