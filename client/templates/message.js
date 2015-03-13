@@ -1,4 +1,4 @@
-Template.sendMessageTemplate.events({
+/*Template.sendMessageTemplate.events({
     'submit #sendMessage' : function(e, t) {
         e.preventDefault();
 
@@ -7,7 +7,7 @@ Template.sendMessageTemplate.events({
         var to = Meteor.users.findOne(toId);
         var fromEmail = contactEmail(from);
         var toEmail = trimInput(signUpForm.find('#signUpEmail').val().toLowerCase()),;*/
-
+/*
         this.unblock();
 
             Email.send({
@@ -18,4 +18,4 @@ Template.sendMessageTemplate.events({
                 text: "Hello " +to.username+", You are trying to reset you password.\n"+Meteor.absoluteUrl()+"\n",
             }); 
         }
-})
+})*/
