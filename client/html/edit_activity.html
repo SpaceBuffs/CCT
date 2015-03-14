@@ -1,22 +1,4 @@
-<!-- 
-	activity.html
-
- --> 
-
-<template name = "activity">
-<!-- show activity info -->
-<div id={{this._id}} style="display: show; padding: 20px; margin: 20px;"> <!--***-->
-<!--li>Activity ID: {{_id}}</li-->
-Instrument: {{instrument}}<br>
-Experiment: {{experiment}}<br>
-Created At: {{createdAt}}<br>
-Start Date: {{startdate}}<br>
-Stop Date: {{stopdate}}<br>
-Notes: {{notes}}<br><br>
-
-<!-- update or delete -->
-<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
-<p></p>
+<template name="edit_activity">
 
 <!-- only show update form if "update" button was clicked -->
 <div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: none">
@@ -69,25 +51,4 @@ Notes: {{notes}}<br><br>
 </form>
 </div>
 
-<!-- toggle update activity form -->
-<script type="text/javascript">
-//works with jquery
-
-var update = "update"
-var update_activity = "update_activity"
-var submit_update = "submit_update"
-
-window.onload = function () {
-    document.getElementById(update).onclick = function () {
-        document.getElementById(update_activity).style.display = 'block'; 
-    }
-    document.getElementById(submit_update).onclick = function () {
-        document.getElementById(update_activity).style.display = 'none';
-    }
-}
-</script>
-
-</div>
 </template>
-
-

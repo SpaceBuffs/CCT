@@ -7043,7 +7043,10 @@ links.Timeline.parseJSONDate = function (date) {
 
 //OUR CODE FOR TIMELINE-ACTIVITY FUNCTIONALITY
 //--------------------------------------------------------------------------------------
+var selectedid = 'none' //global
+
 if (Meteor.isClient) {
+
     function getSelectedRow() {
         var row = undefined;
         var sel = timeline.getSelection();
@@ -7167,27 +7170,15 @@ if (Meteor.isClient) {
         var rx = /id=\'(\S*)\'/g;
         var arr = rx.exec(content);
         var findid = arr[1]; //return string id
-        //var id = data.getId(row);
 	if (row != undefined) {
-            ActivitiesModel.find({},{"_id": findid}).forEach(function(myDocument) {
-                var id = myDocument._id;
+		selectedid = findid
+		document.getElementById(selectedid).style.display = 'block'
+            ActivitiesModel.find({_id: findid}).forEach(function(myDocument) {
+                var id = myDocument._id; 
                 if (id == findid) {
-                    var instrument = myDocument.instrument;
-                    var experiment = myDocument.experiment;
-                    var start = myDocument.startdate;
-                    var stop = myDocument.stopdate;
-	            var power = 0; //***
-                    var notes = myDocument.notes;
-	            document.getElementById("info").innerHTML = 
-			//"{{> activity }}"
-			//"<br>Id: "+id+
-			"<br><b>Instrument:</b> "+instrument+
-			"<br><b>Experiment:</b> "+experiment+
-			"<br><b>Start Time:</b> "+start+
-			"<br><b>Stop Time:</b> "+stop+
-			"<br><b>Power Usage:</b> "+power+" W"+
-			"<br><b>Notes:</b> "+notes+
-			"<br><button class='update' id='update'>Update</button> | <button class='delete'>Delete</button>"
+		    selectedid = myDocument._id;
+		    //http://www.w3schools.com/jsref/met_win_open.asp
+		    window.open('/activity/'+id, "Selected Activity", "height=800, width=800");
 	        };
             });
         };
@@ -7198,19 +7189,37 @@ if (Meteor.isClient) {
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
-
-    //alert("timeline successfully rendered!");
+    document.getElementById(selectedid).style.display = 'block'
   };
 
   Template.timeline.rendered= function() {
         var timeline = null;
-        //google.load("visualization", "1");
-        // Set callback to run when API is loaded
-        //google.setOnLoadCallback(drawVisualization());
-	//also try:
         google.load("visualization", "1", {callback:drawVisualization});
         // Called when the Visualization API is loaded.
-	//alert("timeline rendered funciton");
+
   };
+
+  //***problem: template only loads on page load. need it to load when user interacts wth the timeline and changes the slectedid.
+/*
+  Template.timeline.activities2 = function(){  
+	//id = 'rBsXriYzs52QwH9yd' //id is global
+	alert(selectedid);
+        //document.getElementById(selectedid).style.display = 'block'
+	return ActivitiesModel.find({});//({_id: selectedid});
+  };
+
+  Template.selectedactivity.activities2 = function(){  
+	//id = 'rBsXriYzs52QwH9yd' //id is global
+	alert("new window with id "+selectedid);
+	alert("1:"+Router.current().params);
+	alert("2:"+this.params);
+        //document.getElementById(selectedid).style.display = 'block'
+	return ActivitiesModel.find({},{_id: selectedid});
+  };
+*/
+//  Template.timeline.activity.rendered = function(){
+//    alert("re-rendering...");
+//    return ActivitiesModel.find({_id: selectedid});
+//  }
 };
 //--------------------------------------------------------------------------------------

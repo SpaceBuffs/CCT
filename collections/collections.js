@@ -33,50 +33,15 @@ if (Meteor.isClient) {
 		return ChatModel.find({});
 	}
   });
-  
 
-  //timeline functionality defined here: sort each activity in order by start_date,
-  //and only return the activities defined in a date range (hard coded for now)
-
-//  var stop = new Date(2020, 0, 0);
-//  var start = new Date(1970, 0, 0);
-/*
-  Template.timeline.events({
-	"submit .new-timerange": function(event){ 
-	var yy = event.target.StartYear.value;
-	var mm = event.target.StartMonth.value-1;
-	var hh = event.target.StartHour.value;
-	var dd = event.target.StartDay.value;
-	var hms = event.target.StartHMS.value;
-	start = new Date(yy,mm,hh,dd);
-	var yy = event.target.StopYear.value;
-	var mm = event.target.StartMonth.value-1;
-	var hh = event.target.StopHour.value;
-	var dd = event.target.StopDay.value;
-	var hms = event.target.StopHMS.value;
-	stop = new Date(yy,mm,hh,dd);
-
-	event.target.StartYear.value = "";
-	event.target.StartMonth.value = "";
-	event.target.StartHour.value = "";
-	event.target.StartDay.value = "";
-	event.target.StartHMS.value = "";
-	event.target.StopYear.value = "";
-	event.target.StopMonth.value = "";
-	event.target.StopHour.value = "";
-	event.target.StopDay.value = "";
-	event.target.StopHMS.value = "";
-
-	return false;
-  }});
-*/
-
-/*  Template.timeline.activities = function(){  
+  /*  Template.timeline.activities = function(){  
 	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
   }*/
+
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({},{sort:{"startdate": 1}});
   };
+
   Template.chat.chatMessages = function(){
 	  return ChatModel.find({});
   };
@@ -157,6 +122,7 @@ if (Meteor.isClient) {
       if (c) {
 	alert("Activity Deleted!");
         ActivitiesModel.remove(this._id); 
+	window.close();
       }
       else {
 	alert("Activity Unmodified."); 

@@ -11,9 +11,9 @@ Router.configure({
    notFoundTemplate: 'notFound',
    loadingTemplate: 'loading',
    model3dTemplate: 'model3d',
-   activityTemplate: 'aed_activity',
+   addactivityTemplate: 'aed_activity',
+   selectactivityTemplate: 'activity',
    profileEditTemplate: 'profileEdit'
-
 });
 
 Router.map(function() {
@@ -46,16 +46,22 @@ Router.map(function() {
            path: '/timeline',        
            template: 'timeline'    
    });
-  this.route('Activity', { 
-           path: '/activity',        
+  this.route('AddActivity', { 
+           path: '/add_activity',        
            template: 'aedactivity'    
    });
-    this.route('Edit Profile',{
+   this.route('SelectActivity', { 
+           path: '/activity/:_id',  
+           template: 'activity',
+	   data: function(){
+	       return ActivitiesModel.findOne({_id: this.params._id}); 
+	   }
+   });
+   this.route('Edit Profile',{
             path: '/edit_profile',
-            template: 'editprofile',
+            template: 'editprofile'
     });
   
-
 });
 
 var requireLogin = function() { 
