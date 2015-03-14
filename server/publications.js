@@ -15,13 +15,20 @@ Meteor.publish('ChatModel', function () {
 Meteor.publish(null, function() {
     if(this.userID) {
         return Meteor.users.find({_id: this.userID},
-                                 {fields: {'accountType':0}});
+                                 {fields: {'isAdmin':1}});
     }
 });
 
 Meteor.publish(null, function() {
     if(this.userID) {
         return Meteor.users.find({_id: this.userID},
-                                {fields: {'missions':0}});
+                                {fields: {'missions':1}});
+    }
+});
+
+Meteor.publish(null, function() {
+    if(this.userID) {
+        return Meteor.users.find({_id: this.userID},
+                                {fields: {'name':1}});
     }
 });

@@ -3,10 +3,11 @@
        {{> Dashboard_page}}<br>
        <div style="padding: 20px; width: 500px; line-height: 200%;">
        <h1>My Profile</h1>
+       <li> Name: {{name}}</li>
        <li> Username: {{username}}</li>
        <li> Email Address: {{email}} </li>
        <li> Current Missions: {{missions}}</li>
-       <li> account type: {{accountType}}</li>
+       <li> isAdmin: {{isAdmin}}</li>
        <a href="/edit_profile" alt= "editprofile"> Edit </a>
 
 
@@ -21,15 +22,7 @@
         <a href="http://www.jpl.nasa.gov/">
             <img src="JPL.png" alt = "graviteam"/></a>
     </div>
-    <!-- jQuery 1.x is required; if you already have it included in your page, no need to include this -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-    <!-- AWW widget -->
-    <script type="text/javascript" src="https://awwapp.com/static/1.0/aww.min.js"></script>
-    <!-- Connection to the whiteboard sharing service -->
-    <script type="text/javascript" src="https://awwapp.com/nowjs/now.js"></script>
-    <!-- CSS styles used by the widget -->
-    <link rel="stylesheet" type="text/css" href="https://awwapp.com/static/1.0/aww.css"/>
-
+  
     <div style="padding: 20px; width: 500px; line-height: 200%;">
     <form class="user_info">
         Choose your current missions: <br>
@@ -40,6 +33,8 @@
         <input type="checkbox" name="mission" value="Voyager">  Voyager<br>
     <p></p>
         New Username: <input type="text" name="user"><br>
+    <p></p>
+        isAdmin: <input type="text" name="isAdmin"><br>
     <p></p>
         New Email Address: <input type="email" name="email"><br>
         Password: <input type="password" name="password"><br>

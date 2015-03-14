@@ -1,34 +1,55 @@
 Template.profile.helpers({
+    name: function() {return Meteor.users.find({}, {fields: {'name':1}})},
     username: function() {return Meteor.user().username},
     email: function() {return Meteor.user().emails[0].address},
-    accountType: function() {return Meteor.users.find({}, {fields: {'accountType':1}})},
-    missions: function() {return Meteor.users.find({}, {fields: {'missions':1}})}
-        
+    missions: function() {return Meteor.users.find({}, {fields: {'missions':1}})},
+    isAdmin: function() {return Meteor.users.find({}, {fields: {'isAdmin':1}})}
+
 });
 
-//Meteor.users.insert({ accountType: "scientist"};
+
+
+
+
+Meteor.users.update(Meteor.userID(),{ $set:{fields: {'isAdmin':"dfj"}}});
+Meteor.users.update(Meteor.userID(),{ $set:{'missions':"dfj"}});
+Meteor.users.update({_id:this._id},{ $set:{'isAdmin':"dfj"}});
+Meteor.users.update({_id:Meteor.user()._id}, {$set:{'name':"anmejfd"}});
+Meteor.users.update({_id:user()._id}, {$set:{'name':"anmejfd"}});
+Meteor.users.update({_id:user._id}, {$set:{'name':"anmejfd"}});
+Meteor.users.update({_id:userId}, {$set:{'name':'anmejfd'}});
 
 /*
-Meteor.users = {
-    create : function(missions, accountType){
-        users.insert({
-                               "accountType": accountType,
-                               "missions": missions,
-                               });
-    },
- 
-    new_date : function(user_id, new_username){
-        ProfileModel.update({"_id" : user_id},
-                               {$set : { "username" : new_username }});
-    },
-    new_duration : function(user_id, new_email){
-        ProfileModel.update({"_id" : user_id},
-                               {$set : { "email" : new_email }});
-    },
-    new_duration : function(user_id, new_mission){
-        ProfileModel.update({"_id" : user_id},
-                            {$set : { "missions" : new_misssions }});
-    }
-}
-*/
+Template.editprofile.events({
+                            
+                            
+    users.update(Meteor.userID(),{ $set:{'isAdmin':"dfj"}});
+    users.update(Meteor.userID(),{ $set:{'missions':"dfj"}});
+    users.update({_id:this._id},{ $set:{'isAdmin':"dfj"}});
+    users.update({_id:Meteor.user()._id}, {$set:{'name':"anmejfd"}});
+    users.update({_id:user()._id}, {$set:{'name':"anmejfd"}});
 
+                            });
+
+Meteor.users.insert({
+                    fields:{
+                    isAdmin: 'yes'
+                    },
+                    });
+
+*/
+Template.profile.events({
+    "submit .user_info": function(event){
+    var isAdmin = event.target.isAdmin.value;
+    
+    Meteor.users.update({_id:this._id},{ $set:{'isAdmin':"isAdmin"}
+                        
+       // missions : missions,
+    });
+                     
+    //refresh form if submit is successful
+    //event.target.accountType.value = "";
+    
+    //alert("Chat pushed!");
+    return false;
+}});
