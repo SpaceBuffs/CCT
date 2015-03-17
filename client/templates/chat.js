@@ -3,6 +3,7 @@
 * Templates
 */
 
+
 Template.chat.events({
 	"submit .new-chatMessage": function(event){
 	var chatMessage = event.target.chatMessage.value;
