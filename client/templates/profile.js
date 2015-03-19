@@ -6,7 +6,7 @@ Template.profile.helpers({
     email: function() {return Meteor.user().emails[0].address},
     missions: function() {return Meteor.users.find({}, {fields: {'missions':1}})},
     isAdmin: function() {return Meteor.users.find({}, {fields: {'isAdmin':1}})}
-
+    //isAdmin: function() { return Meteor.user().profile.isAdmin; }
 });
 
 /*Meteor.users.update(Meteor.userID(),{ $set:{fields: {'isAdmin':"dfj"}}});
@@ -40,20 +40,18 @@ Meteor.users.insert({
 */
 Template.editprofile.events({
     "submit .user_info": function(event){
-    alert("step 1");
-    var isAdmin = event.target.isAdmin.value;
+        alert("step 1");
+        var isAdmin = event.target.isAdmin.value;
+        //Meteor.users.update({_id:this._id},{$set:{'isAdmin':isAdmin}});
+        Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin':isAdmin}});
+        //refresh form if submit is successful
+        //event.target.accountType.value = "";
     
-    Meteor.users.update({_id:this._id},{ $set:{'isAdmin':isAdmin}
-                        
-       // missions : missions,
-    });
-                     
-    //refresh form if submit is successful
-    //event.target.accountType.value = "";
-    
-    alert("updated user");
-    return false;
-}});
+        alert("updated user");
+	window.location="/profile";
+        return false;
+    }
+});
 
 Template.editprofile.rendered=function() {
   alert("step 0");
