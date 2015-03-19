@@ -9,8 +9,6 @@ body,input,select,textarea {
   font-family:"HelveticaNeue-Light","HelveticaNeue-Light","Helvetica Neue", Helvetica,Arial,
   "Lucida Grande", sans-serif;
   font-size: 15px;
-  font-weight: bold;
-
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -29,7 +27,6 @@ html{
    -webkit-box-sizing:border-box;
    -moz-box-sizing:border-box;
    box-sizing: border-box;
-
 }
 
 html.no-cssgradients{
@@ -40,12 +37,12 @@ html*{
 }
 
 body {
-  text-indent: 10px;
   background:#ffffff;
   color: #333333;
   margin: 0 auto;
   max-width: 85%;
   overflow-x:hidden; 
+  padding: 10px;
   -moz-box-shadow: 0 0 0.3em #255b17;
   -webkit-box-shadow: 0 0 0.3em #255b17;
   box-shadow: 0 0 0.3em #255b17;
@@ -215,7 +212,7 @@ text-decoration: none;
 color: #436690;
 }
 
-/* TIMELINE */
+/* TIMELINE -------------------------------------------*/
 div.timeline-frame {
     -moz-box-sizing: border-box;
     border: 1px solid #bebebe;
@@ -253,7 +250,7 @@ div.timeline-axis-grid-major {
 }
 
 div.timeline-axis-text {
-    color: #4d4d4d;
+    //color: #4d4d4d;
     padding: 3px;
     white-space: nowrap;
 }
@@ -266,10 +263,10 @@ div.timeline-axis-text-major {
 
 div.timeline-event {
     -moz-box-sizing: border-box;
-    background-color: #d5ddf6;
+    //background-color: #d5ddf6;
     border-color: #97b0f8;
     box-sizing: border-box;
-    color: #1a1a1a;
+    color: "black";//#1a1a1a;
     display: inline-block;
 }
 
@@ -350,7 +347,7 @@ div.timeline-groups-axis-onright {
 }
 
 div.timeline-groups-text {
-    color: #4d4d4d;
+    //color: #4d4d4d;
     padding-left: 5px;
     padding-right: 20px;
 }
@@ -448,7 +445,7 @@ div.timeline-navigation-move-right {
         }
         div.timeline-event {
             border: none;
-            background-color: white;
+            color: black;
         }
         div.timeline-event-selected {
             background-color: #C0D8E1;
@@ -462,11 +459,11 @@ div.timeline-navigation-move-right {
         }
         div.timeline-groups-text {
             font: bold 12px arial ;
-            color: #103E9C;
+            //color: #103E9C;
         }
 
         div.order {
-            border: 1px solid #FB3738;
+            border: 1px solid;// #FB3738;
             border-radius: 2px;
             -moz-border-radius: 2px;
 

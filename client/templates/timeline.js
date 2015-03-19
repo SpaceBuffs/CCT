@@ -1786,7 +1786,7 @@ links.Timeline.prototype.repaintItems = function() {
     });
 
     // redraw the delete button and dragareas of the selected item (if any)
-    this.repaintDeleteButton();
+    //this.repaintDeleteButton();***
     this.repaintDragAreas();
 
     // put frame online again
@@ -2903,7 +2903,7 @@ links.Timeline.prototype.onMouseMove = function (event) {
                 this.changeItem(index, {'group': this.getGroupName(group)});
             }
             else {
-                this.repaintDeleteButton();
+                //this.repaintDeleteButton();***
                 this.repaintDragAreas();
             }
         }
@@ -3061,7 +3061,7 @@ links.Timeline.prototype.onMouseUp = function (event) {
             if (params.target === this.dom.items.deleteButton) {
                 // delete item***
                 if (this.selection && this.selection.index !== undefined) {
-                    this.confirmDeleteItem(this.selection.index);
+                    //this.confirmDeleteItem(this.selection.index);
                 }
             }
             else if (options.selectable) {
@@ -3098,7 +3098,7 @@ links.Timeline.prototype.onMouseUp = function (event) {
 };
 
 /**
- * Double click event occurred for an item
+ * Double click event occurred for an item***
  * @param {Event}  event
  */
 links.Timeline.prototype.onDblClick = function (event) {
@@ -3108,7 +3108,7 @@ links.Timeline.prototype.onDblClick = function (event) {
         size = this.size;
     event = event || window.event;
 
-    if (params.itemIndex != undefined) {
+    if (false){//params.itemIndex != undefined) {***
         var item = this.items[params.itemIndex];
         if (item && this.isEditable(item)) {
             // fire the edit event
@@ -3116,7 +3116,7 @@ links.Timeline.prototype.onDblClick = function (event) {
         }
     }
     else {
-        if (options.editable) {
+        if (false){ //(options.editable) {***
             // create a new item
 
             // get mouse position
@@ -5169,7 +5169,7 @@ links.Timeline.prototype.selectItem = function(index) {
             }
             item.select();
         }
-        this.repaintDeleteButton();
+        //this.repaintDeleteButton();***
         this.repaintDragAreas();
     }
 };
@@ -5187,7 +5187,7 @@ links.Timeline.prototype.selectCluster = function(index) {
         this.selection = {
             'cluster': index
         };
-        this.repaintDeleteButton();
+        //this.repaintDeleteButton();***
         this.repaintDragAreas();
     }
 };
@@ -5215,7 +5215,7 @@ links.Timeline.prototype.unselectItem = function() {
         }
 
         this.selection = undefined;
-        this.repaintDeleteButton();
+        //this.repaintDeleteButton();***
         this.repaintDragAreas();
     }
 };
@@ -7058,30 +7058,19 @@ if (Meteor.isClient) {
     return row;
     };
 
-    function getSelectedContent() {
-        var content = undefined;
-        var sel = timeline.getSelection();
-        if (sel.length) {
-            if (sel[0].content != undefined) {
-                content = sel[0].content;
-            }
-        }
-    return content;
-    };
-
-    function getId(data,row) {
-        var content = data.getValue(row, 2);
-        /*var content = undefined;
-        var sel = timeline.getSelection();
-        if (sel.length) {
-            if (sel[0].content != undefined) {
-                content = sel[0].content;
-            }
-        }*/
-        var rx = /id=(\S*)/g;
-        var arr = rx.exec(content);
-        return arr[1]; //return string id
-    };
+  instrument_color = function(instrument, accepted) {
+    //all web-safe colors
+    if (accepted == false) { return "#A0A0A0"; } //light gray
+    else if (instrument == "CDA") { return "#CC99CC"; } //light purple
+    else if (instrument == "HD Spectrograph") { return "#99CCCC"; } //light blue
+    else if (instrument == "Magnetometer") { return "#00CCFF"; } //light green
+    else if (instrument == "Photometer") { return "#FFFF66"; } //light yellow
+    else if (instrument == "Radar") { return "#FFCC66"; } //light orange
+    else if (instrument == "Scatterometer") { return "#FF9999"; } //light red
+    else if (instrument == "Spectrometer") { return "#FFCCCC"; } //light pink
+    else if (instrument == "UV Spectrograph") { return "#CCFF99"; } //light seafoam
+    else { return "#FFFFFF"; } //white; unkown instrument but accepted
+  }
 
   addrows = function(data) {
     //loop over each activity
@@ -7095,8 +7084,10 @@ if (Meteor.isClient) {
         var stop = myDocument.stopdate;
 	var power = 0 //***
         var notes = myDocument.notes;
+	var accepted = true;
+        var color = instrument_color(instrument, accepted);
         var activityText = 
-            "<div title='"+experiment+"' class='order' id='"+id+"'>"+experiment+"</div>";
+            "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
         var instrText = 
        "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
         data.addRow([start,stop,activityText,instrText]);//,id,instrument,experiment,power,notes]);
@@ -7166,19 +7157,19 @@ if (Meteor.isClient) {
         var row = getSelectedRow();
         // Note: you can retrieve the contents of the selected row with
         //       data.getValue(row, 2);
-	var content = data.getValue(row, 2); //getSelectedContent();
+	var content = data.getValue(row, 2); 
         var rx = /id=\'(\S*)\'/g;
         var arr = rx.exec(content);
         var findid = arr[1]; //return string id
 	if (row != undefined) {
 		selectedid = findid
-		document.getElementById(selectedid).style.display = 'block'
-            ActivitiesModel.find({_id: findid}).forEach(function(myDocument) {
+                ActivitiesModel.find({_id: findid}).forEach(function(myDocument) {
                 var id = myDocument._id; 
                 if (id == findid) {
 		    selectedid = myDocument._id;
 		    //http://www.w3schools.com/jsref/met_win_open.asp
-		    window.open('/activity/'+id, "Selected Activity", "height=800, width=800");
+		    window.open('/activity/'+id, "Activity "+id, "height=800, width=800");
+	            return true;
 	        };
             });
         };
@@ -7189,7 +7180,6 @@ if (Meteor.isClient) {
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
-    document.getElementById(selectedid).style.display = 'block'
   };
 
   Template.timeline.rendered= function() {
@@ -7199,27 +7189,6 @@ if (Meteor.isClient) {
 
   };
 
-  //***problem: template only loads on page load. need it to load when user interacts wth the timeline and changes the slectedid.
-/*
-  Template.timeline.activities2 = function(){  
-	//id = 'rBsXriYzs52QwH9yd' //id is global
-	alert(selectedid);
-        //document.getElementById(selectedid).style.display = 'block'
-	return ActivitiesModel.find({});//({_id: selectedid});
-  };
 
-  Template.selectedactivity.activities2 = function(){  
-	//id = 'rBsXriYzs52QwH9yd' //id is global
-	alert("new window with id "+selectedid);
-	alert("1:"+Router.current().params);
-	alert("2:"+this.params);
-        //document.getElementById(selectedid).style.display = 'block'
-	return ActivitiesModel.find({},{_id: selectedid});
-  };
-*/
-//  Template.timeline.activity.rendered = function(){
-//    alert("re-rendering...");
-//    return ActivitiesModel.find({_id: selectedid});
-//  }
 };
 //--------------------------------------------------------------------------------------

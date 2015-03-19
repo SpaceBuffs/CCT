@@ -33,50 +33,11 @@ if (Meteor.isClient) {
 		return ChatModel.find({});
 	}
   });
-
-  /*  Template.timeline.activities = function(){  
-	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
-  }*/
-
-  Template.timeline.activities = function(){  
-	return ActivitiesModel.find({},{sort:{"startdate": 1}});
-  };
-
+//--------------------------chat--------------------------------------------
   Template.chat.chatMessages = function(){
 	  return ChatModel.find({});
   };
 
-  //submit a new activity
-  Template.aedactivity.events({
-	"submit .new-activity": function(event){
-	var instrument = event.target.instrument.value;
-	var experiment = event.target.experiment.value;
-	var startdate = event.target.startdate.value;
-	var stopdate = event.target.stopdate.value;
-	//var duration = event.target.duration.value;
-	var notes = event.target.notes.value;
-	
-	ActivitiesModel.insert({
-	instrument: instrument,
-	createdAt: new Date(),
-	experiment: experiment,
-	startdate: new Date(startdate),
-	stopdate: new Date(stopdate),
-	notes:notes
-        });
-/*
-       //refresh form if submit is successful
-       event.target.instrument.value = "";
-       event.target.experiment.value = "";  
-       event.target.startdate.value = "";
-       event.target.stopdate.value = "";
-       //event.target.duration.value = "";
-       event.target.notes.value = "";
-*/
-       alert("Activity Added!");
-       //window.location = "/timeline";
-       return false;
-  }});
   /*
    Template.chat.events({
 	"submit .new-chatMessage": function(event){
@@ -94,6 +55,48 @@ if (Meteor.isClient) {
        //alert("Chat pushed!");
        return false;
   }});*/
+
+//-----------------------activities--------------------------------------
+  /*  Template.timeline.activities = function(){  
+	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
+  }*/
+
+  Template.timeline.activities = function(){  
+	return ActivitiesModel.find({},{sort:{"startdate": 1}});
+  };
+
+  //submit a new activity
+  Template.aedactivity.events({
+	"submit .new-activity": function(event){
+	var instrument = event.target.instrument.value;
+	var experiment = event.target.experiment.value;
+	var startdate = event.target.startdate.value;
+	var stopdate = event.target.stopdate.value;
+	//var duration = event.target.duration.value;
+	var notes = event.target.notes.value;
+
+	ActivitiesModel.insert({
+	instrument: instrument,
+	createdAt: new Date(),
+	experiment: experiment,
+	startdate: new Date(startdate),
+	stopdate: new Date(stopdate),
+	notes:notes
+        });
+
+/*
+       //refresh form if submit is successful
+       event.target.instrument.value = "";
+       event.target.experiment.value = "";  
+       event.target.startdate.value = "";
+       event.target.stopdate.value = "";
+       //event.target.duration.value = "";
+       event.target.notes.value = "";
+*/
+       alert("Activity Added!");
+       //window.location = "/timeline";
+       return false;
+  }});
 
   //update and delete activities
   Template.activity.events({
@@ -115,14 +118,17 @@ if (Meteor.isClient) {
           }}
         );
         alert("Activity Updated!");
+        //window.close();
+        window.opener.location.reload();
 	return false;
     },
     "click .delete": function(){
       var c = confirm("Delete Activity?");
       if (c) {
-	alert("Activity Deleted!");
         ActivitiesModel.remove(this._id); 
+        alert("Activity Deleted!");
 	window.close();
+        window.opener.location.reload();
       }
       else {
 	alert("Activity Unmodified."); 
@@ -131,7 +137,41 @@ if (Meteor.isClient) {
      }
   });
 
-} //end client code
+//-----------------------------------------------profile
+
+Template.profile.helpers({
+    name: function() {return Meteor.users.find({}, {fields: {'name':1}})},
+    username: function() {return Meteor.user().username},
+    email: function() {return Meteor.user().emails[0].address},
+    missions: function() {return Meteor.users.find({}, {fields: {'missions':1}})},
+    isAdmin: function() {return Meteor.users.find({}, {fields: {'isAdmin':1}})}
+
+});
+
+Template.editprofile.events({
+    "submit .user_info": function(event){
+    alert("step 1");
+    var isAdmin = event.target.isAdmin.value;
+    
+    Meteor.users.update({_id:this._id},{ $set:{'isAdmin':isAdmin}
+                        
+       // missions : missions,
+    });
+                     
+    //refresh form if submit is successful
+    //event.target.accountType.value = "";
+    
+    alert("updated user");
+    return false;
+}});
+
+Template.editprofile.rendered=function() {
+  alert("step 0");
+};
+
+//------------end profile code
+
+} //-----------------------------------------------------end client code
 
 
 

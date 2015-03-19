@@ -10,42 +10,8 @@
        <li> isAdmin: {{isAdmin}}</li>
        <a href="/edit_profile" alt= "editprofile"> Edit </a>
 
-
-
-
 </div>
 </template>
-
-
-<template name = "editprofile">
-    <div  id="img_header" role="banner">
-        <a href="http://www.jpl.nasa.gov/">
-            <img src="JPL.png" alt = "graviteam"/></a>
-    </div>
-  
-    <div style="padding: 20px; width: 500px; line-height: 200%;">
-    <form class="user_info">
-        Choose your current missions: <br>
-        <input type="checkbox" name="mission" value="Cassini">  Cassini<br>
-        <input type="checkbox" name="mission" value="Curiosity">  Curiosity<br>
-        <input type="checkbox" name="mission" value="Dawn">  Dawn<br>
-        <input type="checkbox" name="mission" value="Juno">  Juno<br>
-        <input type="checkbox" name="mission" value="Voyager">  Voyager<br>
-    <p></p>
-        New Username: <input type="text" name="user"><br>
-    <p></p>
-        isAdmin: <input type="text" name="isAdmin"><br>
-    <p></p>
-        New Email Address: <input type="email" name="email"><br>
-        Password: <input type="password" name="password"><br>
-        <a href="/profile" alt="profile"><input type="submit" value="Submit"></a>
-        <a href="/profile" alt= "profile"> Cancel </a>
-        </form>
-    </div>
-    
-    
-</template>
-
 
 
 
