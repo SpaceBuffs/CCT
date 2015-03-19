@@ -75,12 +75,18 @@ if (Meteor.isClient) {
 	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
 
+        //***javascript assumes this date is LOCAL. Force it to be UTC...
+        startdate = new Date(startdate)
+        stopdate = new Date(stopdate)
+        //startdate = new Date(startdate.getTime() - startdate.getTimezoneOffset() * 60000);
+        //stopdate = new Date(stopdate.getTime() - stopdate.getTimezoneOffset() * 60000);
+
 	ActivitiesModel.insert({
 	instrument: instrument,
 	createdAt: new Date(),
 	experiment: experiment,
-	startdate: new Date(startdate),
-	stopdate: new Date(stopdate),
+	startdate: startdate,//new Date(startdate),
+	stopdate: stopdate,//new Date(stopdate),
 	notes:notes
         });
 
@@ -93,7 +99,7 @@ if (Meteor.isClient) {
        //event.target.duration.value = "";
        event.target.notes.value = "";
 */
-       alert("Activity Added!");
+       alert("Activity Added!"+startdate);
        //window.location = "/timeline";
        return false;
   }});

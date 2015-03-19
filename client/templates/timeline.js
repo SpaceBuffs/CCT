@@ -1897,7 +1897,7 @@ links.Timeline.prototype.repaintGroups = function() {
     frame.style.left = size.groupsLeft + "px";
     frame.style.width = (options.groupsWidth !== undefined) ?
         options.groupsWidth :
-        size.groupsWidth + "px";
+        size.groupsWidth*1.49 + "px"; //***multiplied to get white space to go away***
 
     // hide groups axis when there are no groups
     if (groups.length == 0) {
