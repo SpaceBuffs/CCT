@@ -10,52 +10,26 @@ Version 2.01
 1/25/2015
 
 
-<template name="home_page">
- 
-  <div id="container">
-      <div id="sidebar">
-          <h3>GraviTeam</h3>
-          <p> add any links here </p>
-      </div>
-      <div id="mainContent">
-        <h1>GraviTeam:</h1>
- 
-      <p> A major difficulty among international scientists is finding a collaborative, social interface where scientists from all over the world can share ideas and design space mission experiments. Our solution is a web-based application that uses technology and social media to allow for cross-world communication, design, and experimentation.</p>
-      
-      </div>
-  </div>
-
-</template>
-
--->
-<!--
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
-
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-home.html is the main template for the home page
-
-Version 2.01
-1/25/2015
--->
-
-
 <!-- home page  -->
 <template name="home">
     {{> alert}}
+
     {{#if currentUser}}
-       {{> timeline}}
+        {{> _projectmanager}}
+
+        {{> loginButtons }}
     {{else}}
        {{> user_home}}
        {{> home_page}}
     {{/if}}   
+
+
 </template>  
 <!--   user controller -->
 <template name="user_home">
     <div id="login_form">
 
-       <!--  {{#unless resetPassword}}
+         {{#unless resetPassword}}
               {{#unless currentUser}}
                   {{#unless showForgotPassword}}
                       {{> signIn}}
@@ -68,8 +42,9 @@ Version 2.01
               {{/unless}}
           {{else}}
               {{> resetPassword}}
-          {{/unless}}--> 
-           {{> loginButtons }}
+          {{/unless}}
+          <!-- {{> loginButtons }}--> 
+          
     </div> 
 </template> 
 <!-- displays on home page -->
@@ -94,81 +69,68 @@ Version 2.01
 </template>
 
 <template name="userList">
-<div class="manage-users row">
-  <div id="sidebar1">
 
-  <div class="row">
-    <div class="span6">
-      <h2>User Groups</h2>
-    </div>
-  </div>
-
-  <ul class="user-list">
-  {{#each users}}
-  <li>
-    <div class="person" data-id="{{_id}}">
-
-      <div class="name">
-        <a href="#">{{username}}</a>
-      </div> 
-
-      <div>{{#each emails}}{{address}} {{/each}}</div>
-      <div><span class="help">admin Authorized:</span> 
-        <ul class="roles">
-          {{#each roles}}
-          <li><span class="role">{{roles}}</span></li>
-          {{/each}}
-        </ul>
-      </div>
-
-    </div>
-  </li>
-  {{/each}}
-  </ul>
-
-  {{> editRolesForm}}
-
-  </div>
-</div>
 </template>
 
 
 <template name="editRolesForm">
-  <div id="user-roles" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <form id="manage-roles-form">
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Manage user Permissions</h3>
-      </div>
-
-      <div class="modal-body">
-        {{#with user}}
-        <input type="hidden" id="_id" name="_id" value="{{_id}}" />
-
-        <div>
-          <h4>Name: {{username}}</h4>
-        </div>
-
-        <br />
-        <select id="roles" name="roles" multiple>
-          {{#each allRoles}}
-          <option value="{{.}}">{{.}}</option>
-          {{/each}}
-        </select>
-        {{/with}}
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button id="saveChanges" class="btn btn-primary">Save changes</button>
-      </div>
-    </form>
-  </div>
 </template>
 
 <template name="myfooter">
   <div id="footer">
         Copyright © Graviteam
+  </div>
+</template>
+<template name="_projectmanager">
+  <div class="container form">
+    {{#if logged_in }}
+      {{#if currentUserIsAdmin}}
+        <h1 class="form-heading">You are currently logged in as an Admin.</h1>
+      {{else}}
+        <h1 class="form-heading">You are not an Admin. If you need to use the GraviTeam Admin, please ask your Admin to grant you access.</h1>
+      {{/if}}
+
+      <div>
+        {{#unless adminUserExists}}
+          <button id="become-houston-admin"
+                  class="btn btn-lg btn-success btn-block">
+            <i class="fa fa-pencil"></i>Claim Admin
+          </button>
+          <br>
+        {{/unless}}
+        <a href="/home" class="btn btn-primary col-xs-6">
+          <i class="fa fa-home"></i>Back to Home
+        </a>
+        <button id="logout" class="btn btn-warning col-xs-6">
+          <i class="fa fa-sign-out"></i>Log out
+        </button>
+      </div>
+    {{else}} {{! nobody is logged in - sign in or sign up}}
+      <form id="sign-in-form" role="form">
+        <h1 class="form-heading">
+          {{#if adminUserExists}} Log In {{else}} Create an admin account
+          {{/if}}
+        </h1>
+        <input type="email" class="form-control" placeholder="Email address"
+               name="email"
+               id='email' required autofocus>
+        <input type="password" class="form-control" placeholder="Password"
+               name="password"
+               id='password' required>
+
+        <div>
+          <button
+              class="btn btn-lg {{#if adminUserExists}}btn-primary{{else}}btn-success{{/if}} btn-block"
+              type="submit">
+            {{#if adminUserExists}}
+            <i class="fa fa-sign-in"></i>Log In
+            {{else}}
+            <i class="fa fa-user"></i>Create account {{/if}}
+
+          </button>
+        </div>
+      </form>
+    {{/if}}
   </div>
 </template>

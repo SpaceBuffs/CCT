@@ -59,10 +59,13 @@ Router.map(function() {
 });
 
 var requireLogin = function() { 
-  if (! Meteor.user()) {
+  if (! Meteor.user() ||  !Meteor.user().roles.admins) {
    // If user is not logged in render home
    this.render('home');
- } else {
+ }//else if (!Meteor.user().roles.admins){
+  //this.render('_blank');
+//}
+else {
    //if user is logged in render whatever route was requested
    this.next(); 
  }

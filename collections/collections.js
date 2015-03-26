@@ -13,6 +13,8 @@ Version 2.02
 //UserAccounts = new Mongo.Collection('user');
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
+ProjectAdmin = new Mongo.Collection('projectadmin');
+
 
 /*
 ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
