@@ -184,15 +184,6 @@ if (Meteor.isClient) {
 
 //-----------------------------------------------profile
 
-/*
-admin = "none"; //global variable for one admin, username saved in here. User can't save their username as "none".
-
-isadmin = function(username) {
-    if (username == admin) { return true; }
-    else { return false; }
-};
-*/
-
 //***TAKE AWAY ADMIN PRIVELEDGES WHEN USER LOGS OUT - CURRENTLY NOT WORKING
 /*
 var logoutbutton = document.getElementById("login-buttons-logout"); //grab the element
@@ -201,6 +192,7 @@ logoutbutton.onclick = function() {
     //Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
 };
 */
+
 
 Template.profile.helpers({
     //username and email are controlled by Meteor:
@@ -213,12 +205,12 @@ Template.profile.helpers({
 });
 
 Template.editprofile.helpers({
-    //username and email are controlled by Meteor:
+    //username and email are controlled by Meteor, need to update from the SERVER side: NOT DONE YET***
     username: function() {return Meteor.user().username},
     email: function() {return Meteor.user().emails[0].address},
     //However, extra profile info can be saved under profile.parametername:
     name: function() { return Meteor.user().profile.Name; },
-    missions: function() { return Meteor.user().profile.missions; },
+    //missions: function() { return Meteor.user().profile.missions; },
     isAdmin: function() { return Meteor.user().profile.isAdmin; }
 });
 
@@ -226,9 +218,18 @@ Template.editprofile.events({
     "submit .user_info": function(event){
     var name = event.target.fullname.value;
     //var username = event.target.user.value;
-    var email = event.target.email.value;
+    var email = event.target.email.value; //***MUST DO FROM SERVER SIDE
     var isAdmin = document.getElementById("isAdmin").checked;//event.target.isAdmin.value;
-    var missions = event.target.mission.value;
+
+    var checkBoxes = document.getElementsByTagName('input');
+    var missions = [];
+    for (var counter=0; counter < checkBoxes.length; counter++) {
+      if (checkBoxes[counter].name == "mission" && checkBoxes[counter].checked == true) {
+	missions.push(checkBoxes[counter].value);
+        }
+    }
+
+    //var missions = event.target.mission.value;
     Meteor.users.update(Meteor.userId(),{$set:
         {
 	 'profile.Name': name,
@@ -245,21 +246,12 @@ Template.editprofile.events({
 
 Template.editprofile.rendered=function() {
   if (Meteor.user().profile.isAdmin == true) { document.getElementById("isAdmin").checked = true; }
+  var missions = Meteor.user().profile.missions;
+  for (var counter=0; counter < missions.length; counter++) {
+      document.getElementById(missions[counter]).checked = true;
+  }
 };
 
 //------------end profile code
 
 } //-----------------------------------------------------end client code
-
-
-
-/*
-if (Meteor.isServer) {
-ActivitiesModel.allow({
-  update:function(userId, doc, fields, modifier) {
-    //anyone can update the collection
-    //you can write some filters to restrict the updating to only owner of the document
-    return true;
-    }
-});
-}*/ //THIS BROKE IT
