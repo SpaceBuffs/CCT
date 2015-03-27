@@ -74,6 +74,9 @@ if (Meteor.isClient) {
 	var stopdate = event.target.stopdate.value;
 	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
+        var owner = Meteor.user();
+	var accepted = owner.profile.isAdmin; 
+        //***considered accepted if last updater was an admin when she updated it
 
         //***javascript assumes this date is LOCAL. Force it to be UTC...
         startdate = new Date(startdate)
@@ -87,7 +90,9 @@ if (Meteor.isClient) {
 	experiment: experiment,
 	startdate: startdate,//new Date(startdate),
 	stopdate: stopdate,//new Date(stopdate),
-	notes:notes
+	notes:notes,
+	owner:owner,
+        accepted:accepted
         });
 
 /*
@@ -99,10 +104,20 @@ if (Meteor.isClient) {
        //event.target.duration.value = "";
        event.target.notes.value = "";
 */
-       alert("Activity Added!"+startdate);
+       if (owner.profile.isAdmin) { alert("Activity accepted and added to timeline."); }
+       else { alert("Activity submitted for approval."); }
+
        //window.location = "/timeline";
        return false;
   }});
+
+  //If user is not an admin, don't show approve/update/delete buttons
+  //***May want to change this so a non-admin can still udpate/delete activities
+  Template.activity.rendered=function() {
+    if (!Meteor.user().profile.isAdmin) {
+      document.getElementById("approve_buttons").style.display = 'none';
+    }
+  };
 
   //update and delete activities
   Template.activity.events({
@@ -113,6 +128,10 @@ if (Meteor.isClient) {
 	var stopdate = event.target.stopdate.value;
 	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
+        //update the owner
+        var newowner = Meteor.user();
+        var accepted = newowner.profile.isAdmin; 
+
         ActivitiesModel.update({_id:this._id},{$set: 
           {
 	  instrument: instrument,
@@ -120,7 +139,9 @@ if (Meteor.isClient) {
 	  startdate: new Date(startdate),
 	  stopdate: new Date(stopdate),
 	  //duration: duration,
-	  notes:notes
+	  notes:notes,
+	  owner:newowner,
+	  accepted:accepted
           }}
         );
         alert("Activity Updated!");
@@ -140,7 +161,25 @@ if (Meteor.isClient) {
 	alert("Activity Unmodified."); 
       }
       //return false;
-     }
+     },
+    "click .approve": function(){
+        if (this.accepted) {
+	    alert("Already approved.");
+	    return false;
+	};
+        //else, update the owner; colors will update on timeline refresh
+        var newowner = Meteor.user();
+        var accepted = newowner.profile.isAdmin; 
+        ActivitiesModel.update({_id:this._id},{$set: 
+          {
+	  owner:newowner,
+	  accepted:accepted
+          }}
+        );
+        alert("Activity approved!");
+        //window.close();
+        window.opener.location.reload();
+    }
   });
 
 //-----------------------------------------------profile

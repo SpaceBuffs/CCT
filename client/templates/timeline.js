@@ -7070,7 +7070,11 @@ if (Meteor.isClient) {
     else if (instrument == "Spectrometer") { return "#FFCCCC"; } //light pink
     else if (instrument == "UV Spectrograph") { return "#CCFF99"; } //light seafoam
     else { return "#FFFFFF"; } //white; unkown instrument but accepted
-  }
+  };
+
+  powerusage = function(experiment) {
+    return 0; //***Update depending on experiment and duration
+  };
 
   addrows = function(data) {
     //loop over each activity
@@ -7082,9 +7086,12 @@ if (Meteor.isClient) {
         var experiment = myDocument.experiment;
         var start = myDocument.startdate;
         var stop = myDocument.stopdate;
-	var power = 0 //***
+	var power = powerusage(experiment);
         var notes = myDocument.notes;
-	var accepted = true;
+        //if (typeof myDocument.owner.isAdmin === 'undefined') { var accepted = false; }
+        //else { var accepted = myDocument.owner.isAdmin; };
+	var accepted = myDocument.accepted;
+	//if(myDocument.owner.isAdmin) { accepted = true; }; //only accepted if last update was made by an admin
         var color = instrument_color(instrument, accepted);
         var activityText = 
             "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
