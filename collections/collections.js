@@ -145,34 +145,67 @@ if (Meteor.isClient) {
 
 //-----------------------------------------------profile
 
+/*
+admin = "none"; //global variable for one admin, username saved in here. User can't save their username as "none".
+
+isadmin = function(username) {
+    if (username == admin) { return true; }
+    else { return false; }
+};
+*/
+
+//***TAKE AWAY ADMIN PRIVELEDGES WHEN USER LOGS OUT - CURRENTLY NOT WORKING
+/*
+var logoutbutton = document.getElementById("login-buttons-logout"); //grab the element
+logoutbutton.onclick = function() {
+    alert("Aaaaah! No longer admin.");
+    //Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+};
+*/
+
 Template.profile.helpers({
-    name: function() {return Meteor.users.find({}, {fields: {'name':1}})},
+    //username and email are controlled by Meteor:
     username: function() {return Meteor.user().username},
     email: function() {return Meteor.user().emails[0].address},
-    missions: function() {return Meteor.users.find({}, {fields: {'missions':1}})},
-    isAdmin: function() {return Meteor.users.find({}, {fields: {'isAdmin':1}})}
+    //However, extra profile info can be saved under profile.parametername:
+    name: function() { return Meteor.user().profile.Name; },
+    missions: function() { return Meteor.user().profile.missions; },
+    isAdmin: function() { return Meteor.user().profile.isAdmin; }
+});
 
+Template.editprofile.helpers({
+    //username and email are controlled by Meteor:
+    username: function() {return Meteor.user().username},
+    email: function() {return Meteor.user().emails[0].address},
+    //However, extra profile info can be saved under profile.parametername:
+    name: function() { return Meteor.user().profile.Name; },
+    missions: function() { return Meteor.user().profile.missions; },
+    isAdmin: function() { return Meteor.user().profile.isAdmin; }
 });
 
 Template.editprofile.events({
     "submit .user_info": function(event){
-    alert("step 1");
-    var isAdmin = event.target.isAdmin.value;
-    
-    Meteor.users.update({_id:this._id},{ $set:{'isAdmin':isAdmin}
-                        
-       // missions : missions,
-    });
-                     
-    //refresh form if submit is successful
-    //event.target.accountType.value = "";
-    
-    alert("updated user");
+    var name = event.target.fullname.value;
+    //var username = event.target.user.value;
+    var email = event.target.email.value;
+    var isAdmin = document.getElementById("isAdmin").checked;//event.target.isAdmin.value;
+    var missions = event.target.mission.value;
+    Meteor.users.update(Meteor.userId(),{$set:
+        {
+	 'profile.Name': name,
+         'profile.isAdmin': isAdmin,
+	 //username: username,
+         email: email,
+         'profile.missions': missions
+        }}
+    );
+    alert("Your account has been updated.");
+    window.location="/profile";
     return false;
 }});
 
 Template.editprofile.rendered=function() {
-  alert("step 0");
+  if (Meteor.user().profile.isAdmin == true) { document.getElementById("isAdmin").checked = true; }
 };
 
 //------------end profile code

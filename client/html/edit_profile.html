@@ -5,22 +5,19 @@
     </div>
   
     <div style="padding: 20px; width: 500px; line-height: 200%;">
+    <h1>Edit Your Profile</h1>
     <form class="user_info" id="user_info" name="user_info">
+        Full Name: <input type="text" name="fullname" value={{name}} size=50 /><br>
         Choose your current missions: <br>
-        <input type="checkbox" name="mission" value="Cassini"/>  Cassini<br>
-        <input type="checkbox" name="mission" value="Curiosity"/>  Curiosity<br>
-        <input type="checkbox" name="mission" value="Dawn"/>  Dawn<br>
-        <input type="checkbox" name="mission" value="Juno"/>  Juno<br>
-        <input type="checkbox" name="mission" value="Voyager"/>  Voyager<br>
-    <p></p>
-        New Username: <input type="text" name="user"/><br>
-    <p></p>
-        isAdmin: <input type="text" name="isAdmin"/><br>
-    <p></p>
-        New Email Address: <input type="email" name="email"/><br>
+          <input type="checkbox" name="mission" value="Cassini"/>  Cassini<br>
+          <input type="checkbox" name="mission" value="Curiosity"/>  Curiosity<br>
+          <input type="checkbox" name="mission" value="Dawn"/>  Dawn<br>
+          <input type="checkbox" name="mission" value="Juno"/>  Juno<br>
+          <input type="checkbox" name="mission" value="Voyager"/>  Voyager<br><p></p>
+        Project Manager: <input type="checkbox" name="isAmin" id="isAdmin"/><br>
+        Email Address: <input type="email" name="email" value={{email}} size=50 /><br>
         Password: <input type="password" name="password"/><br>
-        <!--a href="/profile" alt="profile"-->
-<input type="submit" name="submit" id="submit" value="Submit">
+        <input type="submit" name="submit" id="submit" value="Submit">
         <a href="/profile" alt="profile"> Cancel </a>
         </form>
     </div>
