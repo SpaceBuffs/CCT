@@ -62,14 +62,14 @@ Version 2.01
          <a href="" onclick="showIFrame();"><img src="chat.png" alt = "chat"/> Chat</a>
       </ul>
 	  </div>
-     
-    <iframe id='chatifr' frameborder="0" width="40%" height="200" align="right"></iframe>
-
+    <iframe id='chatifr' style="z-index:1005;" frameborder="0" width="40%" height="200" align="right" ></iframe>
     <script type="text/javascript">
       function showIFrame(){
         var frame = document.getElementById("chatifr");
         frame.src = '/chat';
         frame.style.display="block";
+	//frame.style.z-index="999";
+	//frame.css("z-index",1001);
       }
       function hideIFrame(){
         var frame = document.getElementById("chatifr");

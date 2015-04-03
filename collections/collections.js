@@ -119,6 +119,29 @@ if (Meteor.isClient) {
     }
   };
 
+  //show in UTC***
+  //dates are saved in the DB as an ISODate variable in the form: 
+  //Thu Apr 02 2015 21:38:57 GMT-0600 (MDT)
+  //what we want: Apr 02 2015 21:38:57
+  //Since can't save without a timezone, just chop of this last part, since users added activities in UTC
+  //but the created At date is in local, so just cut off the timezone amount first
+  //also cut off day of week by starting the substring at 4
+  Template.activity.helpers({
+    createdAtUTC: function() { 
+        str= new Date(this.createdAt.getTime() + this.createdAt.getTimezoneOffset() * 60000);
+	str = String(str);
+	str = str.substring(4,str.indexOf(" GMT"));
+	return str; },  
+    startdateUTC: function() {
+	str = String(this.startdate);
+	str = str.substring(4,str.indexOf(" GMT"));
+	return str; },
+    stopdateUTC: function() {
+	str = String(this.stopdate);
+	str = str.substring(4,str.indexOf(" GMT"));
+	return str; }
+  });
+
   //update and delete activities
   Template.activity.events({
     "submit .update_activity_form": function(event){
