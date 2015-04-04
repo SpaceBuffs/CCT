@@ -72,7 +72,35 @@ if (Meteor.isClient) {
 	instrument = event.target.instrument.value;
 	if (instrument == "CDA") {
 	    document.getElementById("select-experiment").innerHTML = 
-		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option><option value='Take Photo in Near Infared'>Take Photo in Near Infared</option><option value='Position Camera'>Position Camera</option><option value='Particle Analysis'>Particle Analysis</option><option value='Dust Collection'>Dust Collection</option><option value='Ion Collection'>Ion Collection</option><option value='Calibration for CDA'>Calibration for CDA</option><option value='Send Current to Make Magnetic Field'>Send Current to Make Magnetic Field</option><option value='Analyze Magnetic Field'>Analyze Magnetic Field</option><option value='Radar'>Radar</option><option value='Measure Surface Gamma Rays'>Measure Surface Gamma Rays</option><option value='Map'>Map</option></select>";
+		"Experiment: <select name='experiment'><option value='Particle Analysis'>Particle Analysis</option><option value='Dust Collection'>Dust Collection</option><option value='Ion Collection'>Ion Collection</option><option value='Calibration for CDA'>Calibration for CDA</option></select>";
+	}
+	if (instrument == "HD Spectrograph") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option<option value='Position Camera'>Position Camera</option></select>";
+	}
+	if (instrument == "Magnetometer") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Send Current to Make Magnetic Field'>Send Current to Make Magnetic Field</option><option value='Analyze Magnetic Field'>Analyze Magnetic Field</option></select>";
+	}
+	if (instrument == "Photometer") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option><option value='Take Photo in Near Infared'>Take Photo in Near Infared</option><option value='Position Camera'>Position Camera</option></select>";
+	}
+	if (instrument == "Radar") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Radar'>Radar</option></select>";
+	}
+	if (instrument == "Scatterometer") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Particle Analysis'>Particle Analysis</option><option value='Dust Collection'>Dust Collection</option><option value='Ion Collection'>Ion Collection</option></select>";
+	}
+	if (instrument == "Spectrometer") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option><option value='Position Camera'>Position Camera</option><option value='Measure Surface Gamma Rays'>Measure Surface Gamma Rays</option><option value='Map'>Map</option></select>";
+	}
+	if (instrument == "UV Spectrograph") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option><option value='Take Photo in Near Infared'>Take Photo in Near Infared</option><option value='Position Camera'>Position Camera</option></select>";
 	}
 	return false; //prevents refresh
 	},
