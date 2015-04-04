@@ -1,37 +1,79 @@
 <!--Add, Edit, Delete and Activity-->
 <template name = "aedactivity">
 	{{> Dashboard_page}}
+<head>
+<script type="text/javascript">
+function removeAllOptions(selectbox)
+{
+	var i;
+	for(i=selectbox.options.length-1;i>=0;i--)
+	{
+		selectbox.remove(i);
+	}
+}
+function addOption(selectbox, value, text )
+{
+	var optn = document.createElement("OPTION");
+	optn.text = text;
+	optn.value = value;
+
+	selectbox.options.add(optn);
+}
+
+function fillinstrument(){ 	
+	addOption(document.drop_list.instrument, "CDA", "CDA", "");
+	addOption(document.drop_list.instrument, "HD Spectrograph", "HD Spectrograph", "");
+	addOption(document.drop_list.instrument, "Magnetometer", "Magnetometer", "");
+	addOption(document.drop_list.instrument, "Photometer", "Photometer", "");
+	addOption(document.drop_list.instrument, "Radar", "Radar", "");
+	addOption(document.drop_list.instrument, "Scatterometer", "Scatterometer", "");
+	addOption(document.drop_list.instrument, "Spectrometer", "Spectrometer", "");
+	addOption(document.drop_list.instrument, "UV Spectrograph", "UV Spectrograph", "");
+	}
+
+function Selectexperiment(){
+	removeAllOptions(document.drop_list.experiment);
+	addOption(document.drop_list.experiment, "", "experiment", "");
+
+	if(document.drop_list.instrument.value == 'CDA'){
+	addOption(document.drop_list.experiment,"Mango", "Mango");
+	}
+	if(document.drop_list.instrument.value == 'HD Spectrograph'){
+	addOption(document.drop_list.experiment,"Cricket", "Cricket");
+	}
+	if(document.drop_list.instrument.value == 'Magnetometer'){
+	addOption(document.drop_list.experiment,"PHP", "PHP");
+	}
+	if(document.drop_list.instrument.value == 'Photometer'){
+	addOption(document.drop_list.experiment,"PHP", "PHP");
+	}
+	if(document.drop_list.instrument.value == 'Radar'){
+	addOption(document.drop_list.experiment,"PHP", "PHP");
+	}
+	if(document.drop_list.instrument.value == 'Scatterometer'){
+	addOption(document.drop_list.experiment,"PHP", "PHP");
+	}
+	if(document.drop_list.instrument.value == 'UV Spectrograph'){
+	addOption(document.drop_list.experiment,"PHP", "PHP");
+	}
+}
+
+</script>
+</head>
+<body onload="fillinstrument();">
 <h2>Add an Activity</h2>
 	<p></p>
 <div style="border: 1px solid #000000; padding: 10px; width: 500px;">
 	<form class="new-activity">
 		Instrument: 
-		<select name="instrument">
-			<option value="CDA">CDA</option>
-			<option value="HD Spectrograph">HD Spectrometer</option>
-			<option value="Magnetometer">Magnetometer</option>
-			<option value="Photometer">Photometer</option>
-			<option value="Radar">Radar</option>
-			<option value="Scatterometer">Scatterometer</option>
-			<option value="Spectrometer">Spectrometer</option>
-			<option value="UV Spectrograph">UV Spectrograph</option>
+		<select name="instrument" onChange="Selectexperiment();">
+			<option value="">instrument</option>
 		</select>
 		<p></p>
 
 	   	Experiment: 
 		<select name="experiment">
-		<option value="Take Photo in Visual Spectrum">Take Photo in Visual Spectrum</option>
-		<option value="Take Photo in Near Infared">Take Photo in Near Infared</option> <!--uv only-->
-		<option value="Position Camera">Position Camera</option>
-		<option value="Particle Analysis">Particle Analysis</option>
-		<option value="Dust Collection">Dust Collection</option>
-		<option value="Ion Collection">Ion Collection</option>
-		<option value="Calibration for CDA">Calibration for CDA</option>
-		<option value="Send Current to Make Magnetic Field">Send Current to Make Magnetic Field</option>
-		<option value="Analyze Magnetic Field">Analyze Magnetic Field</option>
-		<option value="Radar">Radar</option>
-		<option value="Measure Surface Gamma Rays">Measure Surface Gamma Rays</option>
-		<option value="Map">Map</option>
+			<option value="">experiment</option>
 		</select>
 		<p></p>
 
@@ -51,4 +93,5 @@
         	<input type="submit" name="submit" value="Submit">
 </form>
 </div>
+</body>
 </template>
