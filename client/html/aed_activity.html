@@ -4,7 +4,7 @@
 <h2>Add an Activity</h2>
 	<p></p>
 <div style="border: 1px solid #000000; padding: 10px; width: 500px;">
-	<form class="new-activity">
+	<form class="select-instrument">
 		Instrument: 
 		<select name="instrument">
 			<option value="CDA">CDA</option>
@@ -16,12 +16,16 @@
 			<option value="Spectrometer">Spectrometer</option>
 			<option value="UV Spectrograph">UV Spectrograph</option>
 		</select>
+		<input type="submit" name="submit" value="Submit" id="choose_instrument">
+		</form>
 		<p></p>
-
-	   	Experiment: 
+	<form class="new-activity">
+		<div id = "select-experiment">
+		Please select an instrument first.
+	   	<!--Experiment: 
 		<select name="experiment">
 		<option value="Take Photo in Visual Spectrum">Take Photo in Visual Spectrum</option>
-		<option value="Take Photo in Near Infared">Take Photo in Near Infared</option> <!--uv only-->
+		<option value="Take Photo in Near Infared">Take Photo in Near Infared</option>
 		<option value="Position Camera">Position Camera</option>
 		<option value="Particle Analysis">Particle Analysis</option>
 		<option value="Dust Collection">Dust Collection</option>
@@ -32,9 +36,10 @@
 		<option value="Radar">Radar</option>
 		<option value="Measure Surface Gamma Rays">Measure Surface Gamma Rays</option>
 		<option value="Map">Map</option>
-		</select>
+		</select>-->
+		</div>
 		<p></p>
-
+		
            	Start Date (UTC): 
 		<input type="datetime-local" name="startdate" size=30 placeholder="YYYY/MM/DD HH:MM:SS"/><!--*** change to utc-->
         	<p></p>

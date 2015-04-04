@@ -65,17 +65,26 @@ if (Meteor.isClient) {
 	return ActivitiesModel.find({},{sort:{"startdate": 1}});
   };
 
-  //submit a new activity
+  //submit a new activity***
+  var instrument = "none";
   Template.aedactivity.events({
+	"submit .select-instrument": function(event){
+	instrument = event.target.instrument.value;
+	if (instrument == "CDA") {
+	    document.getElementById("select-experiment").innerHTML = 
+		"Experiment: <select name='experiment'><option value='Take Photo in Visual Spectrum'>Take Photo in Visual Spectrum</option><option value='Take Photo in Near Infared'>Take Photo in Near Infared</option><option value='Position Camera'>Position Camera</option><option value='Particle Analysis'>Particle Analysis</option><option value='Dust Collection'>Dust Collection</option><option value='Ion Collection'>Ion Collection</option><option value='Calibration for CDA'>Calibration for CDA</option><option value='Send Current to Make Magnetic Field'>Send Current to Make Magnetic Field</option><option value='Analyze Magnetic Field'>Analyze Magnetic Field</option><option value='Radar'>Radar</option><option value='Measure Surface Gamma Rays'>Measure Surface Gamma Rays</option><option value='Map'>Map</option></select>";
+	}
+	return false; //prevents refresh
+	},
 	"submit .new-activity": function(event){
-	var instrument = event.target.instrument.value;
+	//var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
 	var stopdate = event.target.stopdate.value;
 	//var duration = event.target.duration.value;
 	var notes = event.target.notes.value;
         var owner = Meteor.user();
-	var accepted = owner.profile.isAdmin; 
+	var accepted = owner.profile.isAdmin;  //***may not exist
         //***considered accepted if last updater was an admin when she updated it
 
         //***javascript assumes this date is LOCAL. Force it to be UTC...
@@ -114,9 +123,8 @@ if (Meteor.isClient) {
   //If user is not an admin, don't show approve/update/delete buttons
   //***May want to change this so a non-admin can still udpate/delete activities
   Template.activity.rendered=function() {
-    if (!Meteor.user().profile.isAdmin) {
-      document.getElementById("approve_buttons").style.display = 'none';
-    }
+    if (Meteor.user().profile.isAdmin != true) { document.getElementById("approve_buttons").style.display = 'none'; }
+    else { document.getElementById("approve_buttons").style.display = 'block'; }
   };
 
   //show in UTC***
@@ -145,6 +153,9 @@ if (Meteor.isClient) {
   //update and delete activities
   Template.activity.events({
     "submit .update_activity_form": function(event){
+	//if (Meteor.user().profile.isAdmin != true) {
+	//    alert("You must be a project manager to approve an activity.");
+	//}//***
 	var instrument = event.target.instrument.value;
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
@@ -173,6 +184,9 @@ if (Meteor.isClient) {
 	return false;
     },
     "click .delete": function(){
+	//if (Meteor.user().profile.isAdmin != true) {
+	//    alert("You must be a project manager to approve an activity.");
+	//}//***
       var c = confirm("Delete Activity?");
       if (c) {
         ActivitiesModel.remove(this._id); 
@@ -186,22 +200,27 @@ if (Meteor.isClient) {
       //return false;
      },
     "click .approve": function(){
-        if (this.accepted) {
+	if (Meteor.user().profile.isAdmin != true) {
+	    alert("You must be a project manager to approve an activity.");
+	}
+        else if (this.accepted) {
 	    alert("Already approved.");
 	    return false;
-	};
-        //else, update the owner; colors will update on timeline refresh
-        var newowner = Meteor.user();
-        var accepted = newowner.profile.isAdmin; 
-        ActivitiesModel.update({_id:this._id},{$set: 
-          {
-	  owner:newowner,
-	  accepted:accepted
-          }}
-        );
-        alert("Activity approved!");
-        //window.close();
-        window.opener.location.reload();
+	}
+	else { //if you're an admin and it's not accepted
+            //else, update the owner; colors will update on timeline refresh
+            var newowner = Meteor.user();
+            var accepted = newowner.profile.isAdmin; 
+            ActivitiesModel.update({_id:this._id},{$set: 
+              {
+	      owner:newowner,
+	      accepted:accepted
+              }}
+            );
+            alert("Activity approved!");
+            //window.close();
+            window.opener.location.reload();
+        }
     }
   });
 

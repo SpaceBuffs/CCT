@@ -7152,7 +7152,7 @@ if (Meteor.isClient) {
       groupsChangeable : false, //***
       groupsOnRight: false,
       stackEvents: true,
-      showNavigation: false, //***
+      showNavigation: true, //***
       showButtonNew: false //***
     };
 
