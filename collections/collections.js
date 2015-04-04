@@ -13,7 +13,7 @@ Version 2.02
 //UserAccounts = new Mongo.Collection('user');
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
-ProjectAdmin = new Mongo.Collection('projectadmin');
+
 
 
 /*

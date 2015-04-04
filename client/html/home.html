@@ -15,9 +15,7 @@ Version 2.01
     {{> alert}}
 
     {{#if currentUser}}
-        {{> _projectmanager}}
-
-        {{> loginButtons }}
+        {{> admin_login}}
     {{else}}
        {{> user_home}}
        {{> home_page}}
@@ -29,7 +27,7 @@ Version 2.01
 <template name="user_home">
     <div id="login_form">
 
-         {{#unless resetPassword}}
+        <!-- {{#unless resetPassword}}
               {{#unless currentUser}}
                   {{#unless showForgotPassword}}
                       {{> signIn}}
@@ -42,8 +40,8 @@ Version 2.01
               {{/unless}}
           {{else}}
               {{> resetPassword}}
-          {{/unless}}
-          <!-- {{> loginButtons }}--> 
+          {{/unless}}--> 
+           {{> loginButtons }}
           
     </div> 
 </template> 
@@ -82,55 +80,122 @@ Version 2.01
         Copyright © Graviteam
   </div>
 </template>
-<template name="_projectmanager">
-  <div class="container form">
-    {{#if logged_in }}
-      {{#if currentUserIsAdmin}}
-        <h1 class="form-heading">You are currently logged in as an Admin.</h1>
-      {{else}}
-        <h1 class="form-heading">You are not an Admin. If you need to use the GraviTeam Admin, please ask your Admin to grant you access.</h1>
-      {{/if}}
-
-      <div>
-        {{#unless adminUserExists}}
-          <button id="become-houston-admin"
-                  class="btn btn-lg btn-success btn-block">
-            <i class="fa fa-pencil"></i>Claim Admin
-          </button>
-          <br>
-        {{/unless}}
-        <a href="/home" class="btn btn-primary col-xs-6">
-          <i class="fa fa-home"></i>Back to Home
-        </a>
-        <button id="logout" class="btn btn-warning col-xs-6">
-          <i class="fa fa-sign-out"></i>Log out
-        </button>
-      </div>
-    {{else}} {{! nobody is logged in - sign in or sign up}}
-      <form id="sign-in-form" role="form">
-        <h1 class="form-heading">
-          {{#if adminUserExists}} Log In {{else}} Create an admin account
-          {{/if}}
-        </h1>
-        <input type="email" class="form-control" placeholder="Email address"
-               name="email"
-               id='email' required autofocus>
-        <input type="password" class="form-control" placeholder="Password"
-               name="password"
-               id='password' required>
-
-        <div>
-          <button
-              class="btn btn-lg {{#if adminUserExists}}btn-primary{{else}}btn-success{{/if}} btn-block"
-              type="submit">
-            {{#if adminUserExists}}
-            <i class="fa fa-sign-in"></i>Log In
+<template name="admin_login">
+  <div class='z-mongo-admin'>
+    {{#if loggingIn}}
+      {{> spinner}}
+    {{else}}
+      {{> admin_navbar}}
+      <div class="container content">
+        {{#if notLoggedIn}}
+          <h1>
+            {{#if adminAccountNotExist}}
+              Make an admin account
             {{else}}
-            <i class="fa fa-user"></i>Create account {{/if}}
+              Log In
+            {{/if}}
+          </h1>
+          <form id="sign-in-form">
+            <div class='control-group'>
+              <label class='control-label' for='email'>Email</label>
+              <div class='controls'>
+                <input name="email" id='email' type="text">
+              </div>
+            </div>
+            <div class='control-group'>
+              <label class='control-label' for='password'>Password</label>
+              <div class='controls'>
+                <input name="password" id='password' type="password">
+              </div>
+            </div>
+            <div>
+              <input class="btn" type="submit" value="Sign {{#if adminAccountNotExist}}up{{else}}in{{/if}}">
+            </div>
+          </form>
+        {{else}}
+          <h1>Log out</h1>
+          <div>
+            <a class="logout btn" href="#">Logout</a>
+          </div>
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</template>
 
+<template name="admin_navbar">
+  <div class='z-mongo-admin'>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
           </button>
+          <a class="brand" href="/admin">Admin</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+            </ul>
+          </div>
         </div>
-      </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name='db_view'>
+  <div class='z-mongo-admin'>
+    {{#if loggingIn}}
+      {{> spinner}}
+    {{else}}
+      {{> admin_navbar}}
+      <div class="container content">
+        <ul class="breadcrumb">
+          <li class="active">Home</li>
+        </ul>
+        <table class='table table-bordered table-striped'>
+          <thead>
+            <tr>
+              <th>Collection Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each collections}}
+            <tr><td><a href='/admin/{{ name }}'>{{name}}</a></td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{> admin_new_collection}}
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name='db_view'>
+  <div class='z-mongo-admin'>
+    {{#if loggingIn}}
+      {{> spinner}}
+    {{else}}
+      {{> admin_navbar}}
+      <div class="container content">
+        <ul class="breadcrumb">
+          <li class="active">Home</li>
+        </ul>
+        <table class='table table-bordered table-striped'>
+          <thead>
+            <tr>
+              <th>Collection Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each collections}}
+            <tr><td><a href='/admin/{{ name }}'>{{name}}</a></td></tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{> admin_new_collection}}
+      </div>
     {{/if}}
   </div>
 </template>

@@ -1,41 +1,41 @@
-var __slice = [].slice;
+/*var __slice = [].slice;
 
-Graviteam._admin_user_exists = function() {
-  return Graviteam._admins.find().count() > 0;
+GraviTeam._admin_user_exists = function() {
+  return GraviTeam._admins.find().count() > 0;
 };
 
-Graviteam.becomeAdmin = function() {
-  return Graviteam._call('make_admin', Meteor.userId(), function() {
-    Graviteam._subscribe_to_collections();
-    return Graviteam._go('Dashboard_page');
+GraviTeam.becomeAdmin = function() {
+  return GraviTeam._call('make_admin', Meteor.userId(), function() {
+    GraviTeam._subscribe_to_collections();
+    return GraviTeam._go('Dashboard_page');
   });
 };
 
-Graviteam._subscribe_to_collections = function() {
-  if (Graviteam._collections_sub != null) {
-    Graviteam._collections_sub.stop();
+GraviTeam._subscribe_to_collections = function() {
+  if (GraviTeam._collections_sub != null) {
+    GraviTeam._collections_sub.stop();
   }
-  return Graviteam._collections_sub = Graviteam._subscribe('collections');
+  return GraviTeam._collections_sub = GraviTeam._subscribe('collections');
 };
 
 Handlebars.registerHelper('currentUserIsAdmin', function() {
-  return Graviteam._user_is_admin(Meteor.userId());
+  return GraviTeam._user_is_admin(Meteor.userId());
 });
 
-Handlebars.registerHelper('adminUserExists', Graviteam._admin_user_exists);
+Handlebars.registerHelper('adminUserExists', GraviTeam._admin_user_exists);
 
-if (Graviteam._collections == null) {
-  Graviteam._collections = {};
+if (GraviTeam._collections == null) {
+  GraviTeam._collections = {};
 }
 
-Graviteam._get_collection = function(collection_name) {
-  Graviteam._collections[collection_name] = Meteor.connection._mongo_livedata_collections[collection_name] || new Meteor.Collection(collection_name);
-  return Graviteam._collections[collection_name];
+GraviTeam._get_collection = function(collection_name) {
+  GraviTeam._collections[collection_name] = Meteor.connection._mongo_livedata_collections[collection_name] || new Meteor.Collection(collection_name);
+  return GraviTeam._collections[collection_name];
 };
 
-Graviteam._session = function() {
+GraviTeam._session = function() {
   var key;
-  key = Graviteam._Graviteamize(arguments[0]);
+  key = GraviTeam._GraviTeamize(arguments[0]);
   if (arguments.length === 1) {
     return Session.get(key);
   } else if (arguments.length === 2) {
@@ -43,13 +43,13 @@ Graviteam._session = function() {
   }
 };
 
-Graviteam._call = function() {
+GraviTeam._call = function() {
   var args, name;
   name = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-  return Meteor.call.apply(Meteor, [Graviteam._Graviteamize(name)].concat(__slice.call(args)));
+  return Meteor.call.apply(Meteor, [GraviTeam._GraviTeamize(name)].concat(__slice.call(args)));
 };
 
-Graviteam._nested_field_lookup = function(object, path) {
+GraviTeam._nested_field_lookup = function(object, path) {
   var part, result, _i, _len, _ref;
   if (object == null) {
     return '';
@@ -73,13 +73,13 @@ Graviteam._nested_field_lookup = function(object, path) {
   }
 };
 
-Graviteam._convert_to_correct_type = function(field, val, collection) {
+GraviTeam._convert_to_correct_type = function(field, val, collection) {
   var constructor, find_obj, sample_val;
   find_obj = {};
   find_obj[field] = {
     $exists: true
   };
-  sample_val = Graviteam._nested_field_lookup(collection.findOne(find_obj), field);
+  sample_val = GraviTeam._nested_field_lookup(collection.findOne(find_obj), field);
   constructor = sample_val.constructor;
   if (typeof sample_val === 'object') {
     return new constructor(val);
@@ -90,12 +90,12 @@ Graviteam._convert_to_correct_type = function(field, val, collection) {
   }
 };
 
-Graviteam._get_type = function(field, collection) {
+GraviTeam._get_type = function(field, collection) {
   var find_obj, sample_val;
   find_obj = {};
   find_obj[field] = {
     $exists: true
   };
-  sample_val = Graviteam._nested_field_lookup(collection.findOne(find_obj), field);
+  sample_val = GraviTeam._nested_field_lookup(collection.findOne(find_obj), field);
   return typeof sample_val;
-};
+};*/

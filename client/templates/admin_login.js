@@ -1,47 +1,36 @@
-Template._login.helpers({
-  logged_in: function() {
-    return Meteor.user();
+Template.admin_login.helpers({
+  notLoggedIn: function() {
+    return !Meteor.user();
+  },
+  adminAccountNotExist: function() {
+    return !Meteor.users.findOne({
+      'profile.admin': true
+    });
   }
 });
 
-Template._login.events({
+Template.admin_login.events({
   'submit #sign-in-form': function(e) {
-    var afterLogin, email, password;
+    var email, password;
     e.preventDefault();
     email = $('input[name="email"]').val();
     password = $('input[name="password"]').val();
-    afterLogin = function(error) {
-      if (error) {
-        return alert(error);
-      } else {
-        return GraviTeam._go('home');
-      }
-    };
-    if (_admin_user_exists()) {
-      return Meteor.loginWithPassword(email, password, afterLogin);
+    if (Meteor.users.findOne({
+      'profile.admin': true
+    })) {
+      return Meteor.loginWithPassword(email, password);
     } else {
       return Accounts.createUser({
-        email: email,
-        password: password
-      }, function(error) {
-        if (error) {
-          return afterLogin(error);
+        email: $('input[name="email"]').val(),
+        password: $('input[name="password"]').val(),
+        profile: {
+          admin: true
         }
-        return becomeAdmin();
       });
     }
   },
-  'click #logout': function(e) {
+  'click .logout': function(e) {
     e.preventDefault();
-    Meteor.logout();
-    return 'home';
-  },
-  'click #become-houston-admin': function(e) {
-    e.preventDefault();
-    return becomeAdmin();
+    return Meteor.logout();
   }
 });
-
-Template._login.rendered = function() {
-  return $(window).unbind('scroll');
-};
