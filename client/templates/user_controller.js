@@ -12,7 +12,6 @@ Template.main.helpers({
 });
 */
 
-
 Template.signIn.events({
     'submit #signInForm': function(e, t) {
         e.preventDefault();
@@ -98,6 +97,7 @@ Template.signOut.events({
     'click #signOut': function(e, t) {
         Meteor.logout(function() {
             Session.set('alert', 'We Hope you enjoyed the experimente for comments click here');
+        
         });
         return false;
     }

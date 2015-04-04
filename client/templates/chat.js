@@ -11,10 +11,10 @@ Template.chat.events({
 	ChatModel.insert({
 		chatMessage : chatMessage,
 		createdAtTime : date.toLocaleTimeString(),
-                createdAtDate : date.toLocaleDateString(),
-                user_name : Meteor.user().username
+        createdAtDate : date.toLocaleDateString(),
+        user_name : Meteor.user().username,
+        session : sessionId
         });
-
        //refresh form if submit is successful
        event.target.chatMessage.value = "";
 
