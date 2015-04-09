@@ -1,6 +1,7 @@
 <!-- profile.html -->
 <template name = "profile">
        {{> Dashboard_page}}<br>
+<div class="boxed_body">
        <div style="padding: 20px; width: 500px; line-height: 200%;">
        <h1>My Profile</h1>
        <li> Name: {{name}}</li>
@@ -9,6 +10,10 @@
        <li> Current Missions: {{missions}}</li>
        <li> isAdmin: {{isAdmin}}</li>
        <a href="/edit_profile" alt= "editprofile"> Edit Profile </a>
+</div>
+<!--
+<iframe id='timeline_frame' src='/timeline'></iframe>
+-->
 </div>
 </template>
 

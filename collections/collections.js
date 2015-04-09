@@ -149,6 +149,7 @@ if (Meteor.isClient) {
        else { alert("Activity submitted for approval."); }
 
        //window.location = "/timeline";
+       document.getElementById('timeline_frame').src = document.getElementById('timeline_frame').src
        return false;
   }});
 
@@ -211,8 +212,9 @@ if (Meteor.isClient) {
           }}
         );
         alert("Activity Updated!");
-        //window.close();
+        window.close();
         window.opener.location.reload();
+	//document.getElementById('iframeid').src = document.getElementById('iframeid').src
 	return false;
     },
     "click .delete": function(){

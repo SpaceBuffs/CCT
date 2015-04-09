@@ -7193,9 +7193,17 @@ if (Meteor.isClient) {
         var timeline = null;
         google.load("visualization", "1", {callback:drawVisualization});
         // Called when the Visualization API is loaded.
-
   };
-
-
+/*
+  refresh_timeline= function() {
+	alert("refreshing...");
+	//links.Timeline.updateDOM();l
+	//***reload the div? redefine it?
+        //document.getElementById("mytimeline").innerHTML = "";
+        //drawVisualization();
+	//google.load("visualization", "1", {callback:drawVisualization});
+	//Template.timeline.rendered();
+  };
+*/
 };
 //--------------------------------------------------------------------------------------
