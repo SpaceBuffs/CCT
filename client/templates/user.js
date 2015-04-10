@@ -12,7 +12,6 @@ Version 2.01
 
  Accounts.ui.config({
 	passwordSignupFields : 'USERNAME_AND_EMAIL'
-    //forbidClientAccountCreation: true
   });
 
  

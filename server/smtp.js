@@ -26,13 +26,4 @@ Meteor.startup(function () {
     return 'Change Password Request';
   };
 
-  // A Function that takes a user object and a url, and returns the body text for the email.
-  // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
-  /*Accounts.emailTemplates.resetPassword.text = function(user, url) {
-  	url = url.replace('#/', '');
-    return "Click this link to reset your password: " + url; */
-  	/*var myId = url.substring(url.lastIndexOf('/')+1)
-    return "Click this link to reset your password: /reset-password/" + myId;
-  };*/
-
 });

@@ -7,37 +7,10 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 dashboard.html is the main template for the dashboard layout
 
 Version 2.01
-1/25/2015
-
-<template name="Dashboard_page">
-  <div id="header">
-
-    <div align="right"> {{> loginButtons }} | <a href="profile.html" target="_blank"> My Profile </a> | <a href="UserManual.doc" target="_blank">Help </a></div>
-    </div>
-
-
-  <div id ="welcome" align ="left"><h1> Welcome to GraviTeam! </h1> </div>
-
-   {{> model3d}}
-   {{> whiteboard}}
-   {{> aedactivity}}
-   {{> timeline}}
-   {{> chat}}
-   
-</template> 
+4/10/2015
 
 -->
-<!--
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
 
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-dashboard.html is the main template for the dashboard layout
-
-Version 2.01
-1/25/2015
--->
 <template name="Dashboard_page">
 <div class="header">
       <div id="img_header" role="banner">
@@ -51,15 +24,9 @@ Version 2.01
   		<ul>
   			<div align="right"> {{> signOut }} &nbsp; <a href="UserManual.doc" target="_blank"><img src="help.png"> Help &nbsp; </a></div>
   				<a href="/profile"> <img src="profile.png" alt = "profile"/> MyProfile &nbsp;</a>
-				<!--
-  				<a href="/timeline"> <img src="time.png" alt = "timeline"/> Timeline &nbsp;</a>-->
 				<a href="/model3d"> <img src="3dmodel.png" alt = "3dmodel"/>  3DModel &nbsp;</a>
 				<a href="/whiteboard"> <img src="whiteboard.png" alt = "whiteboard"/> Whiteboard &nbsp;</a>
-			<!--<a href="/add_activity"><img src= "activity.png" alt = "aed_activity"> Add Activity</a>-->
-			<!-- This line opens chat in a new window	
-      <a href="/chat" target ="_blank"><img src="profile.png" alt = "chat"/> Chat  </a>-->
-	     <!-- <a href="" onClick="document.getElementById('chatifr').src='/chat'"><img src="profile.png" alt = "chat"/> Chat</a>
-         -->
+
          <a href="" onclick="showIFrame();"><img src="chat.png" alt = "chat"/> Chat</a>
       </ul>
 	  </div>
@@ -69,24 +36,13 @@ Version 2.01
         var frame = document.getElementById("chatifr");
         frame.src = '/chat';
         frame.style.display="block";
-	//frame.style.z-index="999";
-	//frame.css("z-index",1001);
+
       }
       function hideIFrame(){
         var frame = document.getElementById("chatifr");
         frame.style.display="none";
       }
-     /* create and remove iframe, create does not work 
-     function createIFrame(){
-        var frame = document.createElement("chatifr");
-        frame.src = '/chat';
-        document.getElementById("iframe_parent").appendChild(frame);
-      }
-      function removeIFrame() {
-          var frame = document.getElementById("chatifr");
-          frame.parentNode.removeChild(frame);
-      }
-      */
+
     </script>
 </div>
 </template>
