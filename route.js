@@ -4,7 +4,7 @@
 
 */
 Router.configure({    
-   timelineTemplate: 'timeline',
+   //timelineTemplate: 'timeline',
    profileTemplate: 'profile',
    whiteboardTemplate: 'whiteboard',
    chatTemplate: 'chat',
@@ -42,10 +42,10 @@ Router.map(function() {
            template: 'model3d',    
    });
 
-  this.route('Timeline Event', { 
+  /*this.route('Timeline Event', { 
            path: '/timeline',        
            template: 'timeline'    
-   });
+   });*/
   this.route('AddActivity', { 
            path: '/add_activity',        
            template: 'aedactivity'    
