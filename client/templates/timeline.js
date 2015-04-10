@@ -2279,7 +2279,11 @@ links.Timeline.prototype.repaintNavigation = function () {
             var addIconSpan = document.createElement("SPAN");
             addIconSpan.className = "ui-icon ui-icon-circle-plus";
             navBar.addButton.appendChild(addIconSpan);
-
+	    var onAdd = function(event) {
+               window.open('/add_activity/', "Add an Activity", "height=500, width=600");
+               return false;
+	    };
+/*********
             var onAdd = function(event) {
                 links.Timeline.preventDefault(event);
                 links.Timeline.stopPropagation(event);
@@ -2320,6 +2324,7 @@ links.Timeline.prototype.repaintNavigation = function () {
                     timeline.deleteItem(index);
                 }
             };
+*/
             links.Timeline.addEventListener(navBar.addButton, "mousedown", onAdd);
             navBar.appendChild(navBar.addButton);
         }
@@ -7153,7 +7158,7 @@ if (Meteor.isClient) {
       groupsOnRight: false,
       stackEvents: true,
       showNavigation: true, //***
-      showButtonNew: false //***
+      showButtonNew: true //***
     };
 
     // Instantiate our timeline object.
@@ -7194,6 +7199,16 @@ if (Meteor.isClient) {
         google.load("visualization", "1", {callback:drawVisualization});
         // Called when the Visualization API is loaded.
   };
+
+/*
+  Template.timeline.events({
+    "click .add_activity": function(){
+	window.open('/add_activity/', "Add an Activity", "height=500, width=600");
+        //window.opener.location.reload();
+        return false;
+     }
+  });
+*/
 /*
   refresh_timeline= function() {
 	alert("refreshing...");

@@ -149,15 +149,22 @@ if (Meteor.isClient) {
        else { alert("Activity submitted for approval."); }
 
        //window.location = "/timeline";
-       document.getElementById('timeline_frame').src = document.getElementById('timeline_frame').src
+       //document.getElementById('timeline_frame').src = document.getElementById('timeline_frame').src
+       window.close();
+       window.opener.location.reload();
        return false;
   }});
 
   //If user is not an admin, don't show approve/update/delete buttons
+  //If activity is already accepted, don't show approve buttons
   //***May want to change this so a non-admin can still udpate/delete activities
   Template.activity.rendered=function() {
+/*
+    alert(this.instrument);
     if (Meteor.user().profile.isAdmin != true) { document.getElementById("approve_buttons").style.display = 'none'; }
     else { document.getElementById("approve_buttons").style.display = 'block'; }
+    if (this.accepted) { document.getElementById("approve_buttons").style.display = 'none'; }
+*/
   };
 
   //show in UTC***
@@ -168,6 +175,14 @@ if (Meteor.isClient) {
   //but the created At date is in local, so just cut off the timezone amount first
   //also cut off day of week by starting the substring at 4
   Template.activity.helpers({
+    approve_shown: function() { 
+         if (Meteor.user().profile.isAdmin != true) {  //if not an admin, never display
+	    document.getElementById("approve_buttons").style.display = 'none'; }
+         else if (!this.accepted) { //if an admin but not accepted, show
+            document.getElementById("approve_buttons").style.display = 'block'; }
+         else { //if an admin and accepted
+	    document.getElementById("approve_buttons").style.display = 'none'; }
+	},
     createdAtUTC: function() { 
         str= new Date(this.createdAt.getTime() + this.createdAt.getTimezoneOffset() * 60000);
 	str = String(str);
@@ -252,7 +267,7 @@ if (Meteor.isClient) {
               }}
             );
             alert("Activity approved!");
-            //window.close();
+            window.close();
             window.opener.location.reload();
         }
     }
