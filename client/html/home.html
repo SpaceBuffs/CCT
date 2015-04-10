@@ -45,7 +45,7 @@ Version 2.01
 <template name="home">
     {{> alert}}
     {{#if currentUser}}
-       {{> editprofile}}
+       {{> admin_nav}}
     {{else}}
        {{> user_home}}
        {{> home_page}}
@@ -61,7 +61,7 @@ Version 2.01
 
     <div id="login_form">
 
-       <!--  {{#unless resetPassword}}
+         {{#unless resetPassword}}
               {{#unless currentUser}}
                   {{#unless showForgotPassword}}
                       {{> signIn}}
@@ -74,8 +74,8 @@ Version 2.01
               {{/unless}}
           {{else}}
               {{> resetPassword}}
-          {{/unless}}--> 
-           {{> loginButtons }}
+          {{/unless}}
+<!--           {{> loginButtons }} -->
     </div> 
 </template> 
 <!-- displays on home page -->
@@ -103,4 +103,12 @@ Version 2.01
   <div id="footer">
         Copyright © Graviteam
   </div>
+</template>
+
+
+<template name = "admin_nav">
+  {{> editprofile}}
+  {{#if isAdmin}}
+    {{>timeline}}
+  {{/if}}
 </template>

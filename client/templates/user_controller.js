@@ -96,7 +96,8 @@ Template.alert.helpers({
 Template.signOut.events({
     'click #signOut': function(e, t) {
         Meteor.logout(function() {
-            Session.set('alert', 'We Hope you enjoyed the experimente for comments click here');
+            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+            Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
         
         });
         return false;
