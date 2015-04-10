@@ -1,13 +1,7 @@
 <!-- chat --> 
 <template name="chat">
   <a href="" onclick="parent.hideIFrame();"> Close Chat</a>
-      <!-- taking out for now to make more room for chat messages 
-  <h2>Chat</h2>
 
-	<p>
-		Welcome to the chat!
-	</p>
-	-->
     {{#each chatMessages}}
 	  {{> chatMessage}}
 	{{/each}}

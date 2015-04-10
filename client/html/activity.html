@@ -5,8 +5,8 @@
 
 <template name = "activity">
 <!-- show activity info -->
-<div id={{this._id}} style="display: show; padding: 20px; margin: 20px;"> <!--***-->
-<!--li>Activity ID: {{_id}}</li-->
+<div id={{this._id}} style="display: show; padding: 20px; margin: 20px;"> 
+
 Instrument: {{instrument}}<br>
 Experiment: {{experiment}}<br>
 Created At (UTC): {{createdAtUTC}}<br>
@@ -16,7 +16,7 @@ Stop Date (UTC): {{stopdateUTC}}<br>
 Notes: {{notes}}<br><br>
 
 <!-- approve, update or delete *** -->
-{{approve_shown}} <!-- style="display: "+{{approve_shown}}+";"  -->
+{{approve_shown}}
 <div id="approve_buttons"><button class="approve">Approve</button></div>
 <button class="update" id="update">Update</button> | <button class="delete">Delete</button>
 <p></p>
@@ -58,11 +58,11 @@ Notes: {{notes}}<br><br>
 
            	Start Date (UTC): 
 		<input type="datetime-local" name="startdate" size=30 value={{startdateUTC}} />
-        	<p></p><!--*** change to utc-->
+        	<p></p>
 
            	Stop Date (UTC): 
 		<input type="datetime-local" name="stopdate" size=30 value={{stopdateUTC}} />
-        	<p></p><!--*** change to utc-->
+        	<p></p>
 
         	Notes:<br>
 		<textarea name="notes" rows="5" cols="50" value={{notes}}></textarea>
