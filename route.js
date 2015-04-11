@@ -50,6 +50,10 @@ Router.map(function() {
            path: '/add_activity',        
            template: 'aedactivity'    
    });
+  this.route('activity', { 
+           path: '/aed_activity',        
+           template: 'aedactivity'    
+   });
    this.route('SelectActivity', { 
            path: '/activity/:_id',  
            template: 'activity',
