@@ -6,8 +6,8 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 
 global.js is the file where we keep track of our collections
 
-Version 2.02
-1/25/2015
+Version 3.0
+4/10/2015
 */
 Messages = new Meteor.Collection('messages');
 //UserAccounts = new Mongo.Collection('user');
@@ -190,16 +190,26 @@ if (Meteor.isClient) {
   });
 
   //update and delete activities
+  var instrument = "none";
   Template.activity.events({
     "submit .update_activity_form": function(event){
 	//if (Meteor.user().profile.isAdmin != true) {
 	//    alert("You must be a project manager to approve an activity.");
 	//}//***
 	var instrument = event.target.instrument.value;
+        if (instrument == "none") {
+		alert("Please select an instrument and experiment.");
+		return false;
+        };
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
 	var stopdate = event.target.stopdate.value;
-	//var duration = event.target.duration.value;
+        var date_regex = /^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/;
+	var valid_date = (date_regex.test(startdate) && date_regex.test(stopdate));
+	if (!valid_date) {
+	    alert("Dates must be in UTC military format of the form: YYYY/MM/DD HH:MM:SS");
+	    return false;
+	};
 	var notes = event.target.notes.value;
         //update the owner
         var newowner = Meteor.user();

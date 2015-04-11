@@ -6,13 +6,12 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 
 main.js is the file accounts Smart Package for handling users is done
 
-Version 2.01
-1/25/2015
+Version 3.0
+4/10/2015
 */
 
  Accounts.ui.config({
 	passwordSignupFields : 'USERNAME_AND_EMAIL'
-    //forbidClientAccountCreation: true
   });
 
  

@@ -7083,30 +7083,30 @@ if (Meteor.isClient) {
 
   addrows = function(data) {
     //loop over each activity
-    //***NEXT: add rows for db elements
-    //var instrument_names = [];
+    var instrument_names = [];
     ActivitiesModel.find({}).forEach(function(myDocument) {
         var id = myDocument._id;
         var instrument = myDocument.instrument;
+	//fill in instrument_names with each instrument in database
+        if (instrument_names.indexOf(instrument) == -1) { 
+		instrument_names.push(instrument); 
+	}
         var group = instrument;
         var experiment = myDocument.experiment;
         var start = myDocument.startdate;
         var stop = myDocument.stopdate;
 	var power = powerusage(experiment);
         var notes = myDocument.notes;
-        //if (typeof myDocument.owner.isAdmin === 'undefined') { var accepted = false; }
-        //else { var accepted = myDocument.owner.isAdmin; };
 	var accepted = myDocument.accepted;
-	//if(myDocument.owner.isAdmin) { accepted = true; }; //only accepted if last update was made by an admin
         var color = instrument_color(instrument, accepted);
         var activityText = 
-            "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
+        "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
         var instrText = 
-       "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
-        data.addRow([start,stop,activityText,instrText]);//,id,instrument,experiment,power,notes]);***keep groups?
+        "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
+        data.addRow([start,stop,activityText,instrText]);
     });
-    //update the Google data
-    return data;
+    //update the Google data and return number of instruments in DB
+    return [data, instrument_names.length];
   };
 
   activityinfo = function(findid) {
@@ -7127,43 +7127,39 @@ if (Meteor.isClient) {
   };
 
   function drawVisualization() {
-    // Create and populate a data table.
+    // Create data table.
     var data = new google.visualization.DataTable();
     data.addColumn('datetime', 'start');
     data.addColumn('datetime', 'end');
     data.addColumn('string','content');
     data.addColumn('string', 'group');
-    /*
-    data.addColumn('string', 'id');
-    data.addColumn('string', 'instrument');
-    data.addColumn('string', 'experiment');
-    data.addColumn('float', 'power');
-    data.addColumn('string', 'notes');
-    */
-    //loop over each activity
-    data = addrows(data);
+
+    //loop over each activity and populate data table
+    foo = addrows(data); //returns an array of new data and number of instruments:
+    data = foo[0];
+    num_instruments = foo[1];
 
     // specify options
-	var timeline_height = "auto"
-	//if (num_instruments < 1) { timeline_height = "100%" };
+    //timeline height is automatic unless there are 0 or 1 rows of instruments
+    //then to make it look prettier specify an absolute height
+    var timeline_height = "auto"; 
+    if (num_instruments <= 2) { timeline_height = "100px"; };
 
     var options = {
       width:  "100%",
-      height: timeline_height, //***if < 1 group defined, have a pixel height; else, do auto.
-      //height: "auto",
-      //groupMinHeight: "200px",
+      height: timeline_height,
       layout: "box",
-      editable: true, //***
+      editable: true,
       eventMargin: 5,  // minimal margin between events
       eventMarginAxis: 0, // minimal margin beteen events and the axis
       showMajorLabels: false,
       axisOnTop: true,
       //groupsWidth : "200px",
-      groupsChangeable : false, //***
+      groupsChangeable : false,
       groupsOnRight: false,
       stackEvents: true,
-      showNavigation: true, //***
-      showButtonNew: true //***
+      showNavigation: true,
+      showButtonNew: true
     };
 
     // Instantiate our timeline object.
