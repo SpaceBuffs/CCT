@@ -7140,13 +7140,19 @@ if (Meteor.isClient) {
     data.addColumn('string', 'notes');
     */
     //loop over each activity
+
     data = addrows(data);
+/*if (data <= )
+      height: "100px",
+else
+      height: "auto",*/ 
+
 
     // specify options
     var options = {
       width:  "100%",
+      height: "50px",
       //height: "300px",
-      height: "auto",
       layout: "box",
       editable: true, //***
       eventMargin: 5,  // minimal margin between events
