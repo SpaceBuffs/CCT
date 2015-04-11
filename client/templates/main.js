@@ -7,7 +7,7 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 
 main.js is the file where we keep track of our functions
 
-Version 2.01
+Version 3.0
 4/10/2015
 */
 //--------------------------------------------------------------

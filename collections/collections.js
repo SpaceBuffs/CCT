@@ -6,8 +6,8 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 
 global.js is the file where we keep track of our collections
 
-Version 2.02
-1/25/2015
+Version 3.0
+4/10/2015
 */
 Messages = new Meteor.Collection('messages');
 //UserAccounts = new Mongo.Collection('user');
