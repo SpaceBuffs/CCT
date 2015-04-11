@@ -29,6 +29,27 @@ Template.signIn.events({
                 }
             });
         }
+	//****************
+	var pmexists = false;
+	var pm = "none";
+        Meteor.users.find({}).forEach(function(myDocument) {
+	    if (Users.profile.isAdmin == true) { 
+		pmexists = true; 
+		pm = myDocument.profile.Name;
+	    };
+        });
+	if (pmexists == false) {
+	    if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
+    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
+		SessionsModel.insert({createdAt: new Date(),ProjectManager: Meteor.user().profile.Name});
+	    } else {
+    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+	    }
+	}
+	else {
+	    alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
+	}
+	//****************
         return false;
     },
     'click #showForgotPassword': function(e, t) {
@@ -95,10 +116,16 @@ Template.alert.helpers({
 
 Template.signOut.events({
     'click #signOut': function(e, t) {
+	//alert("signing out");
         Meteor.logout(function() {
-            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+		if (Meteor.user().profile.isAdmin == true) {
+		    if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
+    			Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+	   	    } else {
+    			return false;
+	   	    }
+		}
             Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
-        
         });
         return false;
     }

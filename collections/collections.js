@@ -13,6 +13,7 @@ Messages = new Meteor.Collection('messages');
 //UserAccounts = new Mongo.Collection('user');
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
+SessionsModel = new Mongo.Collection('sessions');
 //sessionId = 0;
 
 if (Meteor.isClient) {
