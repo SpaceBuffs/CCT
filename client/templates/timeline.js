@@ -7084,6 +7084,7 @@ if (Meteor.isClient) {
   addrows = function(data) {
     //loop over each activity
     //***NEXT: add rows for db elements
+    //var instrument_names = [];
     ActivitiesModel.find({}).forEach(function(myDocument) {
         var id = myDocument._id;
         var instrument = myDocument.instrument;
@@ -7102,10 +7103,10 @@ if (Meteor.isClient) {
             "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
         var instrText = 
        "<div width=100px height=40px vertical-align=bottom horizontal-align=left>"+instrument+"</div>";
-        data.addRow([start,stop,activityText,instrText]);//,id,instrument,experiment,power,notes]);
+        data.addRow([start,stop,activityText,instrText]);//,id,instrument,experiment,power,notes]);***keep groups?
     });
     //update the Google data
-    return data
+    return data;
   };
 
   activityinfo = function(findid) {
@@ -7143,10 +7144,14 @@ if (Meteor.isClient) {
     data = addrows(data);
 
     // specify options
+	var timeline_height = "auto"
+	//if (num_instruments < 1) { timeline_height = "100%" };
+
     var options = {
       width:  "100%",
-      //height: "300px",
-      height: "auto",
+      height: timeline_height, //***if < 1 group defined, have a pixel height; else, do auto.
+      //height: "auto",
+      //groupMinHeight: "200px",
       layout: "box",
       editable: true, //***
       eventMargin: 5,  // minimal margin between events

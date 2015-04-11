@@ -65,9 +65,10 @@ body {
 }
 
 .header {
-  background:#08336F;
-  color: #333333;
+  background:black;//#08336F;
+  color: white;//#333333;
   align: center;
+  font-size: 16px;
   margin: 0 auto;
   max-width: 85%;
   //overflow-x:hidden; 
@@ -92,9 +93,15 @@ body {
 .menubuttons {
   color: white;
   background-color:#08336F;
-  margin: 0.0em;
+  padding: 3px;
+  //margin: 0.0em;
   width:100%;
-  height: 40px;
+  height: 60px;
+  a:visited: white;
+}
+
+.menubuttons a:visited, .menubuttons a:link, .menubuttons a:hover {
+  color: white;
 }
 
 /*
@@ -111,13 +118,16 @@ body {
 }*/
 
 #img_header {
-  background-color:#08336E;
+  background-color:black;//#08336E;
   width:100%;
-  height: 100px; /* height of the background image? */
+  height: 140px; /* height of the background image? */
   text-align:left;
   color: white;
-  font-size: 6em;
-  padding: 0px 0px 5px 0px; /* top right bottom left */
+  font-size: 5em;
+  //text-shadow: 2px 2px #006699;
+  text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
+  font-weight: bold;
+  padding: 0px 0px 0px 0px; /* top right bottom left */
 }
 
 .timeline_frame {

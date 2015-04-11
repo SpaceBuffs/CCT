@@ -15,12 +15,6 @@ ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 //sessionId = 0;
 
-/*
-ActivitiesModel.insert({"instrument": "Spectrometer", "createdAt": new Date(), "experiment": "spectroscopy", "start_date": new Date(2015, 1, 1), "duration": "40:00:00" });
-ActivitiesModel.insert({"instrument": "CDA", "createdAt": new Date(), "experiment": "dust collection", "start_date": new Date(2015, 2, 1), "duration": "40:00:00" });
-ActivitiesModel.insert({ "instrument": "Scatterometer", "createdAt": new Date(), "experiment": "scatter", "start_date": new Date(2015, 0, 1), "duration": "40:00:00" });
-*/
-
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
@@ -61,15 +55,12 @@ if (Meteor.isClient) {
   }});*/
 
 //-----------------------activities--------------------------------------
-  /*  Template.timeline.activities = function(){  
-	return ActivitiesModel.find({"start_date": {$gt: start, $lt: stop}},{sort:{"start_date": 1}});
-  }*/
 
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({},{sort:{"startdate": 1}});
   };
 
-  //submit a new activity***
+  //submit a new activity
   var instrument = "none";
   Template.aedactivity.events({
 	"submit .select-instrument": function(event){
@@ -109,28 +100,39 @@ if (Meteor.isClient) {
 	return false; //prevents refresh
 	},
 	"submit .new-activity": function(event){
-	//var instrument = event.target.instrument.value;
+        if (instrument == "none") {
+		alert("Please select an instrument and experiment.");
+		return false;
+	};
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
 	var stopdate = event.target.stopdate.value;
-	//var duration = event.target.duration.value;
+        var date_regex = /^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/;
+	var valid_date = (date_regex.test(startdate) && date_regex.test(stopdate));
+	if (!valid_date) {
+	    alert("Dates must be in UTC military format of the form: YYYY/MM/DD HH:MM:SS");
+	    return false;
+	}
+	// YYYY/MM/DD HH:MM:SS
+	//  /^\d{2}-\d{2}-\d{4}$/; for DD-MM-YYYY
+	// ^([1-9]|[12]\d|3[0-6])$ for 1-36
+	// ^([0-9]|[12]\d|3[0-6])$ for 00-23
+
 	var notes = event.target.notes.value;
         var owner = Meteor.user();
 	var accepted = owner.profile.isAdmin;  //***may not exist
-        //***considered accepted if last updater was an admin when she updated it
+        //considered accepted if last updater was an admin when she updated it
 
-        //***javascript assumes this date is LOCAL. Force it to be UTC...
+        //javascript assumes this date is LOCAL. But when presented to the user, it will format it to UTC.
         startdate = new Date(startdate)
         stopdate = new Date(stopdate)
-        //startdate = new Date(startdate.getTime() - startdate.getTimezoneOffset() * 60000);
-        //stopdate = new Date(stopdate.getTime() - stopdate.getTimezoneOffset() * 60000);
 
 	ActivitiesModel.insert({
 	instrument: instrument,
 	createdAt: new Date(),
 	experiment: experiment,
-	startdate: startdate,//new Date(startdate),
-	stopdate: stopdate,//new Date(stopdate),
+	startdate: startdate,
+	stopdate: stopdate,
 	notes:notes,
 	owner:owner,
         accepted:accepted
@@ -147,9 +149,6 @@ if (Meteor.isClient) {
 */
        if (owner.profile.isAdmin) { alert("Activity accepted and added to timeline."); }
        else { alert("Activity submitted for approval."); }
-
-       //window.location = "/timeline";
-       //document.getElementById('timeline_frame').src = document.getElementById('timeline_frame').src
        window.close();
        window.opener.location.reload();
        return false;
@@ -158,14 +157,6 @@ if (Meteor.isClient) {
   //If user is not an admin, don't show approve/update/delete buttons
   //If activity is already accepted, don't show approve buttons
   //***May want to change this so a non-admin can still udpate/delete activities
-  Template.activity.rendered=function() {
-/*
-    alert(this.instrument);
-    if (Meteor.user().profile.isAdmin != true) { document.getElementById("approve_buttons").style.display = 'none'; }
-    else { document.getElementById("approve_buttons").style.display = 'block'; }
-    if (this.accepted) { document.getElementById("approve_buttons").style.display = 'none'; }
-*/
-  };
 
   //show in UTC***
   //dates are saved in the DB as an ISODate variable in the form: 
@@ -229,7 +220,6 @@ if (Meteor.isClient) {
         alert("Activity Updated!");
         window.close();
         window.opener.location.reload();
-	//document.getElementById('iframeid').src = document.getElementById('iframeid').src
 	return false;
     },
     "click .delete": function(){
@@ -274,16 +264,6 @@ if (Meteor.isClient) {
   });
 
 //-----------------------------------------------profile
-
-//***TAKE AWAY ADMIN PRIVELEDGES WHEN USER LOGS OUT - CURRENTLY NOT WORKING
-/*
-var logoutbutton = document.getElementById("login-buttons-logout"); //grab the element
-logoutbutton.onclick = function() {
-    alert("Aaaaah! No longer admin.");
-    //Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-};
-*/
-
 
 Template.profile.helpers({
     //username and email are controlled by Meteor:
