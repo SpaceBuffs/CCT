@@ -115,16 +115,15 @@ Template.alert.helpers({
 */ 
 
 Template.signOut.events({
-    'click .signOut': function(e, t) {
-	alert("signing out");
+    'click #signOut': function(e, t) {
+	if (Meteor.user().profile.isAdmin == true) {
+	   if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
+    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+	   } else {
+    		return false;
+	   }
+	}
         Meteor.logout(function() {
-		if (Meteor.user().profile.isAdmin == true) {
-		    if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
-    			Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-	   	    } else {
-    			return false;
-	   	    }
-		}
             Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
         });
         return false;
