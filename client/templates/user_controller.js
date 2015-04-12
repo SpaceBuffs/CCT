@@ -2,7 +2,6 @@
   Event handler to the signIn template
   Catch the form submission and retrieve
   Check if the email and the password are valid.
-
 */
 /*
 Template.main.helpers({
@@ -24,10 +23,10 @@ Template.signIn.events({
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
                     Session.set('alert', 'Credentials are not valid.');
-                    return false;
+            return false; //***
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
-                    set_session(); //**
+                    set_session(); //***
                 }
             });
         }
@@ -40,37 +39,41 @@ Template.signIn.events({
 });
 
 set_session = function() {
-	//****************
-	//find out if a project manager currently exists.
-	var pmexists = false;
-	var pm = "none";
+    //****************
+    //find out if a project manager currently exists.
+    var pmexists = false;
+    var pm = "none";
         Meteor.users.find({}).forEach(function(myDocument) {
-	    if (myDocument.profile.isAdmin == true) { 
-		pmexists = true; 
-		pm = myDocument.profile.Name;
-	    };
+        if (myDocument.profile.isAdmin == true) { 
+        pmexists = true; 
+        pm = myDocument.profile.Name;
+        };
         });
-	//if no PM exists, ask the user if they want to be one and start a new session.
-	if (pmexists == false) {
-	    if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
-    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
-		var session_time = new Date();
-		var pm = Meteor.user().profile.Name; //***won't work if not initialized!
-		//alert(session_time);
-		//alert(pm);
-		SessionsModel.insert({
-		    createdAt: session_time,
-		    sec: Date.parse(session_time), //for easier sorting
-		    ProjectManager: pm
-		});
-	    } else { //else, just let them log in without starting a session.
-    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-	    }
-	} //if PM exists, let the user know.
-	else {
-	    alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
-	}
-	//****************
+    //if no PM exists, ask the user if they want to be one and start a new session.
+    if (pmexists == false) {
+        if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
+            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
+           // Meteor.users.update(Meteor.userId(),{$set:{'profile.name': true}});
+ 
+        var session_time = new Date();
+        var pm = Meteor.user().profile.Name; //***won't work if not initialized!
+        //alert(session_time);
+        //alert(pm);
+        SessionsModel.insert({
+            createdAt: session_time,
+            sec: Date.parse(session_time), //for easier sorting
+            ProjectManager: pm
+        });
+        } else { //else, just let them log in without starting a session.
+            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+          //  Meteor.users.update(Meteor.userId(),{$set:{'profile.name': false}});
+
+        }
+    } //if PM exists, let the user know.
+    else {
+        alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
+    }
+    //****************
 };
 
 /*
@@ -78,12 +81,9 @@ set_session = function() {
                  catch and prevent the form submission.
  purpose: 
         retrieve the value of each input and check them with our validators 
-
         if then, call the Accounts.createUser function with a callback that will 
         tell us if the email is already used
-
         if error occurred and account is created, the user will be automatically logged in
-
 */
 
 Template.signUp.events({
@@ -96,29 +96,26 @@ Template.signUp.events({
             password = signUpForm.find('#signUpPassword').val(),
             passwordConfirm = signUpForm.find('#signUpPasswordConfirm').val();
 
-
         if (isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPasswords(password, passwordConfirm)) {
-            Accounts.createUser({username: name, email: email, password: password}, function(err) {
+            Accounts.createUser({username: name,email: email, password: password}, function(err) {
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
                         Session.set('alert', 'Email already exists.');
-                        return false; //***
+            return false; //***
                     } else {
                         Session.set('alert', 'Something went wrong. Please try again.');
-                        return false; //***
+            return false; //***
                     }
                 } else {
-                    Session.set('alert', 'Welcome to GraviTeam!');
-                    set_session(); //***
+                    Session.set('alert', 'Welcome to GraviTeam!'); //does get called
 
                 }
             });
         }
-        
-        return false;
+       set_session(); //***does get called, w/ no errors
+       return false;
     },
 });
-
 
 /*   
 this function is a helper function and returns the value 
@@ -134,20 +131,19 @@ Template.alert.helpers({
 /* 
   Calling the Meteor.logout function that disconnect users from the application and display a message.  
   Click on the sign out link, the sign in and sign up form shoulld appear.
-
 */ 
 
 Template.signOut.events({
     'click #signOut': function(e, t) {
-	if (Meteor.user().profile.isAdmin == true) {
-	   if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
-    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-           // Meteor.users.update(Meteor.userId(),{$set:{'profile.name': false}});
+    if (Meteor.user().profile.isAdmin == true) {
+       if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
+            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+            Meteor.users.update(Meteor.userId(),{$set:{'profile.Name': false}});
 
-	   } else {
-    		return false;
-	   }
-	}
+       } else {
+            return false;
+       }
+    }
         Meteor.logout(function() {
             Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
         });
@@ -220,4 +216,3 @@ Template.resetPassword.events({
         return false;
     }
 });
-
