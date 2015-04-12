@@ -13,7 +13,5 @@ iron:router
 accounts-password
 email
 accounts-base
-mike:mocha
-velocity:html-reporter
 momentjs:moment
-sanjo:jasmine
+
