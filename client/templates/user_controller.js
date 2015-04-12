@@ -106,11 +106,11 @@ Template.signUp.events({
 			return false; //***
                     }
                 } else {
-                    Session.set('alert', 'Welcome to GraviTeam!');
+                    Session.set('alert', 'Welcome to GraviTeam!'); //does get called
                 }
             });
         }
-	set_session(); //***
+	set_session(); //***does get called, w/ no errors
         return false;
     },
 });

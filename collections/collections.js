@@ -40,6 +40,11 @@ if (Meteor.isClient) {
 		var current_session = 0;
 		var session_time = new Date();
 		//this doesn't work?!***
+		SessionsModel.insert({
+		    createdAt: session_time,
+		    sec: Date.parse(session_time), //for easier sorting
+		});
+
 		SessionsModel.find({}).forEach(function(myDocument) {
 		    alert("found one!");
 		    /*if (myDocument.sec > current_session) { 
