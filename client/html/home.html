@@ -12,8 +12,13 @@ Version 3.0
 -->
 
 <template name="home">
-    {{> user_home}}
-    {{>myfooter}}  
+    {{> alert}}
+    {{#if currentUser}}
+        {{> admin_nav}}
+    {{else}}
+        {{> user_home}}
+        {{> home_page}}
+    {{/if}}
 </template>  
 
 <template name="user_home"> 
@@ -24,25 +29,26 @@ Version 3.0
 	<a href="http://www.jpl.nasa.gov/"><img src="NASAlogo.gif" alt="NASA - JPL" width="30%" height="30%" padding="10px" align="right" style="float:right;"></a>
   </div>
   </div>
-
-<div class="boxed_body">
-	{{> alert}}
-    <div id="login_form">
-         {{#unless resetPassword}}
-              {{#unless currentUser}}
-                  {{#unless showForgotPassword}}
-                      {{> signIn}}
-                      {{> signUp}}                     
-                  {{else}}
-                      {{> forgotPassword}}
-                  {{/unless}}
-              {{else}}
-                  {{> signOut}}
-              {{/unless}}
-          {{else}}
-              {{> resetPassword}}
-          {{/unless}}
-    </div> 
+  </template>
+<template name = "home_page"> 
+  <div class="boxed_body">
+  	{{> alert}}
+      <div id="login_form">
+           {{#unless resetPassword}}
+                {{#unless currentUser}}
+                    {{#unless showForgotPassword}}
+                        {{> signIn}}
+                        {{> signUp}}                     
+                    {{else}}
+                        {{> forgotPassword}}
+                    {{/unless}}
+                {{else}}
+                    {{> signOut}}
+                {{/unless}}
+            {{else}}
+                {{> resetPassword}}
+            {{/unless}}
+      </div> 
 
   <div id="container">
       <div id="mainContent">
@@ -51,8 +57,9 @@ Version 3.0
       </div>
   </div>
  </div>
-  
-</template>
+ {{> myfooter}}  
+
+ </template> 
 
 <template name="myfooter">
   <div id="footer">
@@ -60,10 +67,6 @@ Version 3.0
   </div>
 </template>
 
-
 <template name = "admin_nav">
-  {{> editprofile}}
-  {{#if isAdmin}}
-    {{>timeline}}
-  {{/if}}
+  {{> editprofile}}  
 </template>

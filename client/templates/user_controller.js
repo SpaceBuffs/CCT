@@ -24,6 +24,7 @@ Template.signIn.events({
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
                     Session.set('alert', 'Credentials are not valid.');
+                    return false;
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
                     set_session(); //**
@@ -101,10 +102,10 @@ Template.signUp.events({
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
                         Session.set('alert', 'Email already exists.');
-			return false; //***
+                        return false; //***
                     } else {
                         Session.set('alert', 'Something went wrong. Please try again.');
-			return false; //***
+                        return false; //***
                     }
                 } else {
                     Session.set('alert', 'Welcome to GraviTeam!');
@@ -113,9 +114,11 @@ Template.signUp.events({
                 }
             });
         }
+        
         return false;
     },
 });
+
 
 /*   
 this function is a helper function and returns the value 
@@ -139,12 +142,14 @@ Template.signOut.events({
 	if (Meteor.user().profile.isAdmin == true) {
 	   if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
     		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+           // Meteor.users.update(Meteor.userId(),{$set:{'profile.name': false}});
+
 	   } else {
     		return false;
 	   }
 	}
         Meteor.logout(function() {
-            Session.set('alert', 'We Hope you enjoyed your GraviTeam Experience.');
+            Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
         });
         return false;
     }
