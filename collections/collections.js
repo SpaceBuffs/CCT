@@ -19,41 +19,50 @@ SessionsModel = new Mongo.Collection('sessions');
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
-    activities: function () {
-      return ActivitiesModel.find({}); //might need to do db.activities.find({});
-    }
-    });
-   Template.body.helpers({
-    //Heather added to test something
-    chatMessages: function () {
-		return ChatModel.find({});
-	}
+    activities: function () { return ActivitiesModel.find({}); },
+    chatMessages: function () { return ChatModel.find({}); },
+    sessions: function() { return SessionsModel.find({}); }
   });
-//--------------------------chat--------------------------------------------
+  //--------------------------chat--------------------------------------------
   Template.chat.chatMessages = function(){
       var date = new Date();
 	  return ChatModel.find({createdAtDate : {$gte: date.toLocaleDateString()}});
       //return ChatModel.find({session : {$gte: sessionId}});
 
   };
+	//*****
+	Template.chat.events({
+		"submit .new-chatMessage": function(event){
+		var chatMessage = event.target.chatMessage.value;
+		var date = new Date();
+		//var session = SessionsModel.find({},{sort:{"sec": -1}, limit: 1});
 
-  /*
-   Template.chat.events({
-	"submit .new-chatMessage": function(event){
-	var chatMessage = event.target.chatMessage.value;
-	
-	ChatModel.insert({
-		chatMessage: chatMessage,
-		createdAt : new Date(),
-        user_name : Meteor.user().username
-        });
+		var current_session = 0;
+		var session_time = new Date();
+		//this doesn't work?!***
+		SessionsModel.find({}).forEach(function(myDocument) {
+		    alert("found one!");
+		    /*if (myDocument.sec > current_session) { 
+			current_session = myDocument.sec; 
+			session_time = myDocument.createdAt;
+		    };*/
+		    return false;
+		});
 
-       //refresh form if submit is successful
-       event.target.chatMessage.value = "";
+		alert("session time for this message: "+session_time);
+		ChatModel.insert({
+			chatMessage : chatMessage,
+			createdAtTime : date.toLocaleTimeString(),
+			createdAtDate : date.toLocaleDateString(),
+			user_name : Meteor.user().username, //**or name?
+			//set session to the most recently created session in the DB
+			session : session_time
+		});
+	       //refresh form if submit is successful
+	       event.target.chatMessage.value = "";
 
-       //alert("Chat pushed!");
-       return false;
-  }});*/
+	       return false;
+	}});
 
 //-----------------------activities--------------------------------------
 

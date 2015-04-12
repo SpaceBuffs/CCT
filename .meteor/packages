@@ -13,5 +13,5 @@ iron:router
 accounts-password
 email
 accounts-base
-momentjs:moment
+
 
