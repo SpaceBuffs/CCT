@@ -90,12 +90,14 @@ Template.signUp.events({
         e.preventDefault();
 
         var signUpForm = $(e.currentTarget),
+            name = signUpForm.find('#signUpName').val(),
             email = trimInput(signUpForm.find('#signUpEmail').val().toLowerCase()),
             password = signUpForm.find('#signUpPassword').val(),
             passwordConfirm = signUpForm.find('#signUpPasswordConfirm').val();
 
+
         if (isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPasswords(password, passwordConfirm)) {
-            Accounts.createUser({email: email, password: password}, function(err) {
+            Accounts.createUser({username: name, email: email, password: password}, function(err) {
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
                         Session.set('alert', 'Email already exists.');
