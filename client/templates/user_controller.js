@@ -24,13 +24,12 @@ Template.signIn.events({
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
                     Session.set('alert', 'Credentials are not valid.');
-		    return false; //***
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
+                    set_session(); //**
                 }
             });
         }
-	set_session(); //***
         return false;
     },
     'click #showForgotPassword': function(e, t) {
@@ -107,10 +106,11 @@ Template.signUp.events({
                     }
                 } else {
                     Session.set('alert', 'Welcome to GraviTeam!');
+                    set_session(); //***
+
                 }
             });
         }
-	set_session(); //***
         return false;
     },
 });
