@@ -7,14 +7,6 @@ Package.describe({
 
 Package.onUse(function (api) {
 	api.use("coffeescript", ["client", "server"]);
-	api.add_files("tests/jasmine/client/integration/sample/spec/PlayerSpec.js",["client"]);
-	api.add_files("tests/jasmine/client/integration/sample/spec/SpecMatchers.js",["client"]);
-	api.add_files("tests/jasmine/client/integration/sample/src/Player.js",["client"]);
-	api.add_files("tests/jasmine/client/integration/sample/src/Song.js",["client"]);
-	api.add_files("tests/jasmine/server/integration/sample/spec/PlayerSpec.js",["server"]);
-	api.add_files("tests/jasmine/server/integration/sample/spec/SpecMatchers.js",["server"]);
-	api.add_files("tests/jasmine/server/integration/sample/src/Player.js",["server"]);
-	api.add_files("tests/jasmine/server/integration/sample/src/Song.js",["server"]);
 	api.add_files("tests/mocha/client/sampleClientTest.js",["client"]);
 	api.add_files("tests/mocha/server/sampleServerTest.js",["server"]);
 });
