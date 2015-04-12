@@ -23,33 +23,14 @@ Template.signIn.events({
         if (isNotEmpty(email) && isEmail(email) && isNotEmpty(password) && isValidPassword(password)) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
-                    Session.set('alert', 'credentials are not valid.');
+                    Session.set('alert', 'Credentials are not valid.');
+		    return false; //***
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
                 }
             });
         }
-	//****************
-	var pmexists = false;
-	var pm = "none";
-        Meteor.users.find({}).forEach(function(myDocument) {
-	    if (Users.profile.isAdmin == true) { 
-		pmexists = true; 
-		pm = myDocument.profile.Name;
-	    };
-        });
-	if (pmexists == false) {
-	    if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
-    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
-		SessionsModel.insert({createdAt: new Date(),ProjectManager: Meteor.user().profile.Name});
-	    } else {
-    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-	    }
-	}
-	else {
-	    alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
-	}
-	//****************
+	set_session(); //***
         return false;
     },
     'click #showForgotPassword': function(e, t) {
@@ -57,6 +38,40 @@ Template.signIn.events({
         return false;
     },
 });
+
+set_session = function() {
+	//****************
+	//find out if a project manager currently exists.
+	var pmexists = false;
+	var pm = "none";
+        Meteor.users.find({}).forEach(function(myDocument) {
+	    if (myDocument.profile.isAdmin == true) { 
+		pmexists = true; 
+		pm = myDocument.profile.Name;
+	    };
+        });
+	//if no PM exists, ask the user if they want to be one and start a new session.
+	if (pmexists == false) {
+	    if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
+    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
+		var session_time = new Date();
+		var pm = Meteor.user().profile.Name; //***won't work if not initialized!
+		//alert(session_time);
+		//alert(pm);
+		SessionsModel.insert({
+		    createdAt: session_time,
+		    sec: Date.parse(session_time), //for easier sorting
+		    ProjectManager: pm
+		});
+	    } else { //else, just let them log in without starting a session.
+    		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+	    }
+	} //if PM exists, let the user know.
+	else {
+	    alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
+	}
+	//****************
+};
 
 /*
  signUp template: 
@@ -84,15 +99,18 @@ Template.signUp.events({
             Accounts.createUser({email: email, password: password}, function(err) {
                 if (err) {
                     if (err.message === 'Email already exists. [403]') {
-                        Session.set('alert', 'Mail is already in used.');
+                        Session.set('alert', 'Email already exists.');
+			return false; //***
                     } else {
-                        Session.set('alert', 'something went wrong.');
+                        Session.set('alert', 'Something went wrong. Please try again.');
+			return false; //***
                     }
                 } else {
-                    Session.set('alert', 'you joined to the GraviTeam');
+                    Session.set('alert', 'Welcome to GraviTeam!');
                 }
             });
         }
+	set_session(); //***
         return false;
     },
 });
@@ -147,9 +165,9 @@ Template.forgotPassword.events({
                 //Accounts.changePassword(password, 123456, function(err){
                 if(err) {
                     if(err.message --- 'User not found [403]') {
-                        Session.set('alert','This email does not exist.');
+                        Session.set('alert','Email does not exist.');
                     } else {
-                        Session.set('alert','We are sorry but something has gone wrong.');
+                        Session.set('alert','Something went wrong. Please try again.');
                     }
                 } else {
 

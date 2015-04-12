@@ -7086,7 +7086,7 @@ var packageMetadata = {
                 },
                 "version": {
                   "type": "constant",
-                  "value": "1b4e3586457f384bb71c9de16d3e296e8bfb16ef"
+                  "value": "922280d8c9a5cca43c594e08c35e95a522a67a81"
                 },
                 "PUBLIC_SETTINGS": {
                   "type": "undefined"
@@ -7210,7 +7210,7 @@ var packageMetadata = {
             },
             "connections": {
               "type": "constant",
-              "value": 4
+              "value": 0
             },
             "timeout": {
               "type": "constant",
@@ -7854,11 +7854,11 @@ var packageMetadata = {
       "members": {
         "autoupdateVersion": {
           "type": "constant",
-          "value": "HD34HJLKPkJheERK8"
+          "value": "mq95NZeDcPv6dZwH9"
         },
         "autoupdateVersionRefreshable": {
           "type": "constant",
-          "value": "0d9bd45b7ccf244ec5fdf53a0ba49de6975110e4"
+          "value": "17bb03e6860e763b2bf1792d534e869203851e61"
         },
         "autoupdateVersionCordova": {
           "type": "constant",
@@ -9438,11 +9438,11 @@ var packageMetadata = {
                 },
                 "appPath": {
                   "type": "constant",
-                  "value": "/home/user/CCT"
+                  "value": "/home/ubuntu/CCT"
                 },
                 "pid": {
                   "type": "constant",
-                  "value": 12399
+                  "value": 4027
                 },
                 "getTaskName": {
                   "type": "function"
