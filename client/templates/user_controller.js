@@ -26,10 +26,10 @@ Template.signIn.events({
             return false; //***
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
-                    set_session(); //***
                 }
             });
         }
+        set_session(); //***
         return false;
     },
     'click #showForgotPassword': function(e, t) {
