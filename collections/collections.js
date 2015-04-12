@@ -46,6 +46,7 @@ if (Meteor.isClient) {
 			current_session = myDocument.sec; 
 			session_time = myDocument.createdAt;
 		    };*/
+		    return false;
 		});
 
 		alert("session time for this message: "+session_time);
