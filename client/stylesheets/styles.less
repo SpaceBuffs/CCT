@@ -1,8 +1,5 @@
 /* CSS declarations go here */
-/* The login menu has to be set at a specific height and I chose to center mine. */
 
-/* CSS declarations go here */
-/* Font stach*/ 
 @import 'lesshat.import.less';
 
 body,input,select,textarea {
@@ -11,43 +8,14 @@ body,input,select,textarea {
   font-size: 15px;
 }
 
-h1,h2,h3,h4,h5,h6{
-  //line-height: 1.5;
-}
- /* end font stack*/
-
 /* Base Layout*/
-/*
-html{
-   background-color: aliceblue;
-   background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-   background-repeat: repeat;
-   height: 100%;
-   -webkit-box-sizing:border-box;
-   -moz-box-sizing:border-box;
-   box-sizing: border-box;
-}*/
 
-html.no-cssgradients{
-  border-color: #aaa;
-}
-html*{
-  //margin: 5;
-}
 
 body {
-   //background-color: aliceblue;
-   //background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-   //background-repeat: repeat;
-   background:#ffffff;
+  background:#ffffff;
   color: #333333;
   margin: 0 auto;
-  //max-width: 85%;
-  //overflow-x:hidden; 
   padding: 7px;
-  //-moz-box-shadow: 0 0 0.3em #255b17;
-  //-webkit-box-shadow: 0 0 0.3em #255b17;
-  //box-shadow: 0 0 0.3em #255b17;
 }
 
 //for a class
@@ -65,45 +33,31 @@ body {
 }
 
 .header {
-  background:black;//#08336F;
-  color: white;//#333333;
+  background:black;
+  color: white;
   align: center;
   font-size: 16px;
   margin: 0 auto;
   max-width: 85%;
-  //overflow-x:hidden; 
-  //padding: 7px;
   padding-left: 7px;
   padding-right: 7px;
   -moz-box-shadow: 0 0 0.3em #255b17;
   -webkit-box-shadow: 0 0 0.3em #255b17;
   box-shadow: 0 0 0.3em #255b17;
+  border-bottom:1px solid black;
 }
-
-/* header */
-/*
-.header {
-  align: center;
-  margin: 0 auto;
-  max-width: 85%;
-    border-bottom:1px solid #eaeaea;
-    height: 10px;
-}*/
 
 .alert{
     position: absolute;
     left: 200px;
     top: 200px;
-
 }
 
 .menubuttons {
   color: white;
-  background-color:#08336F;
-  padding: 3px;
-  //margin: 0.0em;
+  background-color:black;
   width:100%;
-  height: 60px;
+  height: auto;
   a:visited: white;
   vertical-align: middle;
 }
@@ -112,31 +66,16 @@ body {
   color: white;
 }
 
-/*
-.header {
-    display: block;
-    //border-bottom: double 3px #aba;
-    border-left: solid 1px #9a9;
-    border-right: solid 1px #565;
-    border-top: solid 1px #9a9;
-    font: italic normal 230% 'Times New Roman', Times, serif;
-    letter-spacing: 0.2em;
-    //margin: 10px;
-    //padding: 15px 10px 15px 60px;
-}*/
-
 #img_header {
-  background-color:black;//#08336E;
+  background-color:black;
   vertical-align: middle;
   width:100%;
-  height: 140px; /* height of the background image? */
-  //text-align:left;
+  height: 140px; 
   color: white;
   font-size: 5em;
-  //text-shadow: 2px 2px #006699;
   text-shadow: 2px 2px 5px rgba(150, 150, 150, 1);
   font-weight: bold;
-  padding: 0px 0px 0px 0px; /* top right bottom left */
+  padding: 0px; 
 }
 
 .timeline_frame {
@@ -146,7 +85,6 @@ body {
   background: white;
   frameborder:0px;
   width:100%;
-  //height:250px;
   height: -moz-calc(100% + 300px);
   height: -webkit-calc(100% + 300px);
   height: -o-calc(100% + 300px);
@@ -161,49 +99,20 @@ body {
   //padding: 10px 0px 10px 10px;
 }
 
-/*
-img {
-  display:inline-block;
-  margin:1px;
-  border:1px solid #08336E;
-  height:100px;
-  width:1040px ;
-}*/
-
-
 /* end header */
 
 /*  footer */
-#Footer {
-    background:#003366;
-    color:#000;
-    clear:both;
-    font-size: 1.1em; 
-    padding:7px;
-    min-height: 1em;
-    text-align: center;
-     align: center;
-     margin: 0 auto;
-     max-width: 100%;
-  //overflow-x:hidden; 
-   
-}
 #footer {
-    background:#003366;
-    color:#000;
+    background:black;
+    color:white;
     clear:both;
     font-size: 1.1em; 
     padding:7px;
     min-height: 1em;
     text-align: center;
-     align: center;
-     margin: 0 auto;
-     max-width: 85%;
-  //overflow-x:hidden; 
-   
-}
-#footer{
-  color: black;
+    align: center;
+    margin: 0 auto;
+    max-width: 85%; 
 }
 /*  end footer */ 
 

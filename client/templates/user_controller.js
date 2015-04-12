@@ -144,7 +144,7 @@ Template.signOut.events({
 	   }
 	}
         Meteor.logout(function() {
-            Session.set('alert', 'We Hope you enjoyed the experiment for comments click here');
+            Session.set('alert', 'We Hope you enjoyed your GraviTeam Experience.');
         });
         return false;
     }

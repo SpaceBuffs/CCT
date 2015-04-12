@@ -11,24 +11,22 @@ Version 3.0
 
 -->
 
-
-<!-- home page  -->
 <template name="home">
-    {{> alert}}
-    {{#if currentUser}}
-       {{> admin_nav}}
-    {{else}}
-       {{> user_home}}
-       {{> home_page}}
-    {{/if}}   
+    {{> user_home}}
+    {{>myfooter}}  
 </template>  
-<!--   user controller -->
-<template name="user_home"> 
-  <div id="img_header" role="banner">
-    <a href="http://www.jpl.nasa.gov/"><img src="Saturn_Approach.jpg" alt="graviteam" width="120px" height="120px" padding="10px"/></a>
-    &nbsp; GraviTeam 
-   </div>
 
+<template name="user_home"> 
+  <div class="header">
+  <div id="img_header" role="banner">
+    <a href="http://www.jpl.nasa.gov/"><img src="Saturn_Approach.jpg" alt="graviteam" width="120px" height="120px" padding="10px" align="left"></a>
+    &nbsp; GraviTeam 
+	<a href="http://www.jpl.nasa.gov/"><img src="NASAlogo.gif" alt="NASA - JPL" width="30%" height="30%" padding="10px" align="right" style="float:right;"></a>
+  </div>
+  </div>
+
+<div class="boxed_body">
+	{{> alert}}
     <div id="login_form">
          {{#unless resetPassword}}
               {{#unless currentUser}}
@@ -44,24 +42,16 @@ Version 3.0
           {{else}}
               {{> resetPassword}}
           {{/unless}}
-<!--           {{> loginButtons }} -->
     </div> 
-</template> 
-<!-- displays on home page -->
-<template name="home_page">
-  <!--container div tag-->
-  <div id="container">
 
-    <!--mainContent div tag-->
+  <div id="container">
       <div id="mainContent">
           <h1>GraviTeam:</h1>
           <p> A major difficulty among international scientists is finding a collaborative, social interface where scientists from all over the world can share ideas and design space mission experiments. Our solution is a web-based application that uses technology and social media to allow for cross-world communication, design, and experimentation.</p>
       </div>
   </div>
-  <div></div>
-  <div id="Footer">
-      Copyright © Graviteam
-  </div>
+ </div>
+  
 </template>
 
 <template name="myfooter">
