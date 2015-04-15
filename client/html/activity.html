@@ -13,7 +13,9 @@ Created At (UTC): {{createdAtUTC}}<br>
 Last Updated By: {{owner.profile.Name}}<br>
 Start Date (UTC): {{startdateUTC}}<br>
 Stop Date (UTC): {{stopdateUTC}}<br>
-Notes: {{notes}}<br><br>
+Notes: <br>
+{{approved}}<br>
+{{notes}}<br><br>
 
 <!-- approve, update or delete *** -->
 {{approve_shown}}
@@ -65,7 +67,7 @@ Notes: {{notes}}<br><br>
         	<p></p>
 
         	Notes:<br>
-		<textarea name="notes" rows="5" cols="50" value={{notes}}></textarea>
+		<textarea name="notes" rows="4" cols="50" value={{notes}}></textarea>
        		<p></p>
 
         	<input type="submit" name="submit" id="submit_update" value="Submit Update">

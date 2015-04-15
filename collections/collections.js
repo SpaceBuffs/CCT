@@ -30,31 +30,36 @@ if (Meteor.isClient) {
       //return ChatModel.find({session : {$gte: sessionId}});
 
   };
-	//*****
-	Template.chat.events({
-		"submit .new-chatMessage": function(event){
+
+  current_session = function(){
+	SessionsModel.find({}).forEach(function(myDocument) {
+		alert("found one!");
+		/*if (myDocument.sec > current_session) { 
+			current_session = myDocument.sec; 
+			session_time = myDocument.createdAt;
+		};*/
+		return true;
+	});
+  return false;
+  };
+
+  //*****
+  Template.chat.events({
+	"submit .new-chatMessage": function(event){
 		var chatMessage = event.target.chatMessage.value;
 		var date = new Date();
 		//var session = SessionsModel.find({},{sort:{"sec": -1}, limit: 1});
 
 		var current_session = 0;
 		var session_time = new Date();
-		//this doesn't work?!***
-		SessionsModel.find({}).forEach(function(myDocument) {
-		    alert("found one!");
-		    /*if (myDocument.sec > current_session) { 
-			current_session = myDocument.sec; 
-			session_time = myDocument.createdAt;
-		    };*/
-		    return false;
-		});
+		var ses = current_session();
 
 		alert("session time for this message: "+session_time);
 		ChatModel.insert({
 			chatMessage : chatMessage,
 			createdAtTime : date.toLocaleTimeString(),
 			createdAtDate : date.toLocaleDateString(),
-			user_name : Meteor.user().username, //**or name?
+			name : Meteor.user().profile.Name, //**or name?
 			//set session to the most recently created session in the DB
 			session : session_time
 		});
@@ -62,7 +67,8 @@ if (Meteor.isClient) {
 	       event.target.chatMessage.value = "";
 
 	       return false;
-	}});
+	}
+  });
 
 //-----------------------activities--------------------------------------
 
@@ -130,7 +136,7 @@ if (Meteor.isClient) {
 
 	var notes = event.target.notes.value;
         var owner = Meteor.user();
-	var accepted = owner.profile.isAdmin;  //***may not exist
+	var approved = owner.profile.isAdmin;  //***may not exist
         //considered accepted if last updater was an admin when she updated it
 
         //javascript assumes this date is LOCAL. But when presented to the user, it will format it to UTC.
@@ -145,7 +151,7 @@ if (Meteor.isClient) {
 	stopdate: stopdate,
 	notes:notes,
 	owner:owner,
-        accepted:accepted
+        approved:approved
         });
 
 /*
@@ -157,10 +163,11 @@ if (Meteor.isClient) {
        //event.target.duration.value = "";
        event.target.notes.value = "";
 */
-       if (owner.profile.isAdmin) { alert("Activity accepted and added to timeline."); }
+       if (owner.profile.isAdmin === true) { alert("Activity approved and added to timeline."); }
        else { alert("Activity submitted for approval."); }
-       window.close();
-       window.opener.location.reload();
+       //window.close();
+       //window.opener.location.reload();
+       location.reload();
        return false;
   }});
 
@@ -176,14 +183,20 @@ if (Meteor.isClient) {
   //but the created At date is in local, so just cut off the timezone amount first
   //also cut off day of week by starting the substring at 4
   Template.activity.helpers({
+    approved: function() {
+	if (this.approved === true) { return "Activity is approved." }
+	else { return "Activity waiting on approval." }
+    },
+/*
     approve_shown: function() { 
-         if (Meteor.user().profile.isAdmin != true) {  //if not an admin, never display
+         if (Meteor.user().profile.isAdmin !== true) {  //if not an admin, never display
 	    document.getElementById("approve_buttons").style.display = 'none'; }
-         else if (!this.accepted) { //if an admin but not accepted, show
+         else if (this.accepted === false) { //if an admin but not accepted, show
             document.getElementById("approve_buttons").style.display = 'block'; }
          else { //if an admin and accepted
 	    document.getElementById("approve_buttons").style.display = 'none'; }
 	},
+*/
     createdAtUTC: function() { 
         str= new Date(this.createdAt.getTime() + this.createdAt.getTimezoneOffset() * 60000);
 	str = String(str);
@@ -199,11 +212,20 @@ if (Meteor.isClient) {
 	return str; }
   });
 
+  Template.activity.rendered= function() {
+        if (Meteor.user().profile.isAdmin !== true) {  //if not an admin, never display
+	    document.getElementById("approve_buttons").style.display = 'none'; }
+        if (Meteor.user().profile.isAdmin !== true && this.approved === false) { //if an admin but not accepted, show
+            document.getElementById("approve_buttons").style.display = 'block'; }
+        if (Meteor.user().profile.isAdmin === true && this.approved === true) { //if an admin and accepted
+	    document.getElementById("approve_buttons").style.display = 'none'; }
+  }
+
   //update and delete activities
   var instrument = "none";
   Template.activity.events({
     "submit .update_activity_form": function(event){
-	//if (Meteor.user().profile.isAdmin != true) {
+	//if (Meteor.user().profile.isAdmin !== true) {
 	//    alert("You must be a project manager to approve an activity.");
 	//}//***
 	var instrument = event.target.instrument.value;
@@ -223,7 +245,7 @@ if (Meteor.isClient) {
 	var notes = event.target.notes.value;
         //update the owner
         var newowner = Meteor.user();
-        var accepted = newowner.profile.isAdmin; 
+        var approved = newowner.profile.isAdmin; 
 
         ActivitiesModel.update({_id:this._id},{$set: 
           {
@@ -234,7 +256,7 @@ if (Meteor.isClient) {
 	  //duration: duration,
 	  notes:notes,
 	  owner:newowner,
-	  accepted:accepted
+	  approved:approved
           }}
         );
         alert("Activity Updated!");
@@ -243,7 +265,7 @@ if (Meteor.isClient) {
 	return false;
     },
     "click .delete": function(){
-	//if (Meteor.user().profile.isAdmin != true) {
+	//if (Meteor.user().profile.isAdmin !== true) {
 	//    alert("You must be a project manager to approve an activity.");
 	//}//***
       var c = confirm("Delete Activity?");
@@ -259,21 +281,21 @@ if (Meteor.isClient) {
       //return false;
      },
     "click .approve": function(){
-	if (Meteor.user().profile.isAdmin != true) {
+	if (Meteor.user().profile.isAdmin !== true) {
 	    alert("You must be a project manager to approve an activity.");
 	}
-        else if (this.accepted) {
+        else if (this.approved) {
 	    alert("Already approved.");
 	    return false;
 	}
 	else { //if you're an admin and it's not accepted
             //else, update the owner; colors will update on timeline refresh
             var newowner = Meteor.user();
-            var accepted = newowner.profile.isAdmin; 
+            var approved = newowner.profile.isAdmin; 
             ActivitiesModel.update({_id:this._id},{$set: 
               {
 	      owner:newowner,
-	      accepted:accepted
+	      approved:approved
               }}
             );
             alert("Activity approved!");
@@ -287,12 +309,20 @@ if (Meteor.isClient) {
 
 Template.profile.helpers({
     //username and email are controlled by Meteor:
-    username: function() {return Meteor.user().username},
+    //username: function() {return Meteor.user().username},
     email: function() {return Meteor.user().emails[0].address},
     //However, extra profile info can be saved under profile.parametername:
     name: function() { return Meteor.user().profile.Name; },
     missions: function() { return Meteor.user().profile.missions; },
-    isAdmin: function() { return Meteor.user().profile.isAdmin; }
+    isAdmin: function() { return Meteor.user().profile.isAdmin; },
+    isprojectmanager: function() {
+	if (Meteor.user().profile.isAdmin === true) {
+		return "You are a project manager. All activities you create and edit will be automatically approved on the timeline. You have the authority to approve other user's activities.";
+	}
+	else {
+		return "You are not a project manager. All activities submitted by you will appear as unapproved on the timeline until approved by a project manager.";
+	}
+    }
 });
 
 Template.editprofile.helpers({
@@ -302,16 +332,49 @@ Template.editprofile.helpers({
     //However, extra profile info can be saved under profile.parametername:
     name: function() { return Meteor.user().profile.Name; },
     //missions: function() { return Meteor.user().profile.missions; },
-    isAdmin: function() { return Meteor.user().profile.isAdmin; }
+    isAdmin: function() { return Meteor.user().profile.isAdmin; },
+    isprojectmanager: function() {
+	if (Meteor.user().profile.isAdmin === true) {
+		return "You are a project manager. All activities you create and edit will be automatically approved on the timeline. You have the authority to approve other user's activities.";
+	}
+	else {
+		return "You are not a project manager. All activities submitted by you will appear as unapproved on the timeline until approved by a project manager.";
+	}
+    }
 });
+
+pm_exists = function() {
+    //****************
+    //find out if a project manager currently exists.
+    var pmexists = false;
+    var pm = "none";
+    Meteor.users.find({}).forEach(function(myDocument) {
+        if (myDocument.profile.isAdmin === true) { 
+            pmexists = true; 
+            pm = myDocument.profile.Name;
+        };
+    });
+    return [pmexists, pm];
+};
 
 Template.editprofile.events({
     "submit .user_info": function(event){
     var name = event.target.fullname.value;
+    var oldname = Meteor.user().profile.Name; //will need this to check who PM is in case they change their name
     //var username = event.target.user.value;
     var email = event.target.email.value; //***MUST DO FROM SERVER SIDE
     var isAdmin = document.getElementById("isAdmin").checked;//event.target.isAdmin.value;
-
+    var pm = pm_exists();
+    if (pm[0] && isAdmin) {
+	if (pm[1] != name && pm[1] != oldname) {
+	    alert("Sorry, currently "+pm[1]+" is project manager.\nYour activities will need to be approved by them.");
+	    return false;
+	}
+    }
+    if (name == "" || email == "") {
+	alert("Please fill in full name and e-mail fields.");
+	return false;
+    }
     var checkBoxes = document.getElementsByTagName('input');
     var missions = [];
     for (var counter=0; counter < checkBoxes.length; counter++) {
@@ -336,7 +399,7 @@ Template.editprofile.events({
 }});
 
 Template.editprofile.rendered=function() {
-  if (Meteor.user().profile.isAdmin == true) { document.getElementById("isAdmin").checked = true; }
+  if (Meteor.user().profile.isAdmin === true) { document.getElementById("isAdmin").checked = true; }
   var missions = Meteor.user().profile.missions;
   for (var counter=0; counter < missions.length; counter++) {
       document.getElementById(missions[counter]).checked = true;

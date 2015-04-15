@@ -7063,9 +7063,9 @@ if (Meteor.isClient) {
     return row;
     };
 
-  instrument_color = function(instrument, accepted) {
+  instrument_color = function(instrument, approved) {
     //all web-safe colors
-    if (accepted == false) { return "#A0A0A0"; } //light gray
+    if (approved == false) { return "#A0A0A0"; } //light gray
     else if (instrument == "CDA") { return "#CC99CC"; } //light purple
     else if (instrument == "HD Spectrograph") { return "#99CCCC"; } //light blue
     else if (instrument == "Magnetometer") { return "#00CCFF"; } //light green
@@ -7097,8 +7097,8 @@ if (Meteor.isClient) {
         var stop = myDocument.stopdate;
 	var power = powerusage(experiment);
         var notes = myDocument.notes;
-	var accepted = myDocument.accepted;
-        var color = instrument_color(instrument, accepted);
+	var approved = myDocument.approved;
+        var color = instrument_color(instrument, approved);
         var activityText = 
         "<div title='"+experiment+"' class='order' style='background-color:"+color+"' id='"+id+"'>"+experiment+"</div>";
         var instrText = 
@@ -7159,7 +7159,7 @@ if (Meteor.isClient) {
       groupsOnRight: false,
       stackEvents: true,
       showNavigation: true,
-      showButtonNew: true
+      showButtonNew: false//true
     };
 
     // Instantiate our timeline object.

@@ -9,15 +9,15 @@
 </template>
 
 <template name="signIn">
-    <div class="sign-in" id="signIn">
+    <div class="sign-in" id="signIn"><p></p>
+	Already have an account? Sign in below.
         <form action="/signin" class="sign-in-form" id="signInForm" method="post">
-        <br>
             <input class="email" id="signInEmail" type="text" name="email" placeholder="Email Address">
         <br>    
             <input class="password" id="signInPassword" type="password" name="password" placeholder="Password">
         <br>    
             <input class="btn-submit" type="submit" value="Sign In">
-        </form>
+        </form><p></p>
 
     </div>
     <!-- end .sign-in -->
@@ -32,16 +32,16 @@
 </template>
 
 <template name="signUp">
-    <div class="sign-up">
+    <div class="sign-up"><p></p>
+	Need to create an account? Fill out all the fields below.
         <form action="/sign-up" class="sign-up-form" id="signUpForm" method="post">
+           <input class="name" id="signUpName" name="name" placeholder="Full Name" type="text">
            <br>
-           <input class="name" id="signUpName" name="name" placeholder="Username" type="text">
-           <br>
-            <input class="email" id="signUpEmail" name="email" placeholder="email" type="text" >
+            <input class="email" id="signUpEmail" name="email" placeholder="Email" type="text" >
             <br>
             <input class="password" id="signUpPassword" name="password" placeholder="Password" type="password">
             <br>
-            <input class="password-confirm" id="signUpPasswordConfirm" name="password-confirm" placeholder="Confirm" type="password">
+            <input class="password-confirm" id="signUpPasswordConfirm" name="password-confirm" placeholder="Confirm Password" type="password">
             <br>
             <div class="form-group">
                 <input type="submit" class="btn btn-success" value="Sign Up">
