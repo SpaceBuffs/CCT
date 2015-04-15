@@ -14,9 +14,7 @@ Version 3.0
 <template name="Dashboard_page">
 <div class="header">
   <div id="img_header" role="banner">
-    <a href="http://www.jpl.nasa.gov/"><img src="Saturn_Approach.jpg" alt="graviteam" width="120px" height="120px" padding="10px" align="left"></a>
-    &nbsp; GraviTeam 
-	<a href="http://www.jpl.nasa.gov/"><img src="NASAlogo.gif" alt="NASA - JPL" width="30%" height="30%" padding="10px" align="right" style="float:right;"></a>
+    <a href="http://www.jpl.nasa.gov/"><img src="graviteamBanner.JPG" alt="graviteam" width="99%" align="left"></a>
   </div>
 
 
@@ -26,8 +24,8 @@ Version 3.0
      <a href="/whiteboard"> <img src="whiteboard.png" alt = "whiteboard"/> Whiteboard &nbsp;</a>
      <a href="/add_activity"><img src= "activity.png" alt = "aed_activity"> Add Activity</a>
       <a href="" onclick="showIFrame();"><img src="chat.png" alt = "chat"/> Chat</a>
-      <a href="UserManual.doc" style="padding-bottom:15px;" target="_blank"><img src="help.png"> Help &nbsp; </a> |
-      {{> signOut }} 
+      <a href="UserManual.doc" style="padding-bottom:15px;" target="_blank"><img src="help.png"> Help &nbsp; </a> 
+      <div align="right">{{> signOut }} </div>
     </div>
     
    <iframe id='chatifr' style="z-index:1005;" frameborder="0" width="40%" height="200" align="right" ></iframe>
