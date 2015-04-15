@@ -31,16 +31,55 @@ if (Meteor.isClient) {
 
   };
 
+
+  //------------------------CHAT ARCHIVE-----------------------------------
+  var select_session = [new Date(), "none"];
+  Template.chatarchive.events({
+    "submit .session_select_form": function(event){
+	var date = new Date(event.target.date.value);
+	alert ("Searching for session around "+date+"...");
+	var sec = Date.parse(date);
+        //search sessions by most recent first; go backwards in time
+	var session_start = Date.parse(new Date());
+	var session_stop = Date.parse(new Date());
+        SessionsModel.find({},{sort:{"sec": 1}}).forEach(function(myDocument) {
+		session_start = myDocument.sec;
+		pm = myDocument.ProjectManager;
+		session_date = myDocument.createdAt;
+		if (sec <= session_stop && sec > session_start) {
+			select_session = [session_date, pm];
+			alert("found session: "+session_date);
+			return false;
+		} else {
+			session_stop = session_start; //last session stopped when this session started
+		}
+	});
+	//else, no sessions found!
+    }
+  });
+
+  Template.chatarchive.chatmessages = function() {
+    alert("Searching for chats with session time equal to "+select_session[0]+"...");
+    return ChatModel.find({session : select_session[0]});
+  };
+
+  Template.chatarchive.helpers({
+      session_createdAt: function() { return select_session[0]},
+      ProjectManager: function() { return select_session[1]}
+  });
+
+
+  //---------------------------CHAT and SESSIONS------------------------------------------
   current_session = function(){
-	SessionsModel.find({}).forEach(function(myDocument) {
-		alert("found one!");
+	var time = new Date();
+	SessionsModel.find({},{sort:{"sec": 1}}).forEach(function(myDocument) {
 		/*if (myDocument.sec > current_session) { 
 			current_session = myDocument.sec; 
 			session_time = myDocument.createdAt;
 		};*/
-		return true;
+		time = myDocument.createdAt;
 	});
-  return false;
+        return time;
   };
 
   //*****
@@ -48,13 +87,8 @@ if (Meteor.isClient) {
 	"submit .new-chatMessage": function(event){
 		var chatMessage = event.target.chatMessage.value;
 		var date = new Date();
-		//var session = SessionsModel.find({},{sort:{"sec": -1}, limit: 1});
+		var session_time = current_session();
 
-		var current_session = 0;
-		var session_time = new Date();
-		var ses = current_session();
-
-		alert("session time for this message: "+session_time);
 		ChatModel.insert({
 			chatMessage : chatMessage,
 			createdAtTime : date.toLocaleTimeString(),

@@ -8,10 +8,14 @@ Meteor.publish('ActivitiesModel', function () {
    	//sort: {timeCreated: -1}
    }); 
 }); 
+
 Meteor.publish('ChatModel', function () {
    return ChatModel.find({}); 
 }); 
 
+Meteor.publish('SessionsModel', function () {
+   return SessionsModel.find({}); 
+}); 
 
 Meteor.publish("userData", function () {
   return Meteor.users.find({_id: this.userId},

@@ -8,6 +8,7 @@ Router.configure({
    profileTemplate: 'profile',
    whiteboardTemplate: 'whiteboard',
    chatTemplate: 'chat',
+   chatArchiveTemplate: 'chatarchive',
    notFoundTemplate: 'notFound',
    loadingTemplate: 'loading',
    model3dTemplate: 'model3d',
@@ -35,6 +36,11 @@ Router.map(function() {
    this.route('Chat', { 
            path: '/chat',        
            template: 'chat',    
+   });
+
+   this.route('ChatArchive', { 
+           path: '/chatarchive',        
+           template: 'chatarchive',    
    });
 
    this.route('3D Model', { 
