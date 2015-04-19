@@ -34,6 +34,7 @@ if (Meteor.isClient) {
 
   //------------------------CHAT ARCHIVE-----------------------------------
   var select_session = [new Date(), "none"];
+
   Template.chatarchive.events({
     "submit .session_select_form": function(event){
 	var date = new Date(event.target.date.value);
