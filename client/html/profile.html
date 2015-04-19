@@ -1,16 +1,14 @@
 <!-- profile.html -->
 <template name = "profile">
-       {{> Dashboard_page}}<br>
+       {{> Dashboard_page}}
 <div class="boxed_body">
-       <div style="padding: 20px; width: 500px; line-height: 200%;">
-	{{isprojectmanager}}<p></p>
-       <li> Name: {{name}}</li>
+       {{isprojectmanager}}<p></p>
+       Name: {{name}}<br>
        <!--<li> Username: {{username}}</li>-->
-       <li> Email Address: {{email}} </li>
-       <li> Current Missions: {{missions}}</li>
+       Email Address: {{email}}<br>
+       Current Missions: {{missions}}<br>
        <!--<li> isAdmin: {{isAdmin}}</li>-->
        <a href="/edit_profile" alt= "editprofile"> Edit Profile </a>
-</div>
 </div>
 {{> myfooter}}
 </template>
