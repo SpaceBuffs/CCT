@@ -16,12 +16,27 @@ Meteor.publish('ChatModel', function () {
 Meteor.publish('SessionsModel', function () {
    return SessionsModel.find({}); 
 }); 
-
-Meteor.publish("userData", function () {
-  return Meteor.users.find({_id: this.userId},
-                           {fields: {'isAdmin': 1, 'missions':1, 'name':1}});
+Meteor.publish('userData', function () {
+  return Meteor.users.find({fields: {'profile.Name':1, 'profile.missions':1, 'profile.isAdmin':1}});
 });
 
+/*
+Meteor.publish('userData', function () {
+  return Meteor.users.find({_id: this.userId},
+                           {fields: {'profile.Name':1, 'profile.missions':1, 'profile.isAdmin':1}});
+});
+
+*/
+/*
+Meteor.publish("userData", function () {
+  if (this.userId) {
+    return Meteor.users.find({_id: this.userId},
+                             {fields: {'other': 1, 'things': 1}});
+  } else {
+    this.ready();
+  }
+});
+*/
 Meteor.users.allow({
     update: function(userId, doc){
         return doc._id === userId; // can update their own profile
