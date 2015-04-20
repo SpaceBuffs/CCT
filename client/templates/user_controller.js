@@ -51,19 +51,21 @@ Template.signIn.events({
         var signInForm = $(e.currentTarget),
             email = trimInput(signInForm.find('.email').val().toLowerCase()),
             password = signInForm.find('.password').val();
-
+	var error = 0;
         if (isNotEmpty(email) && isEmail(email) && isNotEmpty(password) && isValidPassword(password)) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
                     Session.set('alert', 'Credentials are not valid.');
+		    errors = 1;
                     return false; //***
                 } else {
                     Sesson.set('alert', 'Welcome back to GraviTeam!');
                 }
             });
-	Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
 	//incase this never got called!
-	set_session(); //***
+	if (errors === 0) { 
+		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
+		set_session(); } //***
         }
         return false;
     },
