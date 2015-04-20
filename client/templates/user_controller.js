@@ -64,14 +64,16 @@ Template.signIn.events({
 		    errors = 1;
                     return false; //***
                 } else {
-                    Sesson.set('alert', 'Welcome back to GraviTeam!');
+                    Session.set('alert', 'Welcome back to GraviTeam!');
+		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
+		    set_session(); 
+		    //alert("one");
                 }
+		//alert("two");
             });
-	//incase this never got called!
-	if (errors === 0) { 
-		Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
-		set_session(); } //***
-        }
+	    //alert("three"); //***gets here on any log-in, even invalid
+	} //endif
+	//alert("four"); //***gets here on any form submission, even if no fields filled out
         return false;
     },
     'click #showForgotPassword': function(e, t) {
