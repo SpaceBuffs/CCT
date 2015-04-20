@@ -34,42 +34,34 @@ if (Meteor.isClient) {
 
 
   //------------------------CHAT ARCHIVE-----------------------------------
-  var select_session = [new Date(), "none"];
 
   Template.chatarchive.events({
     "submit .session_select_form": function(event){
+	var select_session = [new Date(), new Date(), "none"];
 	var date = new Date(event.target.date.value);
-	alert ("Searching for session around "+date+"...");
 	var sec = Date.parse(date);
         //search sessions by most recent first; go backwards in time
-	var session_start = Date.parse(new Date());
-	var session_stop = Date.parse(new Date());
-        SessionsModel.find({},{sort:{"sec": 1}}).forEach(function(myDocument) {
+	var session_start = 0;
+	var session_stop = new Date();
+        SessionsModel.find({},{sort:{"sec": -1}}).forEach(function(myDocument) {
 		session_start = myDocument.sec;
 		pm = myDocument.ProjectManager;
 		session_date = myDocument.createdAt;
-		if (sec <= session_stop && sec > session_start) {
-			select_session = [session_date, pm];
-			alert("found session: "+session_date);
-			return false;
+		if ((sec <= session_stop) && (sec > session_start)) {
+			select_session = [session_date, new Date(session_stop), pm];
+			session_stop = session_start;
 		} else {
 			session_stop = session_start; //last session stopped when this session started
 		}
 	});
-	//else, no sessions found!
+	document.getElementById("selected_session").innerHTML = "<br><b>Session Info</b><br>Session start: "+select_session[0]+"<br>Session stop: "+select_session[1]+"<br>Project Manager: "+select_session[2]+"<br><b>_____________________________________________</b><p></p>";
+        document.getElementById("chat_messages").innerHTML = "<b>Chat messages for this session:</b><p></p>";
+	ChatModel.find({session : select_session[0]}).forEach(function(myDocument) {
+		document.getElementById("chat_messages").innerHTML += "Message: "+myDocument.chatMessage+"<br>By: "+myDocument.name+"<br>Sent: "+myDocument.createdAtTime+", "+myDocument.createdAtDate+"<p></p>";
+	});
+	return false; //prevent refresh
     }
   });
-
-  Template.chatarchive.chatmessages = function() {
-    alert("Searching for chats with session time equal to "+select_session[0]+"...");
-    return ChatModel.find({session : select_session[0]});
-  };
-
-  Template.chatarchive.helpers({
-      session_createdAt: function() { return select_session[0]},
-      ProjectManager: function() { return select_session[1]}
-  });
-
 
   //---------------------------CHAT and SESSIONS------------------------------------------
   current_session = function(){

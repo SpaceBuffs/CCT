@@ -20,7 +20,9 @@ set_session = function() {
         //userData.find({}).forEach(function(myDocument) {
          Meteor.users.find({}).forEach(function(myDocument) {
 	    //alert("test");
-	    //alert("Looking at "+myDocument.profile.Name+". isAdmin? "+myDocument.profile.isAdmin);
+		//***THIS DOES NOT WORK ON DEPLOYMENT. for some reason if you uncomment the alert below,
+		//IT CAN ONLY FIND YOU, NOT THE OTHER USERS IN THE DB...
+	    //alert("Looking at "+myDocument.profile.Name+". isAdmin? "+myDocument.profile.isAdmin); //*****
             if (myDocument.profile.isAdmin === true) { 
                 pmexists = true; 
                 pm = myDocument.profile.Name;
