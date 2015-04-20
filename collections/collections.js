@@ -80,6 +80,7 @@ if (Meteor.isClient) {
 			session_time = myDocument.createdAt;
 		};*/
 		time = myDocument.createdAt;
+
 	});
         return time;
   };
@@ -190,15 +191,6 @@ if (Meteor.isClient) {
         approved:approved
         });
 
-/*
-       //refresh form if submit is successful
-       event.target.instrument.value = "";
-       event.target.experiment.value = "";  
-       event.target.startdate.value = "";
-       event.target.stopdate.value = "";
-       //event.target.duration.value = "";
-       event.target.notes.value = "";
-*/
        if (owner.profile.isAdmin === true) { alert("Activity approved and added to timeline."); }
        else { alert("Activity submitted for approval."); }
        //window.close();
@@ -207,32 +199,12 @@ if (Meteor.isClient) {
        return false;
   }});
 
-  //If user is not an admin, don't show approve/update/delete buttons
-  //If activity is already accepted, don't show approve buttons
-  //***May want to change this so a non-admin can still udpate/delete activities
-
-  //show in UTC***
-  //dates are saved in the DB as an ISODate variable in the form: 
-  //Thu Apr 02 2015 21:38:57 GMT-0600 (MDT)
-  //what we want: Apr 02 2015 21:38:57
-  //Since can't save without a timezone, just chop of this last part, since users added activities in UTC
-  //but the created At date is in local, so just cut off the timezone amount first
-  //also cut off day of week by starting the substring at 4
   Template.activity.helpers({
     approved: function() {
 	if (this.approved === true) { return "Activity is approved." }
 	else { return "Activity waiting on approval." }
     },
-/*
-    approve_shown: function() { 
-         if (Meteor.user().profile.isAdmin !== true) {  //if not an admin, never display
-	    document.getElementById("approve_buttons").style.display = 'none'; }
-         else if (this.accepted === false) { //if an admin but not accepted, show
-            document.getElementById("approve_buttons").style.display = 'block'; }
-         else { //if an admin and accepted
-	    document.getElementById("approve_buttons").style.display = 'none'; }
-	},
-*/
+
     createdAtUTC: function() { 
         str= new Date(this.createdAt.getTime() + this.createdAt.getTimezoneOffset() * 60000);
 	str = String(str);
@@ -261,9 +233,7 @@ if (Meteor.isClient) {
   var instrument = "none";
   Template.activity.events({
     "submit .update_activity_form": function(event){
-	//if (Meteor.user().profile.isAdmin !== true) {
-	//    alert("You must be a project manager to approve an activity.");
-	//}//***
+	
 	var instrument = event.target.instrument.value;
         if (instrument == "none") {
 		alert("Please select an instrument and experiment.");
