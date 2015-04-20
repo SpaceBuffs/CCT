@@ -14,6 +14,7 @@ Messages = new Meteor.Collection('messages');
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');
+UserData = new Mongo.Collection('userdata');
 //sessionId = 0;
 
 if (Meteor.isClient) {

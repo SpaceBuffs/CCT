@@ -10,13 +10,17 @@ Template.main.helpers({
     }
 });
 */
-
+if (Meteor.isClient) {
 set_session = function() {
+    //alert("setting session...");
     //****************
     //find out if a project manager currently exists.
     var pmexists = false;
     var pm = "none";
-        Meteor.users.find({}).forEach(function(myDocument) {
+        //userData.find({}).forEach(function(myDocument) {
+         Meteor.users.find({}).forEach(function(myDocument) {
+	    //alert("test");
+	    //alert("Looking at "+myDocument.profile.Name+". isAdmin? "+myDocument.profile.isAdmin);
             if (myDocument.profile.isAdmin === true) { 
                 pmexists = true; 
                 pm = myDocument.profile.Name;
@@ -44,6 +48,7 @@ set_session = function() {
     }
     //****************
 };
+}
 
 Template.signIn.events({
     'submit #signInForm': function(e, t) {
@@ -51,7 +56,7 @@ Template.signIn.events({
         var signInForm = $(e.currentTarget),
             email = trimInput(signInForm.find('.email').val().toLowerCase()),
             password = signInForm.find('.password').val();
-	var error = 0;
+	var errors = 0;
         if (isNotEmpty(email) && isEmail(email) && isNotEmpty(password) && isValidPassword(password)) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
