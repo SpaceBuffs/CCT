@@ -15,7 +15,6 @@ ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');
 UserData = new Mongo.Collection('userdata');
-//sessionId = 0;
 
 if (Meteor.isClient) {
   // This code only runs on the client
@@ -26,10 +25,9 @@ if (Meteor.isClient) {
   });
   //--------------------------chat--------------------------------------------
   Template.chat.chatMessages = function(){
-      var date = new Date();
-	  return ChatModel.find({createdAtDate : {$gte: date.toLocaleDateString()}});
-      //return ChatModel.find({session : {$gte: sessionId}});
-
+      var do_sessions_exist = SessionsModel.find({}).count();
+      if (do_sessions_exist === 0) { return ChatModel.find({}); }
+      else { return ChatModel.find({session : current_session().createdAt}); }
   };
 
 
@@ -43,6 +41,7 @@ if (Meteor.isClient) {
         //search sessions by most recent first; go backwards in time
 	var session_start = 0;
 	var session_stop = new Date();
+	var foundit = 0;
         SessionsModel.find({},{sort:{"sec": -1}}).forEach(function(myDocument) {
 		session_start = myDocument.sec;
 		pm = myDocument.ProjectManager;
@@ -50,51 +49,51 @@ if (Meteor.isClient) {
 		if ((sec <= session_stop) && (sec > session_start)) {
 			select_session = [session_date, new Date(session_stop), pm];
 			session_stop = session_start;
+			foundit = 1;
 		} else {
 			session_stop = session_start; //last session stopped when this session started
 		}
 	});
-	document.getElementById("selected_session").innerHTML = "<br><b>Session Info</b><br>Session start: "+select_session[0]+"<br>Session stop: "+select_session[1]+"<br>Project Manager: "+select_session[2]+"<br><b>_____________________________________________</b><p></p>";
-        document.getElementById("chat_messages").innerHTML = "<b>Chat messages for this session:</b><p></p>";
-	ChatModel.find({session : select_session[0]}).forEach(function(myDocument) {
-		document.getElementById("chat_messages").innerHTML += "Message: "+myDocument.chatMessage+"<br>By: "+myDocument.name+"<br>Sent: "+myDocument.createdAtTime+", "+myDocument.createdAtDate+"<p></p>";
-	});
+	if (foundit === 0) {
+		document.getElementById("selected_session").innerHTML = "<br><b>No session exists at that time.";
+		document.getElementById("chat_messages").innerHTML = "";
+	}
+	if (foundit === 1) {
+		document.getElementById("selected_session").innerHTML = "<br><b>Session Info</b><br>Session start: "+select_session[0]+"<br>Session stop: "+select_session[1]+"<br>Project Manager: "+select_session[2]+"<br><b>_____________________________________________</b><p></p>";
+		document.getElementById("chat_messages").innerHTML = "<b>Chat messages for this session:</b><p></p>";
+		ChatModel.find({session : select_session[0]}).forEach(function(myDocument) {
+			document.getElementById("chat_messages").innerHTML += "Message: "+myDocument.chatMessage+"<br>By: "+myDocument.name+"<br>Sent: "+myDocument.createdAtTime+", "+myDocument.createdAtDate+"<p></p>";
+		});
+	}
 	return false; //prevent refresh
     }
   });
 
   //---------------------------CHAT and SESSIONS------------------------------------------
   current_session = function(){
-	var time = new Date();
+	var session = new Object; //[-1, 0, "none"];
 	SessionsModel.find({},{sort:{"sec": 1}}).forEach(function(myDocument) {
-		/*if (myDocument.sec > current_session) { 
-			current_session = myDocument.sec; 
-			session_time = myDocument.createdAt;
-		};*/
-		time = myDocument.createdAt;
-
+		session = myDocument; //return most recent session object
 	});
-        return time;
+	return session;
   };
 
-  //*****
   Template.chat.events({
 	"submit .new-chatMessage": function(event){
 		var chatMessage = event.target.chatMessage.value;
 		var date = new Date();
-		var session_time = current_session();
-
+		var session = current_session();
+		var session_time = session.createdAt;
 		ChatModel.insert({
 			chatMessage : chatMessage,
 			createdAtTime : date.toLocaleTimeString(),
 			createdAtDate : date.toLocaleDateString(),
-			name : Meteor.user().profile.Name, //**or name?
+			name : Meteor.user().profile.Name, 
 			//set session to the most recently created session in the DB
 			session : session_time
 		});
 	       //refresh form if submit is successful
 	       event.target.chatMessage.value = "";
-
 	       return false;
 	}
   });
@@ -185,8 +184,6 @@ if (Meteor.isClient) {
 
        if (owner.profile.isAdmin === true) { alert("Activity approved and added to timeline."); }
        else { alert("Activity submitted for approval."); }
-       //window.close();
-       //window.opener.location.reload();
        location.reload();
        return false;
   }});
@@ -286,7 +283,6 @@ if (Meteor.isClient) {
 	  experiment: experiment,
 	  startdate: new Date(startdate),
 	  stopdate: new Date(stopdate),
-	  //duration: duration,
 	  notes:notes,
 	  owner:newowner,
 	  approved:approved
@@ -364,7 +360,6 @@ Template.editprofile.helpers({
     email: function() {return Meteor.user().emails[0].address},
     //However, extra profile info can be saved under profile.parametername:
     name: function() { return Meteor.user().profile.Name; },
-    //missions: function() { return Meteor.user().profile.missions; },
     isAdmin: function() { return Meteor.user().profile.isAdmin; },
     isprojectmanager: function() {
 	if (Meteor.user().profile.isAdmin === true) {
@@ -376,34 +371,15 @@ Template.editprofile.helpers({
     }
 });
 
-pm_exists = function() {
-    //****************
-    //find out if a project manager currently exists.
-    var pmexists = false;
-    var pm = "none";
-    Meteor.users.find({}).forEach(function(myDocument) {
-        if (myDocument.profile.isAdmin === true) { 
-            pmexists = true; 
-            pm = myDocument.profile.Name;
-        };
-    });
-    return [pmexists, pm];
-};
-
 Template.editprofile.events({
     "submit .user_info": function(event){
     var name = event.target.fullname.value;
     var oldname = Meteor.user().profile.Name; //will need this to check who PM is in case they change their name
     //var username = event.target.user.value;
     var email = event.target.email.value; //***MUST DO FROM SERVER SIDE
-    var isAdmin = document.getElementById("isAdmin").checked;//event.target.isAdmin.value;
-    var pm = pm_exists();
-    if (pm[0] && isAdmin) {
-	if (pm[1] != name && pm[1] != oldname) {
-	    alert("Sorry, currently "+pm[1]+" is project manager.\nYour activities will need to be approved by them.");
-	    return false;
-	}
-    }
+    var isAdmin = document.getElementById("isAdmin").checked;
+    var do_sessions_exist = SessionsModel.find({}).count();
+    var pm = current_session().current_ProjectManager;
     if (name == "" || email == "") {
 	alert("Please fill in full name and e-mail fields.");
 	return false;
@@ -416,7 +392,31 @@ Template.editprofile.events({
         }
     }
 
-    //var missions = event.target.mission.value;
+    if (pm !== "none" && isAdmin && do_sessions_exist !== 0) {
+	if (pm != name && pm != oldname) {
+	    alert("Sorry, currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
+	    return false;
+	}
+    }
+    if (pm === "none" && isAdmin) {
+	alert("The last project manager logged out,\nso you are now the new Project Manager for this session.");
+	SessionsModel.update(current_session()._id, {$set: {'current_ProjectManager': name}});
+    }
+    if (do_sessions_exist === 0 && isAdmin) {
+	alert("You are now the Project Manager for a new session.");
+	var session_time = new Date();
+	SessionsModel.insert({
+		createdAt: session_time,
+		sec: Date.parse(session_time), //for easier sorting
+		ProjectManager: name,
+		current_ProjectManager: name //so can have diff PMs for the same session
+	});
+    }
+    if (!isAdmin && pm === name) {
+	alert("You will no longer be Project Manager for this session.\nAnother user can now become Project Manager.")
+	SessionsModel.update(current_session()._id, {$set: {'current_ProjectManager': "none"}});
+    }
+
     Meteor.users.update(Meteor.userId(),{$set:
         {
 	 'profile.Name': name,
