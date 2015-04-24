@@ -15,9 +15,9 @@ Start Date (UTC): {{startdateUTC}}<br>
 Stop Date (UTC): {{stopdateUTC}}<br>
 Notes: <br>
 {{approved}}<br>
-{{notes}}<br><br>
+{{notes}}
 
-<!-- approve, update or delete *** -->
+<!-- approve, update or delete -->
 {{approve_shown}}
 <div id="approve_buttons"><button class="approve">Approve</button></div>
 <button class="update" id="update">Update</button> | <button class="delete">Delete</button>
@@ -29,6 +29,7 @@ Notes: <br>
 		<form class="select-instrument">
 		Instrument: 
 		<select name="instrument">
+			<option value={{instrument}}>{{instrument}}</option>
 			<option value="CDA">CDA</option>
 			<option value="HD Spectrograph">HD Spectrometer</option>
 			<option value="Magnetometer">Magnetometer</option>
@@ -40,23 +41,23 @@ Notes: <br>
 		</select>
 		<input type="submit" name="submit" value="Submit" id="choose_instrument">
 		</form>
-		<p></p>
+		<br>
 	<form class="new-activity" name="new-activity">
-<div id = "select-experiment">
-		Please select an instrument first.
+		<div id = "select-experiment">
+		Please click 'select' to choose an experiment.
 		</div>
-		<p></p>
+		<br>
            	Start Date (UTC): 
-		<input type="text" name="startdate" size=30 value={{startdateUTC}} />
-        	<p></p>
+		<input type="text" name="startdate" size=30 value={{startdate_str}} />
+        	<br>
 
            	Stop Date (UTC): 
-		<input type="text" name="stopdate" size=30 value={{stopdateUTC}} />
-        	<p></p>
+		<input type="text" name="stopdate" size=30 value={{stopdate_str}} />
+        	<br>
 
         	Notes:<br>
 		<textarea name="notes" rows="4" cols="50" value={{notes}}></textarea>
-       		<p></p>
+       		<br>
 
         	<input type="submit" name="submit" id="submit_update" value="Submit Update">
 </form>
