@@ -163,8 +163,8 @@ if (Meteor.isClient) {
         //considered accepted if last updater was an admin when she updated it
 
         //javascript assumes this date is LOCAL. But when presented to the user, it will format it to UTC.
-	startdate_str = startdate
-	stopdate_str = stopdate
+	var startdate_str = startdate
+	var stopdate_str = stopdate
         startdate = new Date(startdate)
         stopdate = new Date(stopdate)
 
@@ -209,8 +209,6 @@ if (Meteor.isClient) {
   });
 
   Template.activity.rendered= function() {
-	subscriptions();
-	action();
         if (Meteor.user().profile.isAdmin !== true) {  //if not an admin, never display
 	    document.getElementById("approve_buttons").style.display = 'none'; }
         if (Meteor.user().profile.isAdmin !== true && this.approved === false) { //if an admin but not accepted, show
@@ -276,15 +274,19 @@ if (Meteor.isClient) {
         //update the owner
         var newowner = Meteor.user();
         var approved = newowner.profile.isAdmin; 
+	var startdate_str = startdate
+	var stopdate_str = stopdate
+        startdate = new Date(startdate)
+        stopdate = new Date(stopdate)
 
         ActivitiesModel.update({_id:this._id},{$set: 
           {
 	  instrument: instrument,
 	  experiment: experiment,
-	  startdate: new Date(startdate),
-	  stopdate: new Date(stopdate),
-	  startdate_str: startdate,
-	  stopdate_str: stopdate,
+	  startdate: startdate,
+	  stopdate: stopdate,
+	  startdate_str: startdate_str,
+	  stopdate_str: stopdate_str,
 	  notes:notes,
 	  owner:newowner,
 	  approved:approved
