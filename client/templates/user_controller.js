@@ -3,13 +3,7 @@
   Catch the form submission and retrieve
   Check if the email and the password are valid.
 */
-/*
-Template.main.helpers({
-    showForgotPassword: function() {
-        return Session.get('showForgotPassword');
-    }
-});
-*/
+
 if (Meteor.isClient) {
 
 set_session2 = function() {
@@ -21,7 +15,7 @@ set_session2 = function() {
 	     if (confirm("Currently no one is Project Manager.\nDo you want to be Project Manager and start a new session?")) {
 		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
 		    var session_time = new Date();
-		    pm = Meteor.user().profile.Name; //***won't work if not initialized!
+		    pm = Meteor.user().profile.Name; //won't work if not initialized!
 		    SessionsModel.insert({
 		        createdAt: session_time,
 		        sec: Date.parse(session_time), //for easier sorting
@@ -55,13 +49,9 @@ Template.signIn.events({
                     Session.set('alert', 'Welcome back to GraviTeam!');
 		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
 		    set_session2(); 
-		    //alert("one");
                 }
-		//alert("two");
             });
-	    //alert("three"); //gets here on any log-in, even invalid
-	} //endif
-	//alert("four"); //gets here on any form submission, even if no fields filled out
+	}
         return false;
     },
     'click #showForgotPassword': function(e, t) {
@@ -158,7 +148,6 @@ Template.forgotPassword.events({
 
         if (isNotEmpty(email) && isEmail(email)) {
                 Accounts.forgotPassword({email: email}, function(err){
-                //Accounts.changePassword(password, 123456, function(err){
                 if(err) {
                     if(err.message --- 'User not found [403]') {
                         Session.set('alert','Email does not exist.');

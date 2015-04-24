@@ -10,7 +10,6 @@ Version 3.0
 4/10/2015
 */
 Messages = new Meteor.Collection('messages');
-//UserAccounts = new Mongo.Collection('user');
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');
@@ -71,7 +70,7 @@ if (Meteor.isClient) {
 
   //---------------------------CHAT and SESSIONS------------------------------------------
   current_session = function(){
-	var session = new Object; //[-1, 0, "none"];
+	var session = new Object;
 	SessionsModel.find({},{sort:{"sec": 1}}).forEach(function(myDocument) {
 		session = myDocument; //return most recent session object
 	});
@@ -157,17 +156,15 @@ if (Meteor.isClient) {
 	    alert("Dates must be in UTC military format of the form: YYYY/MM/DD HH:MM:SS");
 	    return false;
 	}
-	// YYYY/MM/DD HH:MM:SS
-	//  /^\d{2}-\d{2}-\d{4}$/; for DD-MM-YYYY
-	// ^([1-9]|[12]\d|3[0-6])$ for 1-36
-	// ^([0-9]|[12]\d|3[0-6])$ for 00-23
 
 	var notes = event.target.notes.value;
         var owner = Meteor.user();
-	var approved = owner.profile.isAdmin;  //***may not exist
+	var approved = owner.profile.isAdmin; 
         //considered accepted if last updater was an admin when she updated it
 
         //javascript assumes this date is LOCAL. But when presented to the user, it will format it to UTC.
+	startdate_str = startdate
+	stopdate_str = stopdate
         startdate = new Date(startdate)
         stopdate = new Date(stopdate)
 
@@ -177,6 +174,8 @@ if (Meteor.isClient) {
 	experiment: experiment,
 	startdate: startdate,
 	stopdate: stopdate,
+	startdate_str: startdate_str,
+	stopdate_str: stopdate_str,
 	notes:notes,
 	owner:owner,
         approved:approved
@@ -210,6 +209,8 @@ if (Meteor.isClient) {
   });
 
   Template.activity.rendered= function() {
+	subscriptions();
+	action();
         if (Meteor.user().profile.isAdmin !== true) {  //if not an admin, never display
 	    document.getElementById("approve_buttons").style.display = 'none'; }
         if (Meteor.user().profile.isAdmin !== true && this.approved === false) { //if an admin but not accepted, show
@@ -219,7 +220,7 @@ if (Meteor.isClient) {
   }
 
   //update and delete activities
-  var instrument = "none";
+   var instrument = "none";
    Template.activity.events({
 	"submit .select-instrument": function(event){
 	instrument = event.target.instrument.value;
@@ -262,7 +263,6 @@ if (Meteor.isClient) {
 		alert("Please select an instrument and experiment.");
 		return false;
 	};
-	
 	var experiment = event.target.experiment.value;
 	var startdate = event.target.startdate.value;
 	var stopdate = event.target.stopdate.value;
@@ -283,6 +283,8 @@ if (Meteor.isClient) {
 	  experiment: experiment,
 	  startdate: new Date(startdate),
 	  stopdate: new Date(stopdate),
+	  startdate_str: startdate,
+	  stopdate_str: stopdate,
 	  notes:notes,
 	  owner:newowner,
 	  approved:approved
@@ -294,9 +296,6 @@ if (Meteor.isClient) {
 	return false;
     },
     "click .delete": function(){
-	//if (Meteor.user().profile.isAdmin !== true) {
-	//    alert("You must be a project manager to approve an activity.");
-	//}//***
       var c = confirm("Delete Activity?");
       if (c) {
         ActivitiesModel.remove(this._id); 
@@ -307,7 +306,6 @@ if (Meteor.isClient) {
       else {
 	alert("Activity Unmodified."); 
       }
-      //return false;
      },
     "click .approve": function(){
 	if (Meteor.user().profile.isAdmin !== true) {
@@ -375,7 +373,6 @@ Template.editprofile.events({
     "submit .user_info": function(event){
     var name = event.target.fullname.value;
     var oldname = Meteor.user().profile.Name; //will need this to check who PM is in case they change their name
-    //var username = event.target.user.value;
     var email = event.target.email.value; //***MUST DO FROM SERVER SIDE
     var isAdmin = document.getElementById("isAdmin").checked;
     var do_sessions_exist = SessionsModel.find({}).count();

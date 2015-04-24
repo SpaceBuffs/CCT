@@ -25,51 +25,131 @@ Router.map(function() {
    // menus 
    this.route('my profile', { 
            path: '/profile',        
-           template: 'profile'    
+	  // this template will be rendered until the subscriptions are ready
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('userData', this.params._id);
+	  },
+	  action: function () {
+	    this.render('profile');
+	  }  
    });
  
    this.route('Whiteboard', { 
-           path: '/whiteboard',        
-           template: 'whiteboard',    
+           path: '/whiteboard',    
+	  // this template will be rendered until the subscriptions are ready
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('whiteboard');
+	  }    
    });
   
    this.route('Chat', { 
-           path: '/chat',        
-           template: 'chat',    
+          path: '/chat',
+	  // this template will be rendered until the subscriptions are ready
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('userData', this.params._id);
+	  },
+	  action: function () {
+	    this.render('chat');
+	  }
    });
 
    this.route('ChatArchive', { 
            path: '/chatarchive',        
-           template: 'chatarchive',    
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('userData', this.params._id);
+	  },
+	  action: function () {
+	    this.render('chatarchive');
+	  }    
    });
 
    this.route('3D Model', { 
            path: '/model3d',        
-           template: 'model3d',    
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('model3d');
+	  }  
    });
 
   this.route('Timeline Event', { 
-           path: '/timeline',        
-           template: 'timeline'    
+	  // this template will be rendered until the subscriptions are ready
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('timeline');
+	  },
+          path: '/timeline'  
    });
   this.route('AddActivity', { 
            path: '/add_activity',        
-           template: 'aedactivity'    
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('aedactivity');
+	  }   
    });
   this.route('activity', { 
-           path: '/aed_activity',        
-           template: 'aedactivity'    
+          path: '/aed_activity',   
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('aedactivity');
+	  }       
+   });
+   this.route('loading', {
+            path: '/loading',
+            template: 'loading'
    });
    this.route('SelectActivity', { 
            path: '/activity/:_id',  
-           template: 'activity',
+	  // this template will be rendered until the subscriptions are ready
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('ActivitiesModel', this.params._id);
+	  },
+	  action: function () {
+	    this.render('activity');
+	  },
 	   data: function(){
 	       return ActivitiesModel.findOne({_id: this.params._id}); 
 	   }
    });
+
    this.route('Edit Profile',{
-            path: '/edit_profile',
-            template: 'editprofile'
+          path: '/edit_profile',
+	  loadingTemplate: 'loading',
+	  waitOn: function () {
+	    // return one handle, a function, or an array
+	    return Meteor.subscribe('userData', this.params._id);
+	  },
+	  action: function () {
+	    this.render('editprofile');
+	  }
     });
   
 });
