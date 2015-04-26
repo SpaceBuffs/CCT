@@ -1,5 +1,6 @@
+
 // server/smtp.js
-Meteor.startup(function () {
+/*Meteor.startup(function () {
 	smtp = {
     	email: 'cracuna2@gmail.com',   // eg: yourname@email.com
     	password: 'your_password',   // eg: izk5eziohfervU
@@ -26,4 +27,4 @@ Meteor.startup(function () {
     return 'Change Password Request';
   };
 
-});
+});*/

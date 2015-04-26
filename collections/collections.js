@@ -4,12 +4,17 @@ GRAVITEAM by SPACEBUFFS
 
 Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
 
-global.js is the file where we keep track of our collections
-
 Version 3.0
 4/10/2015
 */
-Messages = new Meteor.Collection('messages');
+
+/*
+creates a collection in Mongo database 
+	@ActivitiesModel: acctivity data collection 
+	@chatmodel: chat messages data
+	@SessionsModel: session data
+	@UserData: user account collection 
+*/ 
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');
@@ -22,7 +27,8 @@ if (Meteor.isClient) {
     chatMessages: function () { return ChatModel.find({}); },
     sessions: function() { return SessionsModel.find({}); }
   });
-  //--------------------------chat--------------------------------------------
+    
+  //--------------------------CHAT--------------------------------------------
   Template.chat.chatMessages = function(){
       var do_sessions_exist = SessionsModel.find({}).count();
       if (do_sessions_exist === 0) { return ChatModel.find({}); }
@@ -97,7 +103,7 @@ if (Meteor.isClient) {
 	}
   });
 
-//-----------------------activities--------------------------------------
+//-----------------------ACTIVITIES--------------------------------------
 
   Template.timeline.activities = function(){  
 	return ActivitiesModel.find({},{sort:{"startdate": 1}});
@@ -160,7 +166,7 @@ if (Meteor.isClient) {
 	var notes = event.target.notes.value;
         var owner = Meteor.user();
 	var approved = owner.profile.isAdmin; 
-        //considered accepted if last updater was an admin when she updated it
+        //considered accepted if last updater was an admin when he/she updated it
 
         //javascript assumes this date is LOCAL. But when presented to the user, it will format it to UTC.
 	var startdate_str = startdate
@@ -334,7 +340,7 @@ if (Meteor.isClient) {
     }
   });
 
-//-----------------------------------------------profile
+//-----------------------PROFILE and PROJECT MANAGEMENT----------------------------
 
 Template.profile.helpers({
     //username and email are controlled by Meteor:
