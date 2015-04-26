@@ -446,4 +446,8 @@ Template.editprofile.rendered=function() {
 
 //------------end profile code
 
+Template.whiteboard.rendered=function() {
+  document.getElementById('timeline_frame').style.height= div_height+"px"
+}
+
 } //-----------------------------------------------------end client code
