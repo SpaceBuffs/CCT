@@ -1,10 +1,14 @@
 /*
+ route.js
+ Description: 
+ 
  @ router.js 
  @ package: iron:router
 
 	It does routing and has a reactive API.
 	It registers subscriptions but does not wait for them.
 */
+
 Router.configure({    
    timelineTemplate: 'timeline',
    profileTemplate: 'profile',

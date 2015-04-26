@@ -6,15 +6,17 @@ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, 
 
 Version 3.0
 4/10/2015
-*/
 
-/*
+Purpose: This file is used to interact with the database. 
+ 
 creates a collection in Mongo database 
-	@ActivitiesModel: acctivity data collection 
+	@ActivitiesModel: activity data collection
 	@chatmodel: chat messages data
 	@SessionsModel: session data
 	@UserData: user account collection 
-*/ 
+*/
+
+
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');
