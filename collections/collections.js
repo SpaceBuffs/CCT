@@ -9,7 +9,14 @@ global.js is the file where we keep track of our collections
 Version 3.0
 4/10/2015
 */
-Messages = new Meteor.Collection('messages');
+
+/*
+creates a collection in Mongo database 
+	@ActivitiesModel: acctivity data collection 
+	@chatmodel: chat messages data
+	@SessionsModel: session data
+	@UserData: user account collection 
+*/ 
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');
 SessionsModel = new Mongo.Collection('sessions');

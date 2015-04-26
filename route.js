@@ -1,7 +1,9 @@
 /*
+ @ router.js 
+ @ package: iron:router
 
-
-
+	It does routing and has a reactive API.
+	It registers subscriptions but does not wait for them.
 */
 Router.configure({    
    timelineTemplate: 'timeline',
@@ -14,7 +16,9 @@ Router.configure({
    model3dTemplate: 'model3d',
    addactivityTemplate: 'aed_activity',
    selectactivityTemplate: 'activity',
-   profileEditTemplate: 'profileEdit'
+   profileEditTemplate: 'profileEdit',
+   timelineMenuTemplate: 'timelineMenu'
+
 });
 
 Router.map(function() {
@@ -86,6 +90,15 @@ Router.map(function() {
 	  }  
    });
 
+   this.route('timelineMenu',{
+          path: '/timelineMenu',
+	  loadingTemplate: 'loading',
+	  action: function () {
+	    this.render('timelineMenu');
+	  }
+    });
+  
+
   this.route('Timeline Event', { 
 	  // this template will be rendered until the subscriptions are ready
 	  loadingTemplate: 'loading',
@@ -151,7 +164,6 @@ Router.map(function() {
 	    this.render('editprofile');
 	  }
     });
-  
 });
 
 var requireLogin = function() { 

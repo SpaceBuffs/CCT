@@ -1,6 +1,8 @@
 //Publisher
 /*
-
+Before it can display the data from our collection in the browser,
+it have to retrieve the data that user want on the server, then “publish” it so 
+it can be accessed by the browser. 
 */
 Meteor.publish('ActivitiesModel', function () {
    return ActivitiesModel.find({},{
