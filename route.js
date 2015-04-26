@@ -124,8 +124,19 @@ Router.map(function() {
             path: '/loading',
             template: 'loading'
    });
+
    this.route('SelectActivity', { 
+/*
            path: '/activity/:_id',  
+           template: 'activity',
+	   data: function(){
+	       return ActivitiesModel.findOne({_id: this.params._id}); 
+	   }
+*/
+           path: '/activity/:_id',  
+	   data: function(){
+	       return ActivitiesModel.findOne({_id: this.params._id}); 
+	   },
 	  // this template will be rendered until the subscriptions are ready
 	  loadingTemplate: 'loading',
 	  waitOn: function () {
@@ -133,11 +144,8 @@ Router.map(function() {
 	    return Meteor.subscribe('ActivitiesModel', this.params._id);
 	  },
 	  action: function () {
-	    this.render('activity');
-	  },
-	   data: function(){
-	       return ActivitiesModel.findOne({_id: this.params._id}); 
-	   }
+	    this.render('activity'); //template name
+	  }
    });
 
    this.route('Edit Profile',{

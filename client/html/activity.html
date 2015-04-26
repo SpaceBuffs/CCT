@@ -15,16 +15,18 @@ Start Date (UTC): {{startdateUTC}}<br>
 Stop Date (UTC): {{stopdateUTC}}<br>
 Notes: <br>
 {{approved}}<br>
-{{notes}}
+{{notes}}<br>
 
 <!-- approve, update or delete -->
 {{approve_shown}}
 <div id="approve_buttons"><button class="approve">Approve</button></div>
-<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
+<!--<button class="update" id="update">Update</button> | -->
+<button class="delete">Delete</button>
 <p></p>
 
 <!-- only show update form if "update" button was clicked -->
-<div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: none">
+Edit Activity Form
+<div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: block"> <!--***-->
 
 		<form class="select-instrument">
 		Instrument: 
@@ -70,7 +72,7 @@ Notes: <br>
 var update = "update"
 var update_activity = "update_activity"
 var submit_update = "submit_update"
-
+/*
 window.onload = function () {
     document.getElementById(update).onclick = function () {
         document.getElementById(update_activity).style.display = 'block'; 
@@ -78,7 +80,7 @@ window.onload = function () {
     document.getElementById(submit_update).onclick = function () {
         document.getElementById(update_activity).style.display = 'none';
     }
-}
+}*/
 
 </script>
 
