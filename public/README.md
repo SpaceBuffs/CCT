@@ -1,6 +1,7 @@
 # CCT
 
-This is our folder for any files inside to be publicly available from your app. This is where things such as images should go.
+This is our folder for any files inside to be publicly available from your app. This is where things such
+as images should go.
 
 Collaborative Campaign Tool
 GRAVITEAM by SPACEBUFFS
