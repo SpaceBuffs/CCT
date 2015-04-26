@@ -7165,7 +7165,7 @@ if (Meteor.isClient) {
     // Instantiate our timeline object.
     timeline = new links.Timeline(document.getElementById('mytimeline'), options);
 
-    // Make a callback function for the select event
+    // Make a callback function for the select event***
     var onselect = function (event) {
         var row = getSelectedRow();
         // Note: you can retrieve the contents of the selected row with
@@ -7193,6 +7193,9 @@ if (Meteor.isClient) {
 
     // Draw our timeline with the created data and options
     timeline.draw(data);
+
+    //var div_height = num_instruments*50 + 100 //*** 50 px per group + 100 px for padding
+    //document.getElementById('timeline_frame').style.height= div_height+"px"
   };
 
   Template.timeline.rendered= function() {

@@ -10,27 +10,11 @@ Date (local): <input type="datetime-local" name="date" size=30 value="YYYY/MM/DD
 </form>
 </div>
 
-Sessions:
-{{session_info}}<br>
-________________________________________<p></p>
-    {{#each chatmessages}}
-	  {{> message}}
-    {{/each}}
+<div id="selected_session"></div>
+
+<div id="chat_messages"></div>
+
 </div>
+
 {{> myfooter}}
-</template>
-
-<template name = "session_info">
-<body>
-Session start: {{session_createdAt}}<br>
-Project Manager: {{ProjectManager}}
-</body>
-</template>
-
-<template name = "message">
-<body>
-Message: {{chatMessage}}<br>
-By: {{name}}<br>
-Sent: {{createdAtTime}}, {{createdAtDate}}<br>
-</body>
 </template>

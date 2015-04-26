@@ -3,12 +3,6 @@
 <template name = "editprofile">
        {{> Dashboard_page}}
 <div class="boxed_body">
-  
-
-    <!--div style="padding: 20px; width: 500px; line-height: 200%;">
-      <p>Do you want to be a Project Manager?: <input type = "checkbox" name = "isAdmin" id = "isAdmin"/></p>-->
-
-    <!--div style="padding: 20px; width: 500px; line-height: 200%;"-->
     <p>Project Manager: <input  type = "checkbox" name = "isAdmin" id = "isAdmin"/></p>
     {{isprojectmanager}}
   
@@ -21,11 +15,9 @@
           <input type="checkbox" name="mission" value="Juno" id="Juno"/>  Juno<br>
           <input type="checkbox" name="mission" value="Voyager" id="Voyager"/>  Voyager<br><p></p>
         Email Address: <input type="email" name="email" value={{email}} size=50 /><br>
-        Password: <input type="password" name="password"/><br>
         <input type="submit" name="submit" id="submit" value="Submit">
         <a href="/profile" alt="profile"> Cancel </a>
         </form>
-  <!--/div-->
 
 </div>
  {{> myfooter}}

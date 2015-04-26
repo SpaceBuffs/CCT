@@ -3,47 +3,34 @@
   Catch the form submission and retrieve
   Check if the email and the password are valid.
 */
-/*
-Template.main.helpers({
-    showForgotPassword: function() {
-        return Session.get('showForgotPassword');
-    }
-});
-*/
 
-set_session = function() {
-    //****************
-    //find out if a project manager currently exists.
-    var pmexists = false;
-    var pm = "none";
-        Meteor.users.find({}).forEach(function(myDocument) {
-            if (myDocument.profile.isAdmin === true) { 
-                pmexists = true; 
-                pm = myDocument.profile.Name;
-            };
-        });
-    //if no PM exists, ask the user if they want to be one and start a new session.
-    if (pmexists === false) {
-        if (confirm("Currently no one is Project Manager for this session.\nDo you want to be Project Manager?")) {
-            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
-            var session_time = new Date();
-            var pm = Meteor.user().profile.Name; //***won't work if not initialized!
-            //alert(session_time);
-            //alert(pm);
-            SessionsModel.insert({
-                createdAt: session_time,
-                sec: Date.parse(session_time), //for easier sorting
-                ProjectManager: pm
-            });
-        } else { //else, just let them log in without starting a session.
-            Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-        }
-    } //if PM exists, let the user know.
-    else {
-        alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
-    }
-    //****************
-};
+if (Meteor.isClient) {
+
+set_session2 = function() {
+	var do_sessions_exist = SessionsModel.find({}).count();
+	var pm = current_session().current_ProjectManager;
+	//IF NO ONE IS A PM ON LOG-IN, CAN BECOME A PM AND START A NEW SESSION.
+	//if no PM exists, ask the user if they want to be one and start a new session.
+	if ((pm === "none") || (do_sessions_exist === 0)) {
+	     if (confirm("Currently no one is Project Manager.\nDo you want to be Project Manager and start a new session?")) {
+		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': true}});
+		    var session_time = new Date();
+		    pm = Meteor.user().profile.Name; //won't work if not initialized!
+		    SessionsModel.insert({
+		        createdAt: session_time,
+		        sec: Date.parse(session_time), //for easier sorting
+		        ProjectManager: pm,
+			current_ProjectManager: pm //so can have diff PMs for the same session
+		    });
+		} else { //else, just let them log in without starting a session.
+		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
+		}
+	  } //if PM exists, let the user know.
+	else {
+		alert("Currently "+pm+" is project manager.\nYour activities will need to be approved by them.");
+	}
+}
+}
 
 Template.signIn.events({
     'submit #signInForm': function(e, t) {
@@ -51,20 +38,20 @@ Template.signIn.events({
         var signInForm = $(e.currentTarget),
             email = trimInput(signInForm.find('.email').val().toLowerCase()),
             password = signInForm.find('.password').val();
-
+	var errors = 0;
         if (isNotEmpty(email) && isEmail(email) && isNotEmpty(password) && isValidPassword(password)) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
                     Session.set('alert', 'Credentials are not valid.');
-                    return false; //***
+		    errors = 1;
+                    return false;
                 } else {
-                    Sesson.set('alert', 'Welcome back to GraviTeam!');
+                    Session.set('alert', 'Welcome back to GraviTeam!');
+		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
+		    set_session2(); 
                 }
             });
-	Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}}); 
-	//incase this never got called!
-	set_session(); //***
-        }
+	}
         return false;
     },
     'click #showForgotPassword': function(e, t) {
@@ -95,18 +82,18 @@ Template.signUp.events({
 	    //make sure they provide a name! and initialize admin as false
             if (isNotEmpty(name) && isNotEmpty(email) && isNotEmpty(password) && isEmail(email) && areValidPasswords(password, passwordConfirm)) {
                 Accounts.createUser({email: email, password: password}, function(err) {
-                     if (err) { //***changed username to profile.name
+                     if (err) {
                           if (err.message === 'Email already exists. [403]') {
                                Session.set('alert', 'Email already exists.');
-            		       return false; //***
+            		       return false;
                            } else {
                                Session.set('alert', 'Something went wrong. Please try again.');
-           	               return false; //***
+           	               return false;
                            }
                     } else {
 			Meteor.users.update(Meteor.userId(),{$set:{'profile.Name': name,'profile.isAdmin': false}});
-                        Session.set('alert', 'Welcome to GraviTeam!'); //does get called
-                        set_session(); //***
+                        Session.set('alert', 'Welcome to GraviTeam!');
+                        set_session2();
                     }
                 });
             } //endif
@@ -135,7 +122,7 @@ Template.signOut.events({
 	    if (Meteor.user().profile.isAdmin === true) {
 	       if (confirm("If you sign out, you will no longer be Project Manager and your session will end.\nContinue?")) {
 		    Meteor.users.update(Meteor.userId(),{$set:{'profile.isAdmin': false}});
-		    //Meteor.users.update(Meteor.userId(),{$set:{'profile.Name': false}}); No! what?
+		    SessionsModel.update(current_session()._id, {$set: {'current_ProjectManager': "none"}});
 	       } else {
 		    return false;
 	       }
@@ -161,7 +148,6 @@ Template.forgotPassword.events({
 
         if (isNotEmpty(email) && isEmail(email)) {
                 Accounts.forgotPassword({email: email}, function(err){
-                //Accounts.changePassword(password, 123456, function(err){
                 if(err) {
                     if(err.message --- 'User not found [403]') {
                         Session.set('alert','Email does not exist.');

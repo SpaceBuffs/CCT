@@ -15,17 +15,20 @@ Start Date (UTC): {{startdateUTC}}<br>
 Stop Date (UTC): {{stopdateUTC}}<br>
 Notes: <br>
 {{approved}}<br>
-{{notes}}<br><br>
+{{notes}}<br>
 
-<!-- approve, update or delete *** -->
+<!-- approve, update or delete -->
 {{approve_shown}}
 <div id="approve_buttons"><button class="approve">Approve</button></div>
-<button class="update" id="update">Update</button> | <button class="delete">Delete</button>
+<!--<button class="update" id="update">Update</button> | -->
+<button class="delete">Delete</button>
 <p></p>
 
 <!-- only show update form if "update" button was clicked -->
-<div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: none">
-<form id="update_activity_form" class="update_activity_form">
+Edit Activity Form
+<div id="update_activity" style="border: 1px solid #000000; padding: 10px; width: 500px; display: block"> <!--***-->
+
+		<form class="select-instrument">
 		Instrument: 
 		<select name="instrument">
 			<option value={{instrument}}>{{instrument}}</option>
@@ -38,37 +41,25 @@ Notes: <br>
 			<option value="Spectrometer">Spectrometer</option>
 			<option value="UV Spectrograph">UV Spectrograph</option>
 		</select>
-		<p></p>
-
-	   	Experiment: 
-		<select name="experiment">
-		<option value={{experiment}}>{{experiment}}</option>
-		<option value="Take Photo in Visual Spectrum">Take Photo in Visual Spectrum</option>
-		<option value="Take Photo in Near Infared">Take Photo in Near Infared</option> <!--uv only-->
-		<option value="Position Camera">Position Camera</option>
-		<option value="Particle Analysis">Particle Analysis</option>
-		<option value="Dust Collection">Dust Collection</option>
-		<option value="Ion Collection">Ion Collection</option>
-		<option value="Calibration for CDA">Calibration for CDA</option>
-		<option value="Send Current to Make Magnetic Field">Send Current to Make Magnetic Field</option>
-		<option value="Analyze Magnetic Field">Analyze Magnetic Field</option>
-		<option value="Radar">Radar</option>
-		<option value="Measure Surface Gamma Rays">Measure Surface Gamma Rays</option>
-		<option value="Map">Map</option>
-		</select>
-		<p></p>
-
+		<input type="submit" name="submit" value="Submit" id="choose_instrument">
+		</form>
+		<br>
+	<form class="new-activity" name="new-activity">
+		<div id = "select-experiment">
+		Please click 'select' to choose an experiment.
+		</div>
+		<br>
            	Start Date (UTC): 
-		<input type="datetime-local" name="startdate" size=30 value={{startdateUTC}} />
-        	<p></p>
+		<input type="text" name="startdate" size=30 value={{startdate_str}} />
+        	<br>
 
            	Stop Date (UTC): 
-		<input type="datetime-local" name="stopdate" size=30 value={{stopdateUTC}} />
-        	<p></p>
+		<input type="text" name="stopdate" size=30 value={{stopdate_str}} />
+        	<br>
 
         	Notes:<br>
 		<textarea name="notes" rows="4" cols="50" value={{notes}}></textarea>
-       		<p></p>
+       		<br>
 
         	<input type="submit" name="submit" id="submit_update" value="Submit Update">
 </form>
@@ -81,7 +72,7 @@ Notes: <br>
 var update = "update"
 var update_activity = "update_activity"
 var submit_update = "submit_update"
-
+/*
 window.onload = function () {
     document.getElementById(update).onclick = function () {
         document.getElementById(update_activity).style.display = 'block'; 
@@ -89,7 +80,7 @@ window.onload = function () {
     document.getElementById(submit_update).onclick = function () {
         document.getElementById(update_activity).style.display = 'none';
     }
-}
+}*/
 
 </script>
 
