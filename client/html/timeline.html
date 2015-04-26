@@ -1,15 +1,35 @@
 <!-- timeline.html --> 
+
+<!--
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
+
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+home.html is the main template for the home page
+
+Version 3.0
+4/10/2015
+
+-->
 <template name = "timeline">
-<body>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<body>
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<center>
 
+		<div id="mytimeline"></div>
+			<br>
+			Timeline tool from <a href="http://almende.github.io/chap-links-library/timeline.html" target="_blank">CHAP Links Library</a>.
+		</center>
+	</body>
+</template>
 
-<center>
-
-<div id="mytimeline"></div>
-<br>
-Timeline tool from <a href="http://almende.github.io/chap-links-library/timeline.html" target="_blank">CHAP Links Library</a>.
-
-</center>
-</body>
+<template name = "timelineMenu">
+	{{> Dashboard_page}}
+	<div class="boxed_body">
+	  <div id= "timelineMenu">
+		{{> timeline}}
+	  </div>
+	</div>
+   {{> myfooter}}
 </template>
