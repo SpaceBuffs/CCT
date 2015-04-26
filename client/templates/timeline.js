@@ -2880,6 +2880,7 @@ links.Timeline.prototype.onMouseMove = function (event) {
           this.trigger('change');
         }
         else if (options.timeChangeable) {
+/*
             // move the item
             left = params.itemLeft + diffX;
             item.start = this.screenToTime(left);
@@ -2892,7 +2893,7 @@ links.Timeline.prototype.onMouseMove = function (event) {
                 right = left + (params.itemRight - params.itemLeft);
                 item.end = this.screenToTime(right);
             }
-            this.trigger('change');
+            this.trigger('change');*/ //***prevent items from being dragged
         }
 
         item.setPosition(left, right);
@@ -7126,6 +7127,8 @@ if (Meteor.isClient) {
     });
   };
 
+  var div_height = "100px"; //default
+
   function drawVisualization() {
     // Create data table.
     var data = new google.visualization.DataTable();
@@ -7159,7 +7162,8 @@ if (Meteor.isClient) {
       groupsOnRight: false,
       stackEvents: true,
       showNavigation: true,
-      showButtonNew: false//true
+      showButtonNew: false,
+      timeChangeable: false
     };
 
     // Instantiate our timeline object.
@@ -7182,7 +7186,7 @@ if (Meteor.isClient) {
 		    selectedid = myDocument._id;
 		    //http://www.w3schools.com/jsref/met_win_open.asp
 		    window.open('/activity/'+id, "Activity "+id, "height=800, width=800");
-	            return true;
+	            return false;
 	        };
             });
         };
@@ -7194,7 +7198,7 @@ if (Meteor.isClient) {
     // Draw our timeline with the created data and options
     timeline.draw(data);
 
-    //var div_height = num_instruments*50 + 100 //*** 50 px per group + 100 px for padding
+    div_height = num_instruments*50 + 100 //*** 50 px per group + 100 px for padding
     //document.getElementById('timeline_frame').style.height= div_height+"px"
   };
 
