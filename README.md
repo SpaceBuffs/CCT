@@ -1,7 +1,3 @@
-TEST COMMIT
-
-# CCT
-
 Collaborative Campaign Tool
 GRAVITEAM by SPACEBUFFS
 
