@@ -1,7 +1,15 @@
-/*   
-  Event handler to the signIn template
-  Catch the form submission and retrieve
-  Check if the email and the password are valid.
+/*
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
+
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+user_controller.js is the event handler to the signIn template, catches and retrieves the form 
+submission, and checks the validity of the email and password. 
+ 
+Version 4.0
+4/28/2015
+
 */
 
 if (Meteor.isClient) {

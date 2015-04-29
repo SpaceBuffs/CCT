@@ -1,21 +1,15 @@
 /*
-Collaborative Campaign Tool
-GRAVITEAM by SPACEBUFFS
-
-Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
-
-Version 3.0
-4/10/2015
-
-Purpose: This file is used to interact with the database. 
+ Collaborative Campaign Tool
+ GRAVITEAM by SPACEBUFFS
  
-creates a collection in Mongo database 
-	@ActivitiesModel: activity data collection
-	@chatmodel: chat messages data
-	@SessionsModel: session data
-	@UserData: user account collection 
-*/
-
+ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+ 
+ collections.js is used to interact with the database.
+ 
+ Version 4.0
+ 4/28/2015
+ 
+ */
 
 ActivitiesModel = new Mongo.Collection('activities');
 ChatModel = new Mongo.Collection('chatMessages');

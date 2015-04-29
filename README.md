@@ -14,5 +14,5 @@ A major difficulty among international scientists is finding a collaborative, so
 SpaceBuffs
 SpaceBuffs is made up of 6 senior students studying Computer Science Engineering at CU Boulder: Hope Sanford, Sierra Flynn, Heather Dykstra, Josh Weaver, Semere Ghebrechristos, and Chris Acuna.
 
-Version 3.0
-4/10/2015
+Version 4.0
+4/28/2015

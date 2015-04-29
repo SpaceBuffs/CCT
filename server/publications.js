@@ -1,9 +1,17 @@
-//Publisher
 /*
-Before it can display the data from our collection in the browser,
-it have to retrieve the data that user want on the server, then “publish” it so 
-it can be accessed by the browser. 
-*/
+ Collaborative Campaign Tool
+ GRAVITEAM by SPACEBUFFS
+ 
+ Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+ 
+ publications.js is used to retrieve data that the user wants on teh server, and then publishit
+ to be accessed by the browser.
+ 
+ Version 4.0
+ 4/28/2015
+ 
+ */
+
 Meteor.publish('ActivitiesModel', function () {
    return ActivitiesModel.find({},{
    	//limit: 4

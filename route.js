@@ -1,12 +1,14 @@
 /*
- route.js
- Description: 
- 
- @ router.js 
- @ package: iron:router
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
 
-	It does routing and has a reactive API.
-	It registers subscriptions but does not wait for them.
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+router.js does routing and has a reactive API. It registers subscriptions but does not wait for them.
+
+Version 4.0
+4/28/2015
+
 */
 
 Router.configure({    

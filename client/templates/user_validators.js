@@ -1,12 +1,15 @@
 /*
+ 
+Collaborative Campaign Tool
+GRAVITEAM by SPACEBUFFS
 
-Email: 
-     is not valid
-Passward: 
-        when signup, the two passwords are not equivalent
-        can't contain less than 6 characters
-error handle: 
-        using session environment to display the error message 
+Chris Acuna, Heather Dykstra, Sierra Flynn, Semere Ghebrecristos, Hope Sanford, Josh Weaver
+
+user_validators handles errors and checks for email and password validity.
+
+Version 4.0
+4/28/2015
+
 */
 
 trimInput = function(value) {
